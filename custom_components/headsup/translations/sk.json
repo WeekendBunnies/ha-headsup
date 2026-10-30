@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Nastaví Heads-up. Telefóny sa samy zobrazia medzi objavenými zariadeniami, keď je aplikácia Heads-up otvorená v rovnakej sieti. Profily sa vytvárajú v časti Konfigurovať."
+      },
+      "pair": {
+        "title": "Prepojiť {name}",
+        "description": "Skontrolujte, či aplikácia Heads-up v zariadení **{name}** zobrazuje tento kód:\n\n## {code}\n\nPokračujte, iba ak sa kódy zhodujú."
+      }
+    },
+    "error": {
+      "pair_failed": "Prepojenie zlyhalo. Nechajte aplikáciu v telefóne otvorenú a skúste to znova."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up je už nastavený. Telefóny sa pridávajú, keď sú objavené.",
+      "already_configured": "Tento telefón je už prepojený. Ak ho chcete prepojiť znova, najprv tu odstráňte jeho zariadenie (alebo v aplikácii klepnite na Zrušiť prepojenie telefónu, čím sa odstráni aj tu).",
+      "other_instance": "Tento telefón sa chce prepojiť s iným Home Assistant.",
+      "not_supported": "Toto zariadenie nie je aplikácia Heads-up.",
+      "cannot_connect": "Telefón nie je dostupný. Nechajte aplikáciu v telefóne otvorenú a skúste to znova.",
+      "phone_added": "{name} je prepojený."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Profily Heads-up",
+        "menu_options": {
+          "add_profile": "Pridať profil",
+          "edit_profile": "Zmeniť profil",
+          "delete_profile": "Odstrániť profil",
+          "default_profile": "Predvolený profil",
+          "household": "Predplatné pre domácnosť",
+          "add_alarm": "Pridať naplánovaný alarm",
+          "edit_alarm": "Zmeniť naplánovaný alarm",
+          "delete_alarm": "Odstrániť naplánovaný alarm"
+        }
+      },
+      "add_profile": {
+        "title": "Nový profil",
+        "description": "Ako telefóny spracujú upozornenie odoslané s týmto profilom.",
+        "data": {
+          "name": "Názov",
+          "sound": "Zvuk",
+          "vibration": "Vibrovanie",
+          "importance": "Dôležitosť",
+          "alarm_stream": "Zvuk, aj keď je telefón stlmený",
+          "bypass_dnd": "Ignorovať režim Nerušiť",
+          "full_screen": "Alarm na celú obrazovku (zrušiť a odložiť)",
+          "repeat": "Opakovať zvuk až do odpovede",
+          "buttons": "Tlačidlá",
+          "snooze_minutes": "Odložiť na",
+          "ring_minutes": "Zvoniť najviac",
+          "auto_snoozes": "Automaticky odložiť najviac (krát)"
+        },
+        "data_description": {
+          "alarm_stream": "Prehráva sa s hlasitosťou budíka, ako budík, takže zaznie, aj keď je telefón stlmený.",
+          "ring_minutes": "Pre opakujúce sa alarmy a alarmy na celú obrazovku. Keď nikto včas neodpovie, alarm sa sám odloží. 0 zvoní, kým niekto neodpovie.",
+          "auto_snoozes": "Po tomto počte automatických odložení zostane alarm ako tiché upozornenie „Zmeškané“ a Home Assistant dostane udalosť headsup_action s akciou unanswered.",
+          "repeat": "Zvuk hrá, kým sa upozornenie neotvorí, nezodpovie alebo neodsunie potiahnutím (alebo kým neuplynie čas „Zvoniť najviac“). Vypnuté: zahrá raz."
+        }
+      },
+      "edit_profile": {
+        "title": "Zmeniť profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Zmena profilu",
+        "description": "Telefóny dostanú zmenu hneď.",
+        "data": {
+          "name": "Názov",
+          "sound": "Zvuk",
+          "vibration": "Vibrovanie",
+          "importance": "Dôležitosť",
+          "alarm_stream": "Zvuk, aj keď je telefón stlmený",
+          "bypass_dnd": "Ignorovať režim Nerušiť",
+          "full_screen": "Alarm na celú obrazovku (zrušiť a odložiť)",
+          "repeat": "Opakovať zvuk až do odpovede",
+          "buttons": "Tlačidlá",
+          "snooze_minutes": "Odložiť na",
+          "ring_minutes": "Zvoniť najviac",
+          "auto_snoozes": "Automaticky odložiť najviac (krát)"
+        },
+        "data_description": {
+          "alarm_stream": "Prehráva sa s hlasitosťou budíka, ako budík, takže zaznie, aj keď je telefón stlmený.",
+          "ring_minutes": "Pre opakujúce sa alarmy a alarmy na celú obrazovku. Keď nikto včas neodpovie, alarm sa sám odloží. 0 zvoní, kým niekto neodpovie.",
+          "auto_snoozes": "Po tomto počte automatických odložení zostane alarm ako tiché upozornenie „Zmeškané“ a Home Assistant dostane udalosť headsup_action s akciou unanswered.",
+          "repeat": "Zvuk hrá, kým sa upozornenie neotvorí, nezodpovie alebo neodsunie potiahnutím (alebo kým neuplynie čas „Zvoniť najviac“). Vypnuté: zahrá raz."
+        }
+      },
+      "delete_profile": {
+        "title": "Odstrániť profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Predvolený profil",
+        "description": "Používa sa, keď automatizácia neuvádza profil, napríklad pri akcii notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Nový naplánovaný alarm",
+        "menu_options": {
+          "weekly": "Vo vybrané dni v pevný čas",
+          "calendar": "Pre stretnutia z kalendára"
+        }
+      },
+      "weekly": {
+        "title": "Alarm vo vybrané dni",
+        "description": "Zazvoní vo vybrané dni vo vybraný čas. Ak tento čas pripadne na stretnutie vo vybraných kalendároch, alarm sa posunie na chvíľu po stretnutí, a aj za ďalšie, kým nebude voľný čas. Telefóny si časy pamätajú, takže alarm zazvoní aj bez pripojenia.",
+        "data": {
+          "name": "Názov",
+          "message": "Správa",
+          "profile": "Profil",
+          "phones": "Telefóny",
+          "days": "Dni",
+          "time": "Čas",
+          "calendars": "Posunúť pri stretnutiach v týchto kalendároch",
+          "after": "Po stretnutí zazvoniť o",
+          "needed": "Potrebný voľný čas",
+          "latest": "Najneskôr o",
+          "all_day": "Počítajú sa aj celodenné stretnutia"
+        },
+        "data_description": {
+          "name": "Zároveň názov upozornenia.",
+          "phones": "Nechajte prázdne pre všetky prepojené telefóny.",
+          "calendars": "Nechajte prázdne, aby alarm vždy zazvonil v nastavený čas.",
+          "needed": "Alarm zazvoní len vtedy, keď počas tohto času nezačína žiadne stretnutie.",
+          "latest": "Ak dovtedy nie je voľný čas, zazvoní v tento čas aj tak."
+        }
+      },
+      "calendar": {
+        "title": "Alarm pre stretnutia",
+        "description": "Zazvoní pre každé stretnutie vo vybraných kalendároch, ktorého názov obsahuje text alebo je presne týmto textom (na veľkosti písmen nezáleží). Upozornenie ukáže názov stretnutia. Telefóny si časy pamätajú, takže alarm zazvoní aj bez pripojenia.",
+        "data": {
+          "name": "Názov",
+          "message": "Správa",
+          "profile": "Profil",
+          "phones": "Telefóny",
+          "calendars": "Kalendáre",
+          "match": "Názov",
+          "text": "Text",
+          "offset": "Minút vopred",
+          "anchor": "Počítané od"
+        },
+        "data_description": {
+          "name": "Len aby ste alarm našli tu; upozornenie ukáže názov stretnutia.",
+          "message": "Nechajte prázdne, aby sa ukázal čas a miesto stretnutia.",
+          "phones": "Nechajte prázdne pre všetky prepojené telefóny.",
+          "offset": "So záporným číslom zazvoní až po ňom."
+        }
+      },
+      "conditions": {
+        "title": "Podmienky",
+        "description": "Alarm zazvoní len vtedy, keď platí všetko toto:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Pridať podmienku",
+          "remove_condition": "Odstrániť podmienku",
+          "save_alarm": "Uložiť alarm"
+        }
+      },
+      "add_condition": {
+        "title": "Nová podmienka",
+        "menu_options": {
+          "cond_start": "Stretnutie začína medzi dvoma časmi",
+          "cond_weekdays": "Stretnutie je v určité dni",
+          "cond_title": "Názov obsahuje text, alebo nie",
+          "cond_day": "V ten deň je iné stretnutie, alebo nie",
+          "cond_state": "Entita má stav, alebo nie"
+        }
+      },
+      "cond_start": {
+        "title": "Začína medzi",
+        "data": {
+          "from": "Od",
+          "to": "Do"
+        }
+      },
+      "cond_weekdays": {
+        "title": "V určité dni",
+        "data": {
+          "days": "Dni"
+        }
+      },
+      "cond_title": {
+        "title": "Názov",
+        "data": {
+          "mode": "Názov",
+          "text": "Text"
+        }
+      },
+      "cond_day": {
+        "title": "Iné stretnutie v ten deň",
+        "description": "Napríklad žiadny budík v deň s „Dovolenka“ v rodinnom kalendári.",
+        "data": {
+          "calendars": "Kalendáre",
+          "mode": "V ten deň",
+          "text": "Ktorého názov obsahuje"
+        }
+      },
+      "cond_state": {
+        "title": "Stav entity",
+        "description": "Kontroluje sa zakaždým, keď Home Assistant počíta alarmy (každých 15 minút). Telefón bez pripojenia si ponechá svoj posledný zoznam.",
+        "data": {
+          "entity": "Entita",
+          "mode": "Zazvoní, keď stav"
+        }
+      },
+      "cond_state_value": {
+        "title": "Stav: {entity}",
+        "data": {
+          "state": "Stav"
+        }
+      },
+      "remove_condition": {
+        "title": "Odstrániť podmienku",
+        "data": {
+          "condition": "Podmienka"
+        }
+      },
+      "edit_alarm": {
+        "title": "Zmeniť naplánovaný alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Odstrániť naplánovaný alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "household": {
+        "title": "Predplatné pre domácnosť",
+        "description": "Keď má jeden telefón predplatné pre domácnosť, neobmedzené upozornenia dostáva až {max} telefónov v tomto Home Assistant vrátane tohto telefónu. Ak chcete zahrnúť telefóny prepojené ako prvé, nechajte prázdne, alebo tu telefóny vyberte. Telefón s predplatným je zahrnutý vždy.",
+        "data": {
+          "phones": "Telefóny v domácnosti"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Zadajte názov profilu.",
+      "name_taken": "Profil s týmto názvom už existuje.",
+      "household_too_many": "Vyberte najviac 6 telefónov.",
+      "alarm_name_required": "Zadajte názov alarmu.",
+      "alarm_name_taken": "Alarm s týmto názvom už existuje.",
+      "days_required": "Vyberte aspoň jeden deň.",
+      "calendars_required": "Vyberte aspoň jeden kalendár.",
+      "text_required": "Vyplňte hľadaný text."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Predvolený v telefóne",
+        "chime": "Zvonkohra",
+        "bell": "Zvonček",
+        "beep": "Pípnutie",
+        "soft": "Jemný",
+        "siren": "Siréna",
+        "alarm": "Budík",
+        "none": "Bez zvuku"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Predvolené v telefóne",
+        "short": "Krátke",
+        "long": "Dlhé",
+        "pulse": "Pulzujúce",
+        "sos": "SOS",
+        "none": "Bez vibrovania"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Nízka (bez vyskakovania)",
+        "default": "Normálna",
+        "high": "Vysoká (vyskočí)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Potvrdiť",
+        "snooze": "Odložiť"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Pondelok",
+        "tue": "Utorok",
+        "wed": "Streda",
+        "thu": "Štvrtok",
+        "fri": "Piatok",
+        "sat": "Sobota",
+        "sun": "Nedeľa"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Obsahuje text",
+        "exact": "Je presne tento text"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Začiatku stretnutia",
+        "end": "Konca stretnutia"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Obsahuje",
+        "not": "Neobsahuje"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Je také stretnutie",
+        "not": "Nie je také stretnutie"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Je",
+        "not": "Nie je"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Začína medzi {from} a {to}",
+        "weekdays": "V dni: {days}",
+        "title_has": "Názov obsahuje „{text}“",
+        "title_not": "Názov neobsahuje „{text}“",
+        "day_has": "V ten deň je stretnutie s „{text}“",
+        "day_not": "V ten deň nie je stretnutie s „{text}“",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: nie {state}",
+        "none": "Zatiaľ žiadne."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Domáce pripojenie"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Naposledy videný doma"
+      },
+      "subscription": {
+        "name": "Predplatné",
+        "state": {
+          "subscribed": "Predplatené",
+          "household": "Domácnosť",
+          "free": "Zadarmo (iba doma)",
+          "used_up": "Bezplatné upozornenia vyčerpané"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Tarifa"
+          },
+          "free_left": {
+            "name": "Zostávajúce bezplatné upozornenia"
+          },
+          "paid_until": {
+            "name": "Zaplatené do"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Ďalší alarm",
+        "state_attributes": {
+          "title": {
+            "name": "Názov"
+          },
+          "alarm": {
+            "name": "Alarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Odoslať upozornenie Heads-up",
+      "clear": "Vymazať upozornenie Heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Nadpis",
+      "message": "Správa",
+      "entities": "Zobraziť tieto entity",
+      "tag": "Značka"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Odoslať upozornenie Heads-up",
+      "description": "Odošle upozornenie do telefónov s aplikáciou Heads-up, spracované podľa profilu.",
+      "fields": {
+        "device_id": {
+          "name": "Telefóny",
+          "description": "Ak chcete odoslať do všetkých prepojených telefónov, nechajte prázdne."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Názov profilu. Prázdne: predvolený profil."
+        },
+        "title": {
+          "name": "Nadpis",
+          "description": "Nadpis upozornenia."
+        },
+        "message": {
+          "name": "Správa",
+          "description": "Text upozornenia."
+        },
+        "entities": {
+          "name": "Entity",
+          "description": "Ich aktuálny stav sa zobrazí v upozornení."
+        },
+        "buttons": {
+          "name": "Tlačidlá",
+          "description": "Ďalšie tlačidlá; klepnutie na niektoré z nich spustí udalosť headsup_action s jeho id."
+        },
+        "tag": {
+          "name": "Značka",
+          "description": "Nové upozornenie s rovnakou značkou nahradí predchádzajúce (a zruší jeho odloženie). Používa ju aj akcia Vymazať upozornenie Heads-up."
+        },
+        "ttl": {
+          "name": "Platnosť",
+          "description": "Nezobrazovať upozornenie, ak príde neskôr ako toto."
+        }
+      }
+    },
+    "clear": {
+      "name": "Vymazať upozornenie Heads-up",
+      "description": "Odstráni upozornenie s touto značkou z telefónov, zatvorí jeho obrazovku alarmu a zruší odloženie.",
+      "fields": {
+        "device_id": {
+          "name": "Telefóny",
+          "description": "Ak chcete vymazať vo všetkých prepojených telefónoch, nechajte prázdne."
+        },
+        "tag": {
+          "name": "Značka",
+          "description": "Značka, s ktorou bolo upozornenie odoslané."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} potrebuje predplatné Heads-up",
+      "description": "Home Assistant odoslal upozornenie, ktoré {phone} nezobrazil. Bez predplatného Heads-up zobrazí 10 bezplatných upozornení, a to iba vtedy, keď je telefón doma.\n\nAk chcete dostávať všetky upozornenia doma aj mimo domova, predplaťte si ich v aplikácii Heads-up v zariadení {phone}, pre tento účet Google alebo pre domácnosť až pre 6 telefónov. Obe sa začínajú bezplatným skúšobným obdobím.\n\nTáto správa zmizne, keď bude predplatné aktívne."
+    },
+    "household_full": {
+      "title": "{phone} nie je v domácnosti",
+      "description": "Predplatné pre domácnosť v zariadení {owner} pokrýva až 6 telefónov v tomto Home Assistant a je plne obsadené. {phone} potrebuje vlastné predplatné, alebo môžete v časti Heads-up, Konfigurovať, Predplatné pre domácnosť vybrať, ktoré telefóny patria do domácnosti."
+    }
+  }
+}

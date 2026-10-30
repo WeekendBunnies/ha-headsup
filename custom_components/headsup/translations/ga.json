@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Socraíonn sé seo Heads-up. Taispeántar fóin leo féin faoi ghléasanna aimsithe nuair atá an aip Heads-up oscailte ar an líonra céanna. Cruthaítear próifílí faoi Cumraigh."
+      },
+      "pair": {
+        "title": "Nasc {name}",
+        "description": "Seiceáil go dtaispeánann an aip Heads-up ar **{name}** an cód seo:\n\n## {code}\n\nNá lean ar aghaidh ach amháin má mheaitseálann na cóid."
+      }
+    },
+    "error": {
+      "pair_failed": "Theip ar an nascadh. Coinnigh an aip oscailte ar an bhfón agus bain triail eile as."
+    },
+    "abort": {
+      "single_instance_allowed": "Tá Heads-up socraithe cheana. Cuirtear fóin leis nuair a aimsítear iad.",
+      "already_configured": "Tá an fón seo nasctha cheana. Chun é a nascadh arís, scrios a ghléas anseo ar dtús (nó tapáil 'Dínasc an fón seo' san aip, rud a bhaineann anseo é freisin).",
+      "other_instance": "Ba mhaith leis an bhfón seo nascadh le Home Assistant eile.",
+      "not_supported": "Ní aip Heads-up é an gléas seo.",
+      "cannot_connect": "Níorbh fhéidir teacht ar an bhfón. Coinnigh an aip oscailte ar an bhfón agus bain triail eile as.",
+      "phone_added": "Tá {name} nasctha."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Próifílí Heads-up",
+        "menu_options": {
+          "add_profile": "Cuir próifíl leis",
+          "edit_profile": "Athraigh próifíl",
+          "delete_profile": "Bain próifíl",
+          "default_profile": "Próifíl réamhshocraithe",
+          "household": "Síntiús Teaghlaigh",
+          "add_alarm": "Cuir aláram sceidealaithe leis",
+          "edit_alarm": "Athraigh aláram sceidealaithe",
+          "delete_alarm": "Bain aláram sceidealaithe"
+        }
+      },
+      "add_profile": {
+        "title": "Próifíl nua",
+        "description": "Conas a láimhseálann fóin fógra a sheoltar leis an bpróifíl seo.",
+        "data": {
+          "name": "Ainm",
+          "sound": "Fuaim",
+          "vibration": "Crith",
+          "importance": "Tábhacht",
+          "alarm_stream": "Fuaim fiú nuair atá an fón ciúin",
+          "bypass_dnd": "Bris trí Ná Cuir Isteach",
+          "full_screen": "Aláram lánscáileáin (ruaig agus cuir ar athló)",
+          "repeat": "Athdhéan an fhuaim go bhfreagraítear í",
+          "buttons": "Cnaipí",
+          "snooze_minutes": "Cuir ar athló ar feadh",
+          "ring_minutes": "Buail ar feadh ar a mhéad",
+          "auto_snoozes": "Cuir ar athló go huathoibríoch ar a mhéad (uaireanta)"
+        },
+        "data_description": {
+          "alarm_stream": "Seinntear é trí airde an aláraim, cosúil le clog aláraim, ionas go gcloistear é fiú nuair atá an fón socraithe ar chiúin.",
+          "ring_minutes": "D'aláraim athfhillteacha agus lánscáileáin. Mura bhfreagraíonn duine ar bith in am, cuireann an t-aláram é féin ar athló. Buaileann 0 go dtí go bhfreagraíonn duine éigin.",
+          "auto_snoozes": "Tar éis an méid sin athlónna uathoibríocha fanann an t-aláram mar fhógra ciúin \"Caillte\", agus faigheann Home Assistant an t-imeacht headsup_action le action unanswered.",
+          "repeat": "Leanann an fhuaim ag seinm go n-osclaítear, go bhfreagraítear nó go scuabtar an fógra (nó go dtí go mbeidh \"Buail ar feadh ar a mhéad\" caite). As: seinntear uair amháin é."
+        }
+      },
+      "edit_profile": {
+        "title": "Athraigh próifíl",
+        "data": {
+          "profile": "Próifíl"
+        }
+      },
+      "profile": {
+        "title": "Athraigh an phróifíl",
+        "description": "Faigheann na fóin an t-athrú láithreach.",
+        "data": {
+          "name": "Ainm",
+          "sound": "Fuaim",
+          "vibration": "Crith",
+          "importance": "Tábhacht",
+          "alarm_stream": "Fuaim fiú nuair atá an fón ciúin",
+          "bypass_dnd": "Bris trí Ná Cuir Isteach",
+          "full_screen": "Aláram lánscáileáin (ruaig agus cuir ar athló)",
+          "repeat": "Athdhéan an fhuaim go bhfreagraítear í",
+          "buttons": "Cnaipí",
+          "snooze_minutes": "Cuir ar athló ar feadh",
+          "ring_minutes": "Buail ar feadh ar a mhéad",
+          "auto_snoozes": "Cuir ar athló go huathoibríoch ar a mhéad (uaireanta)"
+        },
+        "data_description": {
+          "alarm_stream": "Seinntear é trí airde an aláraim, cosúil le clog aláraim, ionas go gcloistear é fiú nuair atá an fón socraithe ar chiúin.",
+          "ring_minutes": "D'aláraim athfhillteacha agus lánscáileáin. Mura bhfreagraíonn duine ar bith in am, cuireann an t-aláram é féin ar athló. Buaileann 0 go dtí go bhfreagraíonn duine éigin.",
+          "auto_snoozes": "Tar éis an méid sin athlónna uathoibríocha fanann an t-aláram mar fhógra ciúin \"Caillte\", agus faigheann Home Assistant an t-imeacht headsup_action le action unanswered.",
+          "repeat": "Leanann an fhuaim ag seinm go n-osclaítear, go bhfreagraítear nó go scuabtar an fógra (nó go dtí go mbeidh \"Buail ar feadh ar a mhéad\" caite). As: seinntear uair amháin é."
+        }
+      },
+      "delete_profile": {
+        "title": "Bain próifíl",
+        "data": {
+          "profile": "Próifíl"
+        }
+      },
+      "default_profile": {
+        "title": "Próifíl réamhshocraithe",
+        "description": "Úsáidtear í nuair nach n-ainmníonn uathoibriú próifíl, mar shampla leis an ngníomh notify.",
+        "data": {
+          "profile": "Próifíl"
+        }
+      },
+      "add_alarm": {
+        "title": "Aláram sceidealaithe nua",
+        "menu_options": {
+          "weekly": "Ar laethanta áirithe ag am socraithe",
+          "calendar": "Do choinní i bhféilire"
+        }
+      },
+      "weekly": {
+        "title": "Aláram ar laethanta áirithe",
+        "description": "Buaileann sé ar na laethanta roghnaithe ag an am roghnaithe. Má thiteann an t-am sin le linn coinne sna féilirí roghnaithe, bogtar an t-aláram go tamall i ndiaidh na coinne, agus thar an gcéad cheann eile freisin, go dtí go mbíonn am saor ann. Coinníonn na fóin na hamanna, mar sin buaileann an t-aláram gan nasc freisin.",
+        "data": {
+          "name": "Ainm",
+          "message": "Teachtaireacht",
+          "profile": "Próifíl",
+          "phones": "Fóin",
+          "days": "Laethanta",
+          "time": "Am",
+          "calendars": "Bog nuair atá coinní sna féilirí seo",
+          "after": "Tar éis coinne buail i gceann",
+          "needed": "Am saor atá ag teastáil",
+          "latest": "Tráth nach déanaí ná",
+          "all_day": "Áirítear coinní lae iomláin freisin"
+        },
+        "data_description": {
+          "name": "Teideal an fhógra freisin.",
+          "phones": "Fág folamh do gach fón nasctha.",
+          "calendars": "Fág folamh chun bualadh i gcónaí ag an am socraithe.",
+          "needed": "Ní bhuaileann an t-aláram ach nuair nach dtosaíonn coinne ar bith laistigh den am seo.",
+          "latest": "Mura bhfuil am saor ann roimhe sin, buaileann sé ag an am seo mar sin féin."
+        }
+      },
+      "calendar": {
+        "title": "Aláram do choinní",
+        "description": "Buaileann sé do gach coinne sna féilirí roghnaithe a bhfuil an téacs ina teideal, nó arb é an téacs sin go díreach é (is cuma faoi cheannlitreacha). Taispeánann an fógra teideal na coinne. Coinníonn na fóin na hamanna, mar sin buaileann an t-aláram gan nasc freisin.",
+        "data": {
+          "name": "Ainm",
+          "message": "Teachtaireacht",
+          "profile": "Próifíl",
+          "phones": "Fóin",
+          "calendars": "Féilirí",
+          "match": "Teideal",
+          "text": "Téacs",
+          "offset": "Nóiméid roimh",
+          "anchor": "Á chomhaireamh ó"
+        },
+        "data_description": {
+          "name": "Chun an t-aláram a aimsiú anseo amháin; taispeánann an fógra teideal na coinne.",
+          "message": "Fág folamh chun am agus áit na coinne a thaispeáint.",
+          "phones": "Fág folamh do gach fón nasctha.",
+          "offset": "Le huimhir dhiúltach buaileann sé ina dhiaidh."
+        }
+      },
+      "conditions": {
+        "title": "Coinníollacha",
+        "description": "Ní bhuaileann an t-aláram ach nuair atá siad seo go léir fíor:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Cuir coinníoll leis",
+          "remove_condition": "Bain coinníoll",
+          "save_alarm": "Sábháil an t-aláram"
+        }
+      },
+      "add_condition": {
+        "title": "Coinníoll nua",
+        "menu_options": {
+          "cond_start": "Tosaíonn an choinne idir dhá am",
+          "cond_weekdays": "Tá an choinne ar laethanta áirithe",
+          "cond_title": "Tá téacs sa teideal, nó níl",
+          "cond_day": "Tá coinne eile ann an lá sin, nó níl",
+          "cond_state": "Tá staid ag aonán, nó níl"
+        }
+      },
+      "cond_start": {
+        "title": "Tosaíonn idir",
+        "data": {
+          "from": "Ó",
+          "to": "Go"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Ar laethanta áirithe",
+        "data": {
+          "days": "Laethanta"
+        }
+      },
+      "cond_title": {
+        "title": "Teideal",
+        "data": {
+          "mode": "An teideal",
+          "text": "Téacs"
+        }
+      },
+      "cond_day": {
+        "title": "Coinne eile an lá sin",
+        "description": "Mar shampla, gan clog aláraim ar lá a bhfuil \"Saoire\" i bhféilire an teaghlaigh.",
+        "data": {
+          "calendars": "Féilirí",
+          "mode": "An lá sin",
+          "text": "A bhfuil sa teideal"
+        }
+      },
+      "cond_state": {
+        "title": "Staid aonáin",
+        "description": "Seiceáiltear é gach uair a ríomhann Home Assistant na haláraim (gach 15 nóiméad). Coinníonn fón gan nasc a liosta deireanach.",
+        "data": {
+          "entity": "Aonán",
+          "mode": "Buaileann sé nuair atá an staid"
+        }
+      },
+      "cond_state_value": {
+        "title": "Staid {entity}",
+        "data": {
+          "state": "Staid"
+        }
+      },
+      "remove_condition": {
+        "title": "Bain coinníoll",
+        "data": {
+          "condition": "Coinníoll"
+        }
+      },
+      "edit_alarm": {
+        "title": "Athraigh aláram sceidealaithe",
+        "data": {
+          "alarm": "Aláram"
+        }
+      },
+      "delete_alarm": {
+        "title": "Bain aláram sceidealaithe",
+        "data": {
+          "alarm": "Aláram"
+        }
+      },
+      "household": {
+        "title": "Síntiús Teaghlaigh",
+        "description": "Nuair atá an Síntiús Teaghlaigh ar fhón amháin, faigheann suas le {max} fón ar an Home Assistant seo fógraí gan teorainn, an fón sin san áireamh. Fág folamh é chun na fóin a nascadh ar dtús a chur san áireamh, nó roghnaigh na fóin anseo. Bíonn an fón a bhfuil an síntiús air san áireamh i gcónaí.",
+        "data": {
+          "phones": "Fóin sa teaghlach"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Tabhair ainm don phróifíl.",
+      "name_taken": "Tá próifíl ann cheana leis an ainm seo.",
+      "household_too_many": "Roghnaigh 6 fhón ar a mhéad.",
+      "alarm_name_required": "Tabhair ainm don aláram.",
+      "alarm_name_taken": "Tá aláram leis an ainm seo ann cheana.",
+      "days_required": "Roghnaigh lá amháin ar a laghad.",
+      "calendars_required": "Roghnaigh féilire amháin ar a laghad.",
+      "text_required": "Iontráil an téacs le cuardach."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Réamhshocrú an fhóin",
+        "chime": "Cling",
+        "bell": "Clog",
+        "beep": "Bíp",
+        "soft": "Bog",
+        "siren": "Bonnán",
+        "alarm": "Clog aláraim",
+        "none": "Gan fuaim"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Réamhshocrú an fhóin",
+        "short": "Gearr",
+        "long": "Fada",
+        "pulse": "Bíog",
+        "sos": "SOS",
+        "none": "Gan crith"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Íseal (gan aníos)",
+        "default": "Gnáth",
+        "high": "Ard (taispeántar aníos)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Admhaigh",
+        "snooze": "Cuir ar athló"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Dé Luain",
+        "tue": "Dé Máirt",
+        "wed": "Dé Céadaoin",
+        "thu": "Déardaoin",
+        "fri": "Dé hAoine",
+        "sat": "Dé Sathairn",
+        "sun": "Dé Domhnaigh"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Tá an téacs ann",
+        "exact": "Is é an téacs go díreach"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Tús na coinne",
+        "end": "Deireadh na coinne"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Tá sé ann",
+        "not": "Níl sé ann"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Tá a leithéid de choinne ann",
+        "not": "Níl a leithéid de choinne ann"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Is",
+        "not": "Ní hea"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Tosaíonn idir {from} agus {to}",
+        "weekdays": "Ar {days}",
+        "title_has": "Tá \"{text}\" sa teideal",
+        "title_not": "Níl \"{text}\" sa teideal",
+        "day_has": "Tá coinne le \"{text}\" an lá sin",
+        "day_not": "Níl coinne le \"{text}\" an lá sin",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: ní {state}",
+        "none": "Níl aon cheann fós."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Ceangal baile"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Feicthe sa bhaile go deireanach"
+      },
+      "subscription": {
+        "name": "Síntiús",
+        "state": {
+          "subscribed": "Síntiús aige",
+          "household": "Teaghlach",
+          "free": "Saor in aisce (sa bhaile amháin)",
+          "used_up": "Fógraí saor in aisce ídithe"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Plean"
+          },
+          "free_left": {
+            "name": "Fógraí saor in aisce fágtha"
+          },
+          "paid_until": {
+            "name": "Íoctha go dtí"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "An chéad aláram eile",
+        "state_attributes": {
+          "title": {
+            "name": "Teideal"
+          },
+          "alarm": {
+            "name": "Aláram"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Seol heads-up",
+      "clear": "Glan heads-up"
+    },
+    "extra_fields": {
+      "profile": "Próifíl",
+      "title": "Teideal",
+      "message": "Teachtaireacht",
+      "entities": "Taispeáin na haonáin seo",
+      "tag": "Clib"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Seol heads-up",
+      "description": "Seolann sé fógra chuig fóin Heads-up, á láimhseáil mar a deir an phróifíl.",
+      "fields": {
+        "device_id": {
+          "name": "Fóin",
+          "description": "Fág folamh chun é a sheoladh chuig gach fón nasctha."
+        },
+        "profile": {
+          "name": "Próifíl",
+          "description": "Ainm na próifíle. Folamh: an phróifíl réamhshocraithe."
+        },
+        "title": {
+          "name": "Teideal",
+          "description": "Teideal an fhógra."
+        },
+        "message": {
+          "name": "Teachtaireacht",
+          "description": "Téacs an fhógra."
+        },
+        "entities": {
+          "name": "Aonáin",
+          "description": "Taispeántar a staid reatha san fhógra."
+        },
+        "buttons": {
+          "name": "Cnaipí",
+          "description": "Cnaipí breise; má thapáiltear ceann acu, spreagtar an t-imeacht headsup_action lena id."
+        },
+        "tag": {
+          "name": "Clib",
+          "description": "Tagann fógra nua leis an gclib chéanna in áit an cheann roimhe (agus cuirtear a athló ar ceal). Úsáideann Glan heads-up í freisin."
+        },
+        "ttl": {
+          "name": "Bailí ar feadh",
+          "description": "Ná taispeáin an fógra má thagann sé níos déanaí ná seo."
+        }
+      }
+    },
+    "clear": {
+      "name": "Glan heads-up",
+      "description": "Baineann sé an fógra leis an gclib seo de na fóin, dúnann sé a scáileán aláraim agus cuireann sé athló ar ceal.",
+      "fields": {
+        "device_id": {
+          "name": "Fóin",
+          "description": "Fág folamh chun é a ghlanadh ar gach fón nasctha."
+        },
+        "tag": {
+          "name": "Clib",
+          "description": "An chlib lenar seoladh an fógra."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "Tá síntiús Heads-up ag teastáil ó {phone}",
+      "description": "Sheol Home Assistant fógra nár thaispeáin {phone}. Gan síntiús, taispeánann Heads-up 10 bhfógra saor in aisce, agus sin amháin fad atá an fón sa bhaile.\n\nChun gach fógra a fháil, sa bhaile agus as baile, glac síntiús san aip Heads-up ar {phone}, don chuntas Google sin nó mar theaghlach do suas le 6 fhón. Tosaíonn an dá cheann le triail saor in aisce.\n\nImeoidh an teachtaireacht seo nuair a bheidh an síntiús gníomhach."
+    },
+    "household_full": {
+      "title": "Níl {phone} sa teaghlach",
+      "description": "Clúdaíonn an Síntiús Teaghlaigh ar {owner} suas le 6 fhón ar an Home Assistant seo, agus tá sé lán. Tá a shíntiús féin ag teastáil ó {phone}, nó is féidir leat na fóin sa teaghlach a roghnú faoi Heads-up, Cumraigh, Síntiús Teaghlaigh."
+    }
+  }
+}

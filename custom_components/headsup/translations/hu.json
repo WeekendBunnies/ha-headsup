@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Beállítja a Heads-up integrációt. A telefonok maguktól megjelennek a felfedezett eszközök között, amint a Heads-up alkalmazás nyitva van ugyanazon a hálózaton. A profilokat a Konfigurálás alatt hozhatja létre."
+      },
+      "pair": {
+        "title": "{name} összekapcsolása",
+        "description": "Ellenőrizze, hogy a(z) **{name}** telefonon futó Heads-up alkalmazás ezt a kódot mutatja-e:\n\n## {code}\n\nCsak akkor folytassa, ha a kódok egyeznek."
+      }
+    },
+    "error": {
+      "pair_failed": "Az összekapcsolás nem sikerült. Hagyja nyitva az alkalmazást a telefonon, és próbálja újra."
+    },
+    "abort": {
+      "single_instance_allowed": "A Heads-up már be van állítva. A telefonok felfedezéskor adódnak hozzá.",
+      "already_configured": "Ez a telefon már össze van kapcsolva. Az újbóli összekapcsoláshoz először törölje itt az eszközét (vagy koppintson az alkalmazásban „A telefon leválasztása” gombra, ami itt is eltávolítja).",
+      "other_instance": "Ez a telefon egy másik Home Assistanthez szeretne kapcsolódni.",
+      "not_supported": "Ez az eszköz nem Heads-up alkalmazás.",
+      "cannot_connect": "A telefon nem érhető el. Hagyja nyitva az alkalmazást a telefonon, és próbálja újra.",
+      "phone_added": "{name} összekapcsolva."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up-profilok",
+        "menu_options": {
+          "add_profile": "Profil hozzáadása",
+          "edit_profile": "Profil módosítása",
+          "delete_profile": "Profil eltávolítása",
+          "default_profile": "Alapértelmezett profil",
+          "household": "Háztartási előfizetés",
+          "add_alarm": "Ütemezett riasztás hozzáadása",
+          "edit_alarm": "Ütemezett riasztás módosítása",
+          "delete_alarm": "Ütemezett riasztás eltávolítása"
+        }
+      },
+      "add_profile": {
+        "title": "Új profil",
+        "description": "Hogyan kezelik a telefonok az ezzel a profillal küldött értesítést.",
+        "data": {
+          "name": "Név",
+          "sound": "Hang",
+          "vibration": "Rezgés",
+          "importance": "Fontosság",
+          "alarm_stream": "Hang akkor is, ha a telefon le van némítva",
+          "bypass_dnd": "A Ne zavarjanak mód felülbírálása",
+          "full_screen": "Teljes képernyős riasztás (elvetés és szundi)",
+          "repeat": "A hang ismétlése válaszig",
+          "buttons": "Gombok",
+          "snooze_minutes": "Szundi időtartama",
+          "ring_minutes": "Csörgés legfeljebb",
+          "auto_snoozes": "Automatikus szundi legfeljebb (alkalom)"
+        },
+        "data_description": {
+          "alarm_stream": "Az ébresztő hangerején szól, mint egy ébresztőóra, így akkor is hallható, ha a telefon le van némítva.",
+          "ring_minutes": "Ismétlődő és teljes képernyős riasztásokhoz. Ha időben senki sem válaszol, a riasztás magától szundira vált. 0: addig szól, amíg valaki nem válaszol.",
+          "auto_snoozes": "Ennyi automatikus szundi után a riasztás néma „Elmulasztva” értesítésként marad meg, és a Home Assistant megkapja a headsup_action eseményt, amelyben az action értéke unanswered.",
+          "repeat": "A hang addig szól, amíg az értesítést meg nem nyitják, meg nem válaszolják vagy el nem húzzák (vagy amíg le nem telik a „Csörgés legfeljebb” idő). Kikapcsolva: egyszer szól."
+        }
+      },
+      "edit_profile": {
+        "title": "Profil módosítása",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Profil módosítása",
+        "description": "A telefonok azonnal megkapják a változást.",
+        "data": {
+          "name": "Név",
+          "sound": "Hang",
+          "vibration": "Rezgés",
+          "importance": "Fontosság",
+          "alarm_stream": "Hang akkor is, ha a telefon le van némítva",
+          "bypass_dnd": "A Ne zavarjanak mód felülbírálása",
+          "full_screen": "Teljes képernyős riasztás (elvetés és szundi)",
+          "repeat": "A hang ismétlése válaszig",
+          "buttons": "Gombok",
+          "snooze_minutes": "Szundi időtartama",
+          "ring_minutes": "Csörgés legfeljebb",
+          "auto_snoozes": "Automatikus szundi legfeljebb (alkalom)"
+        },
+        "data_description": {
+          "alarm_stream": "Az ébresztő hangerején szól, mint egy ébresztőóra, így akkor is hallható, ha a telefon le van némítva.",
+          "ring_minutes": "Ismétlődő és teljes képernyős riasztásokhoz. Ha időben senki sem válaszol, a riasztás magától szundira vált. 0: addig szól, amíg valaki nem válaszol.",
+          "auto_snoozes": "Ennyi automatikus szundi után a riasztás néma „Elmulasztva” értesítésként marad meg, és a Home Assistant megkapja a headsup_action eseményt, amelyben az action értéke unanswered.",
+          "repeat": "A hang addig szól, amíg az értesítést meg nem nyitják, meg nem válaszolják vagy el nem húzzák (vagy amíg le nem telik a „Csörgés legfeljebb” idő). Kikapcsolva: egyszer szól."
+        }
+      },
+      "delete_profile": {
+        "title": "Profil eltávolítása",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Alapértelmezett profil",
+        "description": "Akkor használatos, ha egy automatizálás nem nevez meg profilt, például a notify művelettel.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Új ütemezett riasztás",
+        "menu_options": {
+          "weekly": "Megadott napokon, megadott időben",
+          "calendar": "Egy naptár eseményeihez"
+        }
+      },
+      "weekly": {
+        "title": "Riasztás megadott napokon",
+        "description": "A kiválasztott napokon a megadott időben szól. Ha ez az idő egy esemény idejére esik a kiválasztott naptárakban, a riasztás valamivel az esemény utánra kerül, és a következő esemény utánra is, amíg szabad idő nem lesz. A telefonok megjegyzik az időpontokat, így a riasztás kapcsolat nélkül is megszólal.",
+        "data": {
+          "name": "Név",
+          "message": "Üzenet",
+          "profile": "Profil",
+          "phones": "Telefonok",
+          "days": "Napok",
+          "time": "Idő",
+          "calendars": "Áthelyezés ezekben a naptárakban lévő események miatt",
+          "after": "Esemény után ennyivel később szól",
+          "needed": "Szükséges szabad idő",
+          "latest": "Legkésőbb",
+          "all_day": "Az egész napos események is számítanak"
+        },
+        "data_description": {
+          "name": "Egyben az értesítés címe.",
+          "phones": "Hagyja üresen az összes összekapcsolt telefonhoz.",
+          "calendars": "Hagyja üresen, ha mindig a megadott időben szóljon.",
+          "needed": "A riasztás csak akkor szól, ha ezen az időn belül nem kezdődik esemény.",
+          "latest": "Ha addig nincs szabad idő, ekkor mindenképp megszólal."
+        }
+      },
+      "calendar": {
+        "title": "Riasztás eseményekhez",
+        "description": "A kiválasztott naptárak minden olyan eseményéhez szól, amelynek címe tartalmazza a szöveget, vagy pontosan ez a szöveg (a kis és nagybetű nem számít). Az értesítés az esemény címét mutatja. A telefonok megjegyzik az időpontokat, így a riasztás kapcsolat nélkül is megszólal.",
+        "data": {
+          "name": "Név",
+          "message": "Üzenet",
+          "profile": "Profil",
+          "phones": "Telefonok",
+          "calendars": "Naptárak",
+          "match": "Cím",
+          "text": "Szöveg",
+          "offset": "Ennyi perccel előtte",
+          "anchor": "Viszonyítási pont"
+        },
+        "data_description": {
+          "name": "Csak hogy itt megtalálja a riasztást; az értesítés az esemény címét mutatja.",
+          "message": "Hagyja üresen, ha az esemény idejét és helyét szeretné látni.",
+          "phones": "Hagyja üresen az összes összekapcsolt telefonhoz.",
+          "offset": "Negatív számmal utána szól."
+        }
+      },
+      "conditions": {
+        "title": "Feltételek",
+        "description": "A riasztás csak akkor szól, ha mindez teljesül:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Feltétel hozzáadása",
+          "remove_condition": "Feltétel eltávolítása",
+          "save_alarm": "Riasztás mentése"
+        }
+      },
+      "add_condition": {
+        "title": "Új feltétel",
+        "menu_options": {
+          "cond_start": "Az esemény két időpont között kezdődik",
+          "cond_weekdays": "Az esemény bizonyos napokra esik",
+          "cond_title": "A cím tartalmaz egy szöveget, vagy nem",
+          "cond_day": "Azon a napon van másik esemény, vagy nincs",
+          "cond_state": "Egy entitásnak van egy állapota, vagy nincs"
+        }
+      },
+      "cond_start": {
+        "title": "Kezdés ideje",
+        "data": {
+          "from": "Ettől",
+          "to": "Eddig"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Bizonyos napokon",
+        "data": {
+          "days": "Napok"
+        }
+      },
+      "cond_title": {
+        "title": "Cím",
+        "data": {
+          "mode": "A cím",
+          "text": "Szöveg"
+        }
+      },
+      "cond_day": {
+        "title": "Másik esemény azon a napon",
+        "description": "Például nincs ébresztő azon a napon, amikor „Szabadság” van a családi naptárban.",
+        "data": {
+          "calendars": "Naptárak",
+          "mode": "Azon a napon",
+          "text": "Amelynek címe tartalmazza"
+        }
+      },
+      "cond_state": {
+        "title": "Entitás állapota",
+        "description": "Minden alkalommal ellenőrizve, amikor a Home Assistant kiszámolja a riasztásokat (15 percenként). A kapcsolat nélküli telefon megtartja az utolsó listáját.",
+        "data": {
+          "entity": "Entitás",
+          "mode": "Akkor szól, ha az állapot"
+        }
+      },
+      "cond_state_value": {
+        "title": "{entity} állapota",
+        "data": {
+          "state": "Állapot"
+        }
+      },
+      "remove_condition": {
+        "title": "Feltétel eltávolítása",
+        "data": {
+          "condition": "Feltétel"
+        }
+      },
+      "edit_alarm": {
+        "title": "Ütemezett riasztás módosítása",
+        "data": {
+          "alarm": "Riasztás"
+        }
+      },
+      "delete_alarm": {
+        "title": "Ütemezett riasztás eltávolítása",
+        "data": {
+          "alarm": "Riasztás"
+        }
+      },
+      "household": {
+        "title": "Háztartási előfizetés",
+        "description": "Ha egy telefon háztartási előfizetéssel rendelkezik, ezen a Home Assistanten legfeljebb {max} telefon kap korlátlan értesítést, az adott telefont is beleértve. Hagyja üresen, ha az elsőként összekapcsolt telefonokat szeretné bevonni, vagy válassza ki itt a telefonokat. Az előfizetéssel rendelkező telefon mindig benne van.",
+        "data": {
+          "phones": "A háztartás telefonjai"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Adjon nevet a profilnak.",
+      "name_taken": "Már létezik ilyen nevű profil.",
+      "household_too_many": "Legfeljebb 6 telefont válasszon.",
+      "alarm_name_required": "Adjon nevet a riasztásnak.",
+      "alarm_name_taken": "Már van ilyen nevű riasztás.",
+      "days_required": "Válasszon legalább egy napot.",
+      "calendars_required": "Válasszon legalább egy naptárat.",
+      "text_required": "Adja meg a keresett szöveget."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "A telefon alapértelmezése",
+        "chime": "Csilingelés",
+        "bell": "Csengő",
+        "beep": "Sípolás",
+        "soft": "Halk",
+        "siren": "Sziréna",
+        "alarm": "Ébresztőóra",
+        "none": "Nincs hang"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "A telefon alapértelmezése",
+        "short": "Rövid",
+        "long": "Hosszú",
+        "pulse": "Pulzáló",
+        "sos": "SOS",
+        "none": "Nincs rezgés"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Alacsony (nem ugrik fel)",
+        "default": "Normál",
+        "high": "Magas (felugrik)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Nyugtázás",
+        "snooze": "Szundi"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Hétfő",
+        "tue": "Kedd",
+        "wed": "Szerda",
+        "thu": "Csütörtök",
+        "fri": "Péntek",
+        "sat": "Szombat",
+        "sun": "Vasárnap"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Tartalmazza a szöveget",
+        "exact": "Pontosan a szöveg"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Az esemény kezdete",
+        "end": "Az esemény vége"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Tartalmazza",
+        "not": "Nem tartalmazza"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Van ilyen esemény",
+        "not": "Nincs ilyen esemény"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Egyenlő",
+        "not": "Nem egyenlő"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "{from} és {to} között kezdődik",
+        "weekdays": "Napok: {days}",
+        "title_has": "A cím tartalmazza: „{text}”",
+        "title_not": "A cím nem tartalmazza: „{text}”",
+        "day_has": "Azon a napon van esemény ezzel: „{text}”",
+        "day_not": "Azon a napon nincs esemény ezzel: „{text}”",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: nem {state}",
+        "none": "Még nincs."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Otthoni kapcsolat"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Utoljára otthon látva"
+      },
+      "subscription": {
+        "name": "Előfizetés",
+        "state": {
+          "subscribed": "Előfizetve",
+          "household": "Háztartás",
+          "free": "Ingyenes (csak otthon)",
+          "used_up": "Az ingyenes értesítések elfogytak"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Csomag"
+          },
+          "free_left": {
+            "name": "Hátralévő ingyenes értesítések"
+          },
+          "paid_until": {
+            "name": "Kifizetve eddig"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Következő riasztás",
+        "state_attributes": {
+          "title": {
+            "name": "Cím"
+          },
+          "alarm": {
+            "name": "Riasztás"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Heads-up értesítés küldése",
+      "clear": "Heads-up értesítés törlése"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Cím",
+      "message": "Üzenet",
+      "entities": "Ezen entitások megjelenítése",
+      "tag": "Címke"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Heads-up értesítés küldése",
+      "description": "Értesítést küld a Heads-up telefonokra, a profil szerint kezelve.",
+      "fields": {
+        "device_id": {
+          "name": "Telefonok",
+          "description": "Hagyja üresen, ha minden összekapcsolt telefonra küldeni szeretné."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "A profil neve. Üresen: az alapértelmezett profil."
+        },
+        "title": {
+          "name": "Cím",
+          "description": "Az értesítés címe."
+        },
+        "message": {
+          "name": "Üzenet",
+          "description": "Az értesítés szövege."
+        },
+        "entities": {
+          "name": "Entitások",
+          "description": "Az aktuális állapotuk megjelenik az értesítésben."
+        },
+        "buttons": {
+          "name": "Gombok",
+          "description": "További gombok; egy gomb megérintése kiváltja a headsup_action eseményt a gomb azonosítójával."
+        },
+        "tag": {
+          "name": "Címke",
+          "description": "Egy azonos címkéjű új értesítés lecseréli a korábbit (és törli annak szundiját). A Heads-up értesítés törlése művelet is ezt használja."
+        },
+        "ttl": {
+          "name": "Érvényesség",
+          "description": "Ne jelenjen meg az értesítés, ha ennél később érkezik."
+        }
+      }
+    },
+    "clear": {
+      "name": "Heads-up értesítés törlése",
+      "description": "Eltávolítja a telefonokról az ezzel a címkével ellátott értesítést, bezárja a riasztási képernyőjét, és törli a szundit.",
+      "fields": {
+        "device_id": {
+          "name": "Telefonok",
+          "description": "Hagyja üresen, ha minden összekapcsolt telefonon törölni szeretné."
+        },
+        "tag": {
+          "name": "Címke",
+          "description": "A címke, amellyel az értesítést elküldték."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone}: Heads-up-előfizetés szükséges",
+      "description": "A Home Assistant olyan értesítést küldött, amelyet a(z) {phone} nem jelenített meg. Előfizetés nélkül a Heads-up 10 ingyenes értesítést jelenít meg, és csak akkor, amikor a telefon otthon van.\n\nHa minden értesítést meg szeretne kapni, otthon és úton is, fizessen elő a Heads-up alkalmazásban a(z) {phone} telefonon, ahhoz a Google-fiókhoz vagy háztartásként legfeljebb 6 telefonra. Mindkettő ingyenes próbaidőszakkal kezdődik.\n\nEz az üzenet eltűnik, amint az előfizetés aktív."
+    },
+    "household_full": {
+      "title": "A(z) {phone} nem tartozik a háztartáshoz",
+      "description": "A(z) {owner} háztartási előfizetése legfeljebb 6 telefonra érvényes ezen a Home Assistanten, és betelt. A(z) {phone} telefonnak saját előfizetés kell, vagy kiválaszthatja, mely telefonok tartoznak a háztartáshoz itt: Heads-up, Konfigurálás, Háztartási előfizetés."
+    }
+  }
+}

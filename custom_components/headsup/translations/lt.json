@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Nustato Heads-up. Telefonai patys atsiranda tarp atrastų prietaisų, kai tame pačiame tinkle atidaroma Heads-up programa. Profiliai kuriami per Konfigūruoti."
+      },
+      "pair": {
+        "title": "Susieti {name}",
+        "description": "Patikrinkite, ar Heads-up programa telefone **{name}** rodo šį kodą:\n\n## {code}\n\nTęskite tik tada, kai kodai sutampa."
+      }
+    },
+    "error": {
+      "pair_failed": "Susieti nepavyko. Laikykite programą atidarytą telefone ir bandykite dar kartą."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up jau nustatytas. Telefonai pridedami, kai yra atrandami.",
+      "already_configured": "Šis telefonas jau susietas. Norėdami susieti iš naujo, pirmiausia čia ištrinkite jo prietaisą (arba programoje palieskite Atsieti, tada jis pašalinamas ir čia).",
+      "other_instance": "Šis telefonas nori susieti su kitu Home Assistant.",
+      "not_supported": "Šis prietaisas nėra Heads-up programa.",
+      "cannot_connect": "Nepavyko pasiekti telefono. Laikykite programą atidarytą telefone ir bandykite dar kartą.",
+      "phone_added": "{name} susietas."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up profiliai",
+        "menu_options": {
+          "add_profile": "Pridėti profilį",
+          "edit_profile": "Keisti profilį",
+          "delete_profile": "Pašalinti profilį",
+          "default_profile": "Numatytasis profilis",
+          "household": "Namų ūkio prenumerata",
+          "add_alarm": "Pridėti suplanuotą signalą",
+          "edit_alarm": "Keisti suplanuotą signalą",
+          "delete_alarm": "Pašalinti suplanuotą signalą"
+        }
+      },
+      "add_profile": {
+        "title": "Naujas profilis",
+        "description": "Kaip telefonai elgiasi su pranešimu, išsiųstu su šiuo profiliu.",
+        "data": {
+          "name": "Pavadinimas",
+          "sound": "Garsas",
+          "vibration": "Vibravimas",
+          "importance": "Svarba",
+          "alarm_stream": "Skambėti net tada, kai telefonas nutildytas",
+          "bypass_dnd": "Apeiti netrukdymo režimą",
+          "full_screen": "Viso ekrano signalas (išjungti ir atidėti)",
+          "repeat": "Kartoti garsą, kol bus atsakyta",
+          "buttons": "Mygtukai",
+          "snooze_minutes": "Atidėjimo trukmė",
+          "ring_minutes": "Skambėti ne ilgiau kaip",
+          "auto_snoozes": "Automatiškai atidėti ne daugiau kaip (kartų)"
+        },
+        "data_description": {
+          "alarm_stream": "Groja per signalų garsumą, kaip žadintuvas, todėl skamba net tada, kai telefonas nutildytas.",
+          "ring_minutes": "Kartojamiems ir viso ekrano signalams. Jei niekas laiku neatsako, signalas pats atsideda. 0 reiškia skambėti, kol kas nors atsakys.",
+          "auto_snoozes": "Po tiek automatinių atidėjimų signalas lieka kaip tylus pranešimas „Praleista“, o Home Assistant gauna įvykį headsup_action su veiksmu unanswered.",
+          "repeat": "Garsas groja, kol pranešimas atidaromas, į jį atsakoma arba jis nubraukiamas (arba kol praeina „Skambėti ne ilgiau kaip“). Išjungta: groja vieną kartą."
+        }
+      },
+      "edit_profile": {
+        "title": "Keisti profilį",
+        "data": {
+          "profile": "Profilis"
+        }
+      },
+      "profile": {
+        "title": "Keisti profilį",
+        "description": "Telefonai pakeitimą gauna iš karto.",
+        "data": {
+          "name": "Pavadinimas",
+          "sound": "Garsas",
+          "vibration": "Vibravimas",
+          "importance": "Svarba",
+          "alarm_stream": "Skambėti net tada, kai telefonas nutildytas",
+          "bypass_dnd": "Apeiti netrukdymo režimą",
+          "full_screen": "Viso ekrano signalas (išjungti ir atidėti)",
+          "repeat": "Kartoti garsą, kol bus atsakyta",
+          "buttons": "Mygtukai",
+          "snooze_minutes": "Atidėjimo trukmė",
+          "ring_minutes": "Skambėti ne ilgiau kaip",
+          "auto_snoozes": "Automatiškai atidėti ne daugiau kaip (kartų)"
+        },
+        "data_description": {
+          "alarm_stream": "Groja per signalų garsumą, kaip žadintuvas, todėl skamba net tada, kai telefonas nutildytas.",
+          "ring_minutes": "Kartojamiems ir viso ekrano signalams. Jei niekas laiku neatsako, signalas pats atsideda. 0 reiškia skambėti, kol kas nors atsakys.",
+          "auto_snoozes": "Po tiek automatinių atidėjimų signalas lieka kaip tylus pranešimas „Praleista“, o Home Assistant gauna įvykį headsup_action su veiksmu unanswered.",
+          "repeat": "Garsas groja, kol pranešimas atidaromas, į jį atsakoma arba jis nubraukiamas (arba kol praeina „Skambėti ne ilgiau kaip“). Išjungta: groja vieną kartą."
+        }
+      },
+      "delete_profile": {
+        "title": "Pašalinti profilį",
+        "data": {
+          "profile": "Profilis"
+        }
+      },
+      "default_profile": {
+        "title": "Numatytasis profilis",
+        "description": "Naudojamas, kai automatizacija nenurodo profilio, pavyzdžiui, su veiksmu notify.",
+        "data": {
+          "profile": "Profilis"
+        }
+      },
+      "add_alarm": {
+        "title": "Naujas suplanuotas signalas",
+        "menu_options": {
+          "weekly": "Pasirinktomis dienomis nustatytu laiku",
+          "calendar": "Kalendoriaus susitikimams"
+        }
+      },
+      "weekly": {
+        "title": "Signalas pasirinktomis dienomis",
+        "description": "Skamba pasirinktomis dienomis pasirinktu laiku. Jei tas laikas patenka į susitikimą pasirinktuose kalendoriuose, signalas perkeliamas šiek tiek po susitikimo, ir po kito taip pat, kol atsiranda laisvo laiko. Telefonai įsimena laikus, todėl signalas skamba ir be ryšio.",
+        "data": {
+          "name": "Pavadinimas",
+          "message": "Pranešimas",
+          "profile": "Profilis",
+          "phones": "Telefonai",
+          "days": "Dienos",
+          "time": "Laikas",
+          "calendars": "Perkelti, kai šiuose kalendoriuose yra susitikimų",
+          "after": "Po susitikimo skambėti po",
+          "needed": "Reikalingas laisvas laikas",
+          "latest": "Ne vėliau kaip",
+          "all_day": "Skaičiuojami ir visos dienos susitikimai"
+        },
+        "data_description": {
+          "name": "Kartu ir pranešimo pavadinimas.",
+          "phones": "Palikite tuščią visiems susietiems telefonams.",
+          "calendars": "Palikite tuščią, kad visada skambėtų nustatytu laiku.",
+          "needed": "Signalas skamba tik tada, kai per šį laiką neprasideda joks susitikimas.",
+          "latest": "Jei iki tol nėra laisvo laiko, vis tiek skamba šiuo laiku."
+        }
+      },
+      "calendar": {
+        "title": "Signalas susitikimams",
+        "description": "Skamba kiekvienam pasirinktų kalendorių susitikimui, kurio pavadinime yra tekstas arba kuris yra būtent tas tekstas (didžiosios raidės nesvarbu). Pranešime rodomas susitikimo pavadinimas. Telefonai įsimena laikus, todėl signalas skamba ir be ryšio.",
+        "data": {
+          "name": "Pavadinimas",
+          "message": "Pranešimas",
+          "profile": "Profilis",
+          "phones": "Telefonai",
+          "calendars": "Kalendoriai",
+          "match": "Pavadinimas",
+          "text": "Tekstas",
+          "offset": "Minutės prieš",
+          "anchor": "Skaičiuojant nuo"
+        },
+        "data_description": {
+          "name": "Tik tam, kad rastumėte signalą čia; pranešime rodomas susitikimo pavadinimas.",
+          "message": "Palikite tuščią, kad būtų rodomas susitikimo laikas ir vieta.",
+          "phones": "Palikite tuščią visiems susietiems telefonams.",
+          "offset": "Su neigiamu skaičiumi skamba po jo."
+        }
+      },
+      "conditions": {
+        "title": "Sąlygos",
+        "description": "Signalas skamba tik tada, kai visa tai teisinga:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Pridėti sąlygą",
+          "remove_condition": "Pašalinti sąlygą",
+          "save_alarm": "Išsaugoti signalą"
+        }
+      },
+      "add_condition": {
+        "title": "Nauja sąlyga",
+        "menu_options": {
+          "cond_start": "Susitikimas prasideda tarp dviejų laikų",
+          "cond_weekdays": "Susitikimas yra tam tikromis dienomis",
+          "cond_title": "Pavadinime yra tekstas, arba nėra",
+          "cond_day": "Tą dieną yra kitas susitikimas, arba nėra",
+          "cond_state": "Objektas turi būseną, arba ne"
+        }
+      },
+      "cond_start": {
+        "title": "Prasideda tarp",
+        "data": {
+          "from": "Nuo",
+          "to": "Iki"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Tam tikromis dienomis",
+        "data": {
+          "days": "Dienos"
+        }
+      },
+      "cond_title": {
+        "title": "Pavadinimas",
+        "data": {
+          "mode": "Pavadinimas",
+          "text": "Tekstas"
+        }
+      },
+      "cond_day": {
+        "title": "Kitas susitikimas tą dieną",
+        "description": "Pavyzdžiui, jokio žadintuvo dieną, kai šeimos kalendoriuje yra „Atostogos“.",
+        "data": {
+          "calendars": "Kalendoriai",
+          "mode": "Tą dieną",
+          "text": "Kurio pavadinime yra"
+        }
+      },
+      "cond_state": {
+        "title": "Objekto būsena",
+        "description": "Tikrinama kaskart, kai Home Assistant apskaičiuoja signalus (kas 15 minučių). Telefonas be ryšio išlaiko paskutinį sąrašą.",
+        "data": {
+          "entity": "Objektas",
+          "mode": "Skamba, kai būsena"
+        }
+      },
+      "cond_state_value": {
+        "title": "{entity} būsena",
+        "data": {
+          "state": "Būsena"
+        }
+      },
+      "remove_condition": {
+        "title": "Pašalinti sąlygą",
+        "data": {
+          "condition": "Sąlyga"
+        }
+      },
+      "edit_alarm": {
+        "title": "Keisti suplanuotą signalą",
+        "data": {
+          "alarm": "Signalas"
+        }
+      },
+      "delete_alarm": {
+        "title": "Pašalinti suplanuotą signalą",
+        "data": {
+          "alarm": "Signalas"
+        }
+      },
+      "household": {
+        "title": "Namų ūkio prenumerata",
+        "description": "Kai vienas telefonas turi namų ūkio prenumeratą, iki {max} telefonų šiame Home Assistant gauna neribotus pranešimus, įskaitant tą telefoną. Palikite tuščią, kad būtų įtraukti pirmiausia susieti telefonai, arba pasirinkite telefonus čia. Telefonas su prenumerata įtraukiamas visada.",
+        "data": {
+          "phones": "Namų ūkio telefonai"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Suteikite profiliui pavadinimą.",
+      "name_taken": "Profilis tokiu pavadinimu jau yra.",
+      "household_too_many": "Pasirinkite ne daugiau kaip 6 telefonus.",
+      "alarm_name_required": "Suteikite signalui pavadinimą.",
+      "alarm_name_taken": "Signalas tokiu pavadinimu jau yra.",
+      "days_required": "Pasirinkite bent vieną dieną.",
+      "calendars_required": "Pasirinkite bent vieną kalendorių.",
+      "text_required": "Įrašykite ieškomą tekstą."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Telefono numatytasis",
+        "chime": "Varpeliai",
+        "bell": "Skambutis",
+        "beep": "Pyptelėjimas",
+        "soft": "Švelnus",
+        "siren": "Sirena",
+        "alarm": "Žadintuvas",
+        "none": "Be garso"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Telefono numatytasis",
+        "short": "Trumpas",
+        "long": "Ilgas",
+        "pulse": "Pulsuojantis",
+        "sos": "SOS",
+        "none": "Be vibravimo"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Maža (neiššoka)",
+        "default": "Įprasta",
+        "high": "Didelė (iššoka)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Patvirtinti",
+        "snooze": "Atidėti"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Pirmadienis",
+        "tue": "Antradienis",
+        "wed": "Trečiadienis",
+        "thu": "Ketvirtadienis",
+        "fri": "Penktadienis",
+        "sat": "Šeštadienis",
+        "sun": "Sekmadienis"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Yra tekstas",
+        "exact": "Yra būtent tas tekstas"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Susitikimo pradžios",
+        "end": "Susitikimo pabaigos"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Yra",
+        "not": "Nėra"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Yra toks susitikimas",
+        "not": "Nėra tokio susitikimo"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Yra",
+        "not": "Nėra"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Prasideda tarp {from} ir {to}",
+        "weekdays": "Dienos: {days}",
+        "title_has": "Pavadinime yra „{text}“",
+        "title_not": "Pavadinime nėra „{text}“",
+        "day_has": "Tą dieną yra susitikimas su „{text}“",
+        "day_not": "Tą dieną nėra susitikimo su „{text}“",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: ne {state}",
+        "none": "Kol kas nėra."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Namų ryšys"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Paskutinį kartą matytas namuose"
+      },
+      "subscription": {
+        "name": "Prenumerata",
+        "state": {
+          "subscribed": "Prenumeruota",
+          "household": "Namų ūkis",
+          "free": "Nemokama (tik namuose)",
+          "used_up": "Nemokami pranešimai išnaudoti"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Planas"
+          },
+          "free_left": {
+            "name": "Liko nemokamų pranešimų"
+          },
+          "paid_until": {
+            "name": "Apmokėta iki"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Kitas signalas",
+        "state_attributes": {
+          "title": {
+            "name": "Pavadinimas"
+          },
+          "alarm": {
+            "name": "Signalas"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Siųsti heads-up",
+      "clear": "Išvalyti heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profilis",
+      "title": "Pavadinimas",
+      "message": "Pranešimas",
+      "entities": "Rodyti šiuos subjektus",
+      "tag": "Žymė"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Siųsti heads-up",
+      "description": "Siunčia pranešimą į Heads-up telefonus, kurie jį apdoroja taip, kaip nurodo profilis.",
+      "fields": {
+        "device_id": {
+          "name": "Telefonai",
+          "description": "Palikite tuščią, kad būtų siunčiama į visus susietus telefonus."
+        },
+        "profile": {
+          "name": "Profilis",
+          "description": "Profilio pavadinimas. Tuščia: numatytasis profilis."
+        },
+        "title": {
+          "name": "Pavadinimas",
+          "description": "Pranešimo pavadinimas."
+        },
+        "message": {
+          "name": "Pranešimas",
+          "description": "Pranešimo tekstas."
+        },
+        "entities": {
+          "name": "Subjektai",
+          "description": "Jų dabartinė būsena rodoma pranešime."
+        },
+        "buttons": {
+          "name": "Mygtukai",
+          "description": "Papildomi mygtukai; palietus mygtuką, sukeliamas įvykis headsup_action su jo ID."
+        },
+        "tag": {
+          "name": "Žymė",
+          "description": "Naujas pranešimas su ta pačia žyme pakeičia ankstesnį (ir atšaukia jo atidėjimą). Taip pat naudojama veiksmui Išvalyti heads-up."
+        },
+        "ttl": {
+          "name": "Galioja",
+          "description": "Nerodyti pranešimo, jei jis ateina vėliau nei po šio laiko."
+        }
+      }
+    },
+    "clear": {
+      "name": "Išvalyti heads-up",
+      "description": "Pašalina pranešimą su šia žyme iš telefonų, uždaro jo signalo ekraną ir atšaukia atidėjimą.",
+      "fields": {
+        "device_id": {
+          "name": "Telefonai",
+          "description": "Palikite tuščią, kad būtų išvaloma visuose susietuose telefonuose."
+        },
+        "tag": {
+          "name": "Žymė",
+          "description": "Žymė, su kuria pranešimas buvo išsiųstas."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} reikia Heads-up prenumeratos",
+      "description": "Home Assistant išsiuntė pranešimą, kurio {phone} neparodė. Be prenumeratos Heads-up rodo 10 nemokamų pranešimų ir tik tada, kai telefonas yra namuose.\n\nNorėdami gauti visus pranešimus namuose ir ne namuose, užsiprenumeruokite Heads-up programoje telefone {phone}, tai Google paskyrai arba kaip namų ūkis iki 6 telefonų. Abi prenumeratos prasideda nemokamu bandomuoju laikotarpiu.\n\nŠis pranešimas išnyks, kai prenumerata bus aktyvi."
+    },
+    "household_full": {
+      "title": "{phone} nepriklauso namų ūkiui",
+      "description": "Telefono {owner} namų ūkio prenumerata apima iki 6 telefonų šiame Home Assistant, ir vietų nebeliko. {phone} reikia atskiros prenumeratos, arba galite pasirinkti, kurie telefonai priklauso namų ūkiui, per Heads-up, Konfigūruoti, Namų ūkio prenumerata."
+    }
+  }
+}

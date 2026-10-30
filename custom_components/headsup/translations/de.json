@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Richtet Heads-up ein. Telefone erscheinen von selbst unter den entdeckten Geräten, sobald die Heads-up-App im selben Netzwerk geöffnet ist. Profile werden unter Konfigurieren angelegt."
+      },
+      "pair": {
+        "title": "{name} koppeln",
+        "description": "Prüfe, ob die Heads-up-App auf **{name}** diesen Code anzeigt:\n\n## {code}\n\nFahre nur fort, wenn die Codes übereinstimmen."
+      }
+    },
+    "error": {
+      "pair_failed": "Koppeln fehlgeschlagen. Lass die App auf dem Telefon geöffnet und versuche es erneut."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up ist bereits eingerichtet. Telefone werden hinzugefügt, sobald sie entdeckt werden.",
+      "already_configured": "Dieses Telefon ist bereits gekoppelt. Um es erneut zu koppeln, lösche zuerst hier sein Gerät (oder tippe in der App auf Entkoppeln, dann wird es auch hier entfernt).",
+      "other_instance": "Dieses Telefon möchte sich mit einem anderen Home Assistant koppeln.",
+      "not_supported": "Dieses Gerät ist keine Heads-up-App.",
+      "cannot_connect": "Das Telefon war nicht erreichbar. Lass die App auf dem Telefon geöffnet und versuche es erneut.",
+      "phone_added": "{name} ist gekoppelt."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up-Profile",
+        "menu_options": {
+          "add_profile": "Profil hinzufügen",
+          "edit_profile": "Profil ändern",
+          "delete_profile": "Profil entfernen",
+          "default_profile": "Standardprofil",
+          "household": "Haushaltsabonnement",
+          "add_alarm": "Geplanten Alarm hinzufügen",
+          "edit_alarm": "Geplanten Alarm ändern",
+          "delete_alarm": "Geplanten Alarm entfernen"
+        }
+      },
+      "add_profile": {
+        "title": "Neues Profil",
+        "description": "Wie Telefone eine Benachrichtigung behandeln, die mit diesem Profil gesendet wird.",
+        "data": {
+          "name": "Name",
+          "sound": "Ton",
+          "vibration": "Vibration",
+          "importance": "Wichtigkeit",
+          "alarm_stream": "Ton auch bei lautlos gestelltem Telefon",
+          "bypass_dnd": "„Bitte nicht stören“ ignorieren",
+          "full_screen": "Vollbild-Alarm (Beenden und Schlummern)",
+          "repeat": "Ton wiederholen, bis jemand reagiert",
+          "buttons": "Schaltflächen",
+          "snooze_minutes": "Schlummern für",
+          "ring_minutes": "Maximale Klingeldauer",
+          "auto_snoozes": "Höchstens so oft automatisch schlummern"
+        },
+        "data_description": {
+          "alarm_stream": "Spielt über die Weckerlautstärke ab, wie ein Wecker, damit der Ton auch zu hören ist, wenn das Telefon lautlos gestellt ist.",
+          "ring_minutes": "Für wiederholende Alarme und Vollbild-Alarme. Reagiert niemand rechtzeitig, schlummert der Alarm von selbst. 0 klingelt, bis jemand reagiert.",
+          "auto_snoozes": "Nach so vielen automatischen Schlummerrunden bleibt der Alarm als stille Benachrichtigung „Verpasst“ stehen, und Home Assistant erhält das Ereignis headsup_action mit action unanswered.",
+          "repeat": "Der Ton spielt weiter, bis die Benachrichtigung geöffnet, beantwortet oder weggewischt wird (oder bis die „Maximale Klingeldauer“ vorbei ist). Aus: Er spielt einmal."
+        }
+      },
+      "edit_profile": {
+        "title": "Profil ändern",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Profil ändern",
+        "description": "Telefone erhalten die Änderung sofort.",
+        "data": {
+          "name": "Name",
+          "sound": "Ton",
+          "vibration": "Vibration",
+          "importance": "Wichtigkeit",
+          "alarm_stream": "Ton auch bei lautlos gestelltem Telefon",
+          "bypass_dnd": "„Bitte nicht stören“ ignorieren",
+          "full_screen": "Vollbild-Alarm (Beenden und Schlummern)",
+          "repeat": "Ton wiederholen, bis jemand reagiert",
+          "buttons": "Schaltflächen",
+          "snooze_minutes": "Schlummern für",
+          "ring_minutes": "Maximale Klingeldauer",
+          "auto_snoozes": "Höchstens so oft automatisch schlummern"
+        },
+        "data_description": {
+          "alarm_stream": "Spielt über die Weckerlautstärke ab, wie ein Wecker, damit der Ton auch zu hören ist, wenn das Telefon lautlos gestellt ist.",
+          "ring_minutes": "Für wiederholende Alarme und Vollbild-Alarme. Reagiert niemand rechtzeitig, schlummert der Alarm von selbst. 0 klingelt, bis jemand reagiert.",
+          "auto_snoozes": "Nach so vielen automatischen Schlummerrunden bleibt der Alarm als stille Benachrichtigung „Verpasst“ stehen, und Home Assistant erhält das Ereignis headsup_action mit action unanswered.",
+          "repeat": "Der Ton spielt weiter, bis die Benachrichtigung geöffnet, beantwortet oder weggewischt wird (oder bis die „Maximale Klingeldauer“ vorbei ist). Aus: Er spielt einmal."
+        }
+      },
+      "delete_profile": {
+        "title": "Profil entfernen",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Standardprofil",
+        "description": "Wird verwendet, wenn eine Automatisierung kein Profil nennt, zum Beispiel bei der Aktion notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Neuer geplanter Alarm",
+        "menu_options": {
+          "weekly": "An festen Tagen zu einer festen Uhrzeit",
+          "calendar": "Für Termine in einem Kalender"
+        }
+      },
+      "weekly": {
+        "title": "Alarm an festen Tagen",
+        "description": "Klingelt an den gewählten Tagen zur gewählten Uhrzeit. Fällt diese Zeit in einen Termin in den gewählten Kalendern, verschiebt sich der Alarm auf eine Weile nach dem Termin, und auch über den nächsten hinaus, bis Zeit frei ist. Die Telefone speichern die Zeiten, daher klingelt der Alarm auch ohne Verbindung.",
+        "data": {
+          "name": "Name",
+          "message": "Nachricht",
+          "profile": "Profil",
+          "phones": "Telefone",
+          "days": "Tage",
+          "time": "Uhrzeit",
+          "calendars": "Bei Terminen in diesen Kalendern verschieben",
+          "after": "Bei einem Termin so lange danach klingeln",
+          "needed": "Benötigte freie Zeit",
+          "latest": "Nicht später als",
+          "all_day": "Ganztägige Termine zählen als belegt"
+        },
+        "data_description": {
+          "name": "Auch der Titel der Benachrichtigung.",
+          "phones": "Leer lassen für alle gekoppelten Telefone.",
+          "calendars": "Leer lassen, um immer zur festen Uhrzeit zu klingeln.",
+          "needed": "Der Alarm klingelt nur, wenn innerhalb dieser Zeit kein Termin beginnt.",
+          "latest": "Gibt es bis dahin keine freie Zeit, klingelt er trotzdem zu dieser Uhrzeit."
+        }
+      },
+      "calendar": {
+        "title": "Alarm für Termine",
+        "description": "Klingelt für jeden Termin in den gewählten Kalendern, dessen Titel den Text enthält oder genau dieser Text ist (Groß und Kleinschreibung egal). Die Benachrichtigung zeigt den Titel des Termins. Die Telefone speichern die Zeiten, daher klingelt der Alarm auch ohne Verbindung.",
+        "data": {
+          "name": "Name",
+          "message": "Nachricht",
+          "profile": "Profil",
+          "phones": "Telefone",
+          "calendars": "Kalender",
+          "match": "Titel",
+          "text": "Text",
+          "offset": "Minuten vorher",
+          "anchor": "Gerechnet ab"
+        },
+        "data_description": {
+          "name": "Nur um den Alarm hier wiederzufinden; die Benachrichtigung zeigt den Titel des Termins.",
+          "message": "Leer lassen, um Uhrzeit und Ort des Termins anzuzeigen.",
+          "phones": "Leer lassen für alle gekoppelten Telefone.",
+          "offset": "Mit einer negativen Zahl klingelt er danach."
+        }
+      },
+      "conditions": {
+        "title": "Bedingungen",
+        "description": "Der Alarm klingelt nur, wenn all das zutrifft:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Bedingung hinzufügen",
+          "remove_condition": "Bedingung entfernen",
+          "save_alarm": "Alarm speichern"
+        }
+      },
+      "add_condition": {
+        "title": "Neue Bedingung",
+        "menu_options": {
+          "cond_start": "Der Termin beginnt zwischen zwei Uhrzeiten",
+          "cond_weekdays": "Der Termin ist an bestimmten Tagen",
+          "cond_title": "Der Titel enthält einen Text, oder nicht",
+          "cond_day": "An dem Tag gibt es einen anderen Termin, oder nicht",
+          "cond_state": "Eine Entität hat einen Zustand, oder nicht"
+        }
+      },
+      "cond_start": {
+        "title": "Beginnt zwischen",
+        "data": {
+          "from": "Von",
+          "to": "Bis"
+        }
+      },
+      "cond_weekdays": {
+        "title": "An bestimmten Tagen",
+        "data": {
+          "days": "Tage"
+        }
+      },
+      "cond_title": {
+        "title": "Titel",
+        "data": {
+          "mode": "Der Titel",
+          "text": "Text"
+        }
+      },
+      "cond_day": {
+        "title": "Anderer Termin an dem Tag",
+        "description": "Zum Beispiel kein Wecker an einem Tag mit „Urlaub“ im Familienkalender.",
+        "data": {
+          "calendars": "Kalender",
+          "mode": "An dem Tag",
+          "text": "Dessen Titel enthält"
+        }
+      },
+      "cond_state": {
+        "title": "Zustand einer Entität",
+        "description": "Wird jedes Mal geprüft, wenn Home Assistant die Alarme berechnet (alle 15 Minuten). Ein Telefon ohne Verbindung behält seine letzte Liste.",
+        "data": {
+          "entity": "Entität",
+          "mode": "Klingelt, wenn der Zustand"
+        }
+      },
+      "cond_state_value": {
+        "title": "Zustand von {entity}",
+        "data": {
+          "state": "Zustand"
+        }
+      },
+      "remove_condition": {
+        "title": "Bedingung entfernen",
+        "data": {
+          "condition": "Bedingung"
+        }
+      },
+      "edit_alarm": {
+        "title": "Geplanten Alarm ändern",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Geplanten Alarm entfernen",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "household": {
+        "title": "Haushaltsabonnement",
+        "description": "Wenn ein Telefon das Haushaltsabonnement hat, erhalten bis zu {max} Telefone an diesem Home Assistant unbegrenzt Benachrichtigungen, dieses Telefon eingeschlossen. Lass das Feld leer, um die zuerst gekoppelten Telefone einzubeziehen, oder wähle die Telefone hier aus. Das Telefon mit dem Abonnement ist immer dabei.",
+        "data": {
+          "phones": "Telefone im Haushalt"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Gib dem Profil einen Namen.",
+      "name_taken": "Es gibt bereits ein Profil mit diesem Namen.",
+      "household_too_many": "Wähle höchstens 6 Telefone.",
+      "alarm_name_required": "Gib dem Alarm einen Namen.",
+      "alarm_name_taken": "Es gibt schon einen Alarm mit diesem Namen.",
+      "days_required": "Wähle mindestens einen Tag.",
+      "calendars_required": "Wähle mindestens einen Kalender.",
+      "text_required": "Gib den Text ein, nach dem gesucht wird."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Standard des Telefons",
+        "chime": "Gong",
+        "bell": "Glocke",
+        "beep": "Piepton",
+        "soft": "Sanft",
+        "siren": "Sirene",
+        "alarm": "Wecker",
+        "none": "Kein Ton"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Standard des Telefons",
+        "short": "Kurz",
+        "long": "Lang",
+        "pulse": "Puls",
+        "sos": "SOS",
+        "none": "Keine Vibration"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Niedrig (kein Pop-up)",
+        "default": "Normal",
+        "high": "Hoch (als Pop-up)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Bestätigen",
+        "snooze": "Schlummern"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Montag",
+        "tue": "Dienstag",
+        "wed": "Mittwoch",
+        "thu": "Donnerstag",
+        "fri": "Freitag",
+        "sat": "Samstag",
+        "sun": "Sonntag"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Enthält den Text",
+        "exact": "Ist genau der Text"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Beginn des Termins",
+        "end": "Ende des Termins"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Enthält",
+        "not": "Enthält nicht"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Gibt es so einen Termin",
+        "not": "Gibt es keinen solchen Termin"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Ist",
+        "not": "Ist nicht"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Beginnt zwischen {from} und {to}",
+        "weekdays": "Am {days}",
+        "title_has": "Titel enthält „{text}“",
+        "title_not": "Titel enthält nicht „{text}“",
+        "day_has": "An dem Tag gibt es einen Termin mit „{text}“",
+        "day_not": "An dem Tag gibt es keinen Termin mit „{text}“",
+        "state_is": "{entity} ist {state}",
+        "state_not": "{entity} ist nicht {state}",
+        "none": "Noch keine."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Verbindung zu Hause"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Zuletzt zu Hause gesehen"
+      },
+      "subscription": {
+        "name": "Abonnement",
+        "state": {
+          "subscribed": "Abonniert",
+          "household": "Haushalt",
+          "free": "Kostenlos (nur zu Hause)",
+          "used_up": "Kostenlose Benachrichtigungen aufgebraucht"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Tarif"
+          },
+          "free_left": {
+            "name": "Verbleibende kostenlose Benachrichtigungen"
+          },
+          "paid_until": {
+            "name": "Bezahlt bis"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Nächster Alarm",
+        "state_attributes": {
+          "title": {
+            "name": "Titel"
+          },
+          "alarm": {
+            "name": "Alarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Heads-up senden",
+      "clear": "Heads-up löschen"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Titel",
+      "message": "Nachricht",
+      "entities": "Diese Entitäten anzeigen",
+      "tag": "Tag"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Heads-up senden",
+      "description": "Sendet eine Benachrichtigung an Heads-up-Telefone, die sie so behandeln, wie das Profil es festlegt.",
+      "fields": {
+        "device_id": {
+          "name": "Telefone",
+          "description": "Leer lassen, um an alle gekoppelten Telefone zu senden."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Name des Profils. Leer: das Standardprofil."
+        },
+        "title": {
+          "name": "Titel",
+          "description": "Titel der Benachrichtigung."
+        },
+        "message": {
+          "name": "Nachricht",
+          "description": "Text der Benachrichtigung."
+        },
+        "entities": {
+          "name": "Entitäten",
+          "description": "Ihr aktueller Zustand wird in der Benachrichtigung angezeigt."
+        },
+        "buttons": {
+          "name": "Schaltflächen",
+          "description": "Zusätzliche Schaltflächen; ein Tippen auf eine davon löst das Ereignis headsup_action mit ihrer ID aus."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "Eine neue Benachrichtigung mit demselben Tag ersetzt die vorherige (und bricht deren Schlummern ab). Wird auch von Heads-up löschen verwendet."
+        },
+        "ttl": {
+          "name": "Gültig für",
+          "description": "Die Benachrichtigung nicht anzeigen, wenn sie später als nach dieser Zeit ankommt."
+        }
+      }
+    },
+    "clear": {
+      "name": "Heads-up löschen",
+      "description": "Entfernt die Benachrichtigung mit diesem Tag von den Telefonen, schließt ihren Alarmbildschirm und bricht ein Schlummern ab.",
+      "fields": {
+        "device_id": {
+          "name": "Telefone",
+          "description": "Leer lassen, um auf allen gekoppelten Telefonen zu löschen."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "Das Tag, mit dem die Benachrichtigung gesendet wurde."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} braucht ein Heads-up-Abonnement",
+      "description": "Home Assistant hat eine Benachrichtigung gesendet, die {phone} nicht angezeigt hat. Ohne Abonnement zeigt Heads-up 10 kostenlose Benachrichtigungen, und nur, solange das Telefon zu Hause ist.\n\nUm jede Benachrichtigung zu erhalten, zu Hause und unterwegs, schließe in der Heads-up-App auf {phone} ein Abonnement ab, für dieses Google-Konto oder als Haushalt für bis zu 6 Telefone. Beide beginnen mit einem kostenlosen Testzeitraum.\n\nDiese Meldung verschwindet, sobald das Abonnement aktiv ist."
+    },
+    "household_full": {
+      "title": "{phone} gehört nicht zum Haushalt",
+      "description": "Das Haushaltsabonnement von {owner} gilt für bis zu 6 Telefone an diesem Home Assistant und ist voll. {phone} braucht ein eigenes Abonnement, oder du wählst unter Heads-up, Konfigurieren, Haushaltsabonnement aus, welche Telefone zum Haushalt gehören."
+    }
+  }
+}

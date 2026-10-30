@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Iestata Heads-up. Tālruņi paši parādās starp atklātajām ierīcēm, tiklīdz tajā pašā tīklā ir atvērta Heads-up lietotne. Profili tiek izveidoti sadaļā Konfigurēt."
+      },
+      "pair": {
+        "title": "Savienot {name}",
+        "description": "Pārbaudiet, vai Heads-up lietotne ierīcē **{name}** rāda šo kodu:\n\n## {code}\n\nTurpiniet tikai tad, ja kodi sakrīt."
+      }
+    },
+    "error": {
+      "pair_failed": "Savienošana neizdevās. Turiet lietotni atvērtu tālrunī un mēģiniet vēlreiz."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up jau ir iestatīts. Tālruņi tiek pievienoti, kad tie ir atklāti.",
+      "already_configured": "Šis tālrunis jau ir savienots. Lai to savienotu vēlreiz, vispirms šeit izdzēsiet tā ierīci (vai lietotnē pieskarieties pie Atsaistīt, kas to noņem arī šeit).",
+      "other_instance": "Šis tālrunis vēlas savienoties ar citu Home Assistant.",
+      "not_supported": "Šī ierīce nav Heads-up lietotne.",
+      "cannot_connect": "Tālruni nevarēja sasniegt. Turiet lietotni atvērtu tālrunī un mēģiniet vēlreiz.",
+      "phone_added": "{name} ir savienots."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up profili",
+        "menu_options": {
+          "add_profile": "Pievienot profilu",
+          "edit_profile": "Mainīt profilu",
+          "delete_profile": "Noņemt profilu",
+          "default_profile": "Noklusējuma profils",
+          "household": "Mājsaimniecības abonements",
+          "add_alarm": "Pievienot ieplānotu signālu",
+          "edit_alarm": "Mainīt ieplānotu signālu",
+          "delete_alarm": "Noņemt ieplānotu signālu"
+        }
+      },
+      "add_profile": {
+        "title": "Jauns profils",
+        "description": "Kā tālruņi apstrādā paziņojumu, kas nosūtīts ar šo profilu.",
+        "data": {
+          "name": "Nosaukums",
+          "sound": "Skaņa",
+          "vibration": "Vibrācija",
+          "importance": "Svarīgums",
+          "alarm_stream": "Skanēt arī tad, ja tālrunis ir klusuma režīmā",
+          "bypass_dnd": "Apiet režīmu Netraucēt",
+          "full_screen": "Pilnekrāna signāls (izslēgt un atlikt)",
+          "repeat": "Atkārtot skaņu, līdz tiek atbildēts",
+          "buttons": "Pogas",
+          "snooze_minutes": "Atlikt uz",
+          "ring_minutes": "Skanēt ne ilgāk kā",
+          "auto_snoozes": "Automātiski atlikt ne vairāk kā (reizes)"
+        },
+        "data_description": {
+          "alarm_stream": "Atskaņo ar signālu skaļumu, kā modinātājs, tāpēc skan arī tad, ja tālrunis ir klusuma režīmā.",
+          "ring_minutes": "Atkārtotiem un pilnekrāna signāliem. Ja neviens laikus neatbild, signāls atliek sevi pats. 0 nozīmē skanēt, līdz kāds atbild.",
+          "auto_snoozes": "Pēc tik daudzām automātiskām atlikšanām signāls paliek kā kluss paziņojums „Nokavēts“, un Home Assistant saņem notikumu headsup_action ar darbību unanswered.",
+          "repeat": "Skaņa skan, līdz paziņojums tiek atvērts, atbildēts vai aizvilkts (vai līdz pagājis „Skanēt ne ilgāk kā“). Izslēgts: atskaņo vienreiz."
+        }
+      },
+      "edit_profile": {
+        "title": "Mainīt profilu",
+        "data": {
+          "profile": "Profils"
+        }
+      },
+      "profile": {
+        "title": "Mainīt profilu",
+        "description": "Tālruņi izmaiņas saņem uzreiz.",
+        "data": {
+          "name": "Nosaukums",
+          "sound": "Skaņa",
+          "vibration": "Vibrācija",
+          "importance": "Svarīgums",
+          "alarm_stream": "Skanēt arī tad, ja tālrunis ir klusuma režīmā",
+          "bypass_dnd": "Apiet režīmu Netraucēt",
+          "full_screen": "Pilnekrāna signāls (izslēgt un atlikt)",
+          "repeat": "Atkārtot skaņu, līdz tiek atbildēts",
+          "buttons": "Pogas",
+          "snooze_minutes": "Atlikt uz",
+          "ring_minutes": "Skanēt ne ilgāk kā",
+          "auto_snoozes": "Automātiski atlikt ne vairāk kā (reizes)"
+        },
+        "data_description": {
+          "alarm_stream": "Atskaņo ar signālu skaļumu, kā modinātājs, tāpēc skan arī tad, ja tālrunis ir klusuma režīmā.",
+          "ring_minutes": "Atkārtotiem un pilnekrāna signāliem. Ja neviens laikus neatbild, signāls atliek sevi pats. 0 nozīmē skanēt, līdz kāds atbild.",
+          "auto_snoozes": "Pēc tik daudzām automātiskām atlikšanām signāls paliek kā kluss paziņojums „Nokavēts“, un Home Assistant saņem notikumu headsup_action ar darbību unanswered.",
+          "repeat": "Skaņa skan, līdz paziņojums tiek atvērts, atbildēts vai aizvilkts (vai līdz pagājis „Skanēt ne ilgāk kā“). Izslēgts: atskaņo vienreiz."
+        }
+      },
+      "delete_profile": {
+        "title": "Noņemt profilu",
+        "data": {
+          "profile": "Profils"
+        }
+      },
+      "default_profile": {
+        "title": "Noklusējuma profils",
+        "description": "Tiek izmantots, ja automatizācija nenorāda profilu, piemēram, ar darbību notify.",
+        "data": {
+          "profile": "Profils"
+        }
+      },
+      "add_alarm": {
+        "title": "Jauns ieplānots signāls",
+        "menu_options": {
+          "weekly": "Izvēlētās dienās noteiktā laikā",
+          "calendar": "Kalendāra tikšanās reizēm"
+        }
+      },
+      "weekly": {
+        "title": "Signāls izvēlētās dienās",
+        "description": "Skan izvēlētajās dienās izvēlētajā laikā. Ja šis laiks iekrīt tikšanās laikā izvēlētajos kalendāros, signāls pārvietojas nedaudz pēc tikšanās, un arī pēc nākamās, līdz ir brīvs laiks. Tālruņi atceras laikus, tāpēc signāls skan arī bez savienojuma.",
+        "data": {
+          "name": "Nosaukums",
+          "message": "Ziņojums",
+          "profile": "Profils",
+          "phones": "Tālruņi",
+          "days": "Dienas",
+          "time": "Laiks",
+          "calendars": "Pārvietot, ja šajos kalendāros ir tikšanās",
+          "after": "Pēc tikšanās skanēt pēc",
+          "needed": "Nepieciešamais brīvais laiks",
+          "latest": "Ne vēlāk kā",
+          "all_day": "Tiek ņemtas vērā arī visas dienas tikšanās"
+        },
+        "data_description": {
+          "name": "Arī paziņojuma virsraksts.",
+          "phones": "Atstājiet tukšu visiem savienotajiem tālruņiem.",
+          "calendars": "Atstājiet tukšu, lai vienmēr skanētu noteiktajā laikā.",
+          "needed": "Signāls skan tikai tad, ja šajā laikā nesākas neviena tikšanās.",
+          "latest": "Ja līdz tam nav brīva laika, tas tik un tā skan šajā laikā."
+        }
+      },
+      "calendar": {
+        "title": "Signāls tikšanās reizēm",
+        "description": "Skan katrai izvēlēto kalendāru tikšanās reizei, kuras nosaukumā ir teksts vai kura ir tieši šis teksts (lielie burti nav svarīgi). Paziņojumā redzams tikšanās nosaukums. Tālruņi atceras laikus, tāpēc signāls skan arī bez savienojuma.",
+        "data": {
+          "name": "Nosaukums",
+          "message": "Ziņojums",
+          "profile": "Profils",
+          "phones": "Tālruņi",
+          "calendars": "Kalendāri",
+          "match": "Nosaukums",
+          "text": "Teksts",
+          "offset": "Minūtes pirms",
+          "anchor": "Skaitot no"
+        },
+        "data_description": {
+          "name": "Tikai lai atrastu signālu šeit; paziņojumā redzams tikšanās nosaukums.",
+          "message": "Atstājiet tukšu, lai rādītu tikšanās laiku un vietu.",
+          "phones": "Atstājiet tukšu visiem savienotajiem tālruņiem.",
+          "offset": "Ar negatīvu skaitli skan pēc tās."
+        }
+      },
+      "conditions": {
+        "title": "Nosacījumi",
+        "description": "Signāls skan tikai tad, ja viss tas ir patiesi:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Pievienot nosacījumu",
+          "remove_condition": "Noņemt nosacījumu",
+          "save_alarm": "Saglabāt signālu"
+        }
+      },
+      "add_condition": {
+        "title": "Jauns nosacījums",
+        "menu_options": {
+          "cond_start": "Tikšanās sākas starp diviem laikiem",
+          "cond_weekdays": "Tikšanās ir noteiktās dienās",
+          "cond_title": "Nosaukumā ir teksts, vai nav",
+          "cond_day": "Tajā dienā ir cita tikšanās, vai nav",
+          "cond_state": "Entītijai ir stāvoklis, vai nav"
+        }
+      },
+      "cond_start": {
+        "title": "Sākas starp",
+        "data": {
+          "from": "No",
+          "to": "Līdz"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Noteiktās dienās",
+        "data": {
+          "days": "Dienas"
+        }
+      },
+      "cond_title": {
+        "title": "Nosaukums",
+        "data": {
+          "mode": "Nosaukums",
+          "text": "Teksts"
+        }
+      },
+      "cond_day": {
+        "title": "Cita tikšanās tajā dienā",
+        "description": "Piemēram, nekāda modinātāja dienā, kad ģimenes kalendārā ir „Atvaļinājums“.",
+        "data": {
+          "calendars": "Kalendāri",
+          "mode": "Tajā dienā",
+          "text": "Kuras nosaukumā ir"
+        }
+      },
+      "cond_state": {
+        "title": "Entītijas stāvoklis",
+        "description": "Pārbauda katru reizi, kad Home Assistant aprēķina signālus (ik pēc 15 minūtēm). Tālrunis bez savienojuma patur savu pēdējo sarakstu.",
+        "data": {
+          "entity": "Entītija",
+          "mode": "Skan, ja stāvoklis"
+        }
+      },
+      "cond_state_value": {
+        "title": "{entity} stāvoklis",
+        "data": {
+          "state": "Stāvoklis"
+        }
+      },
+      "remove_condition": {
+        "title": "Noņemt nosacījumu",
+        "data": {
+          "condition": "Nosacījums"
+        }
+      },
+      "edit_alarm": {
+        "title": "Mainīt ieplānotu signālu",
+        "data": {
+          "alarm": "Signāls"
+        }
+      },
+      "delete_alarm": {
+        "title": "Noņemt ieplānotu signālu",
+        "data": {
+          "alarm": "Signāls"
+        }
+      },
+      "household": {
+        "title": "Mājsaimniecības abonements",
+        "description": "Ja vienam tālrunim ir mājsaimniecības abonements, neierobežotus paziņojumus saņem līdz {max} tālruņiem šajā Home Assistant, ieskaitot šo tālruni. Atstājiet tukšu, lai iekļautu pirmos savienotos tālruņus, vai izvēlieties tālruņus šeit. Tālrunis ar abonementu vienmēr ir iekļauts.",
+        "data": {
+          "phones": "Mājsaimniecības tālruņi"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Piešķiriet profilam nosaukumu.",
+      "name_taken": "Profils ar šādu nosaukumu jau pastāv.",
+      "household_too_many": "Izvēlieties ne vairāk kā 6 tālruņus.",
+      "alarm_name_required": "Piešķiriet signālam nosaukumu.",
+      "alarm_name_taken": "Signāls ar šādu nosaukumu jau ir.",
+      "days_required": "Izvēlieties vismaz vienu dienu.",
+      "calendars_required": "Izvēlieties vismaz vienu kalendāru.",
+      "text_required": "Ievadiet meklējamo tekstu."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Tālruņa noklusējums",
+        "chime": "Zvaniņi",
+        "bell": "Zvans",
+        "beep": "Pīkstiens",
+        "soft": "Maigs",
+        "siren": "Sirēna",
+        "alarm": "Modinātājs",
+        "none": "Bez skaņas"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Tālruņa noklusējums",
+        "short": "Īsa",
+        "long": "Gara",
+        "pulse": "Pulsējoša",
+        "sos": "SOS",
+        "none": "Bez vibrācijas"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Zems (neuznirst)",
+        "default": "Parasts",
+        "high": "Augsts (uznirst)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Apstiprināt",
+        "snooze": "Atlikt"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Pirmdiena",
+        "tue": "Otrdiena",
+        "wed": "Trešdiena",
+        "thu": "Ceturtdiena",
+        "fri": "Piektdiena",
+        "sat": "Sestdiena",
+        "sun": "Svētdiena"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Satur tekstu",
+        "exact": "Ir tieši teksts"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Tikšanās sākuma",
+        "end": "Tikšanās beigām"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Ir",
+        "not": "Nav"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Ir šāda tikšanās",
+        "not": "Nav šādas tikšanās"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Ir",
+        "not": "Nav"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Sākas starp {from} un {to}",
+        "weekdays": "Dienas: {days}",
+        "title_has": "Nosaukumā ir „{text}“",
+        "title_not": "Nosaukumā nav „{text}“",
+        "day_has": "Tajā dienā ir tikšanās ar „{text}“",
+        "day_not": "Tajā dienā nav tikšanās ar „{text}“",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: nav {state}",
+        "none": "Vēl nav."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Mājas savienojums"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Pēdējo reizi redzēts mājās"
+      },
+      "subscription": {
+        "name": "Abonements",
+        "state": {
+          "subscribed": "Abonēts",
+          "household": "Mājsaimniecība",
+          "free": "Bezmaksas (tikai mājās)",
+          "used_up": "Bezmaksas paziņojumi izlietoti"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Plāns"
+          },
+          "free_left": {
+            "name": "Atlikušie bezmaksas paziņojumi"
+          },
+          "paid_until": {
+            "name": "Apmaksāts līdz"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Nākamais signāls",
+        "state_attributes": {
+          "title": {
+            "name": "Nosaukums"
+          },
+          "alarm": {
+            "name": "Signāls"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Sūtīt heads-up",
+      "clear": "Notīrīt heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profils",
+      "title": "Virsraksts",
+      "message": "Ziņojums",
+      "entities": "Rādīt šīs vienības",
+      "tag": "Birka"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Sūtīt heads-up",
+      "description": "Nosūta paziņojumu uz Heads-up tālruņiem, kas to apstrādā atbilstoši profilam.",
+      "fields": {
+        "device_id": {
+          "name": "Tālruņi",
+          "description": "Atstājiet tukšu, lai sūtītu uz visiem savienotajiem tālruņiem."
+        },
+        "profile": {
+          "name": "Profils",
+          "description": "Profila nosaukums. Tukšs: noklusējuma profils."
+        },
+        "title": {
+          "name": "Virsraksts",
+          "description": "Paziņojuma virsraksts."
+        },
+        "message": {
+          "name": "Ziņojums",
+          "description": "Paziņojuma teksts."
+        },
+        "entities": {
+          "name": "Vienības",
+          "description": "To pašreizējais stāvoklis tiek parādīts paziņojumā."
+        },
+        "buttons": {
+          "name": "Pogas",
+          "description": "Papildu pogas; pieskaroties kādai, tiek izraisīts notikums headsup_action ar tās ID."
+        },
+        "tag": {
+          "name": "Birka",
+          "description": "Jauns paziņojums ar tādu pašu birku aizstāj iepriekšējo (un atceļ tā atlikšanu). To izmanto arī Notīrīt heads-up."
+        },
+        "ttl": {
+          "name": "Derīgs",
+          "description": "Nerādīt paziņojumu, ja tas pienāk vēlāk par šo laiku."
+        }
+      }
+    },
+    "clear": {
+      "name": "Notīrīt heads-up",
+      "description": "Noņem paziņojumu ar šo birku no tālruņiem, aizver tā signāla ekrānu un atceļ atlikšanu.",
+      "fields": {
+        "device_id": {
+          "name": "Tālruņi",
+          "description": "Atstājiet tukšu, lai notīrītu visos savienotajos tālruņos."
+        },
+        "tag": {
+          "name": "Birka",
+          "description": "Birka, ar kuru paziņojums tika nosūtīts."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} nepieciešams Heads-up abonements",
+      "description": "Home Assistant nosūtīja paziņojumu, ko {phone} neparādīja. Bez abonementa Heads-up rāda 10 bezmaksas paziņojumus un tikai tad, kad tālrunis ir mājās.\n\nLai saņemtu visus paziņojumus mājās un ārpus tām, abonējiet Heads-up lietotnē ierīcē {phone}, šim Google kontam vai kā mājsaimniecība līdz 6 tālruņiem. Abi sākas ar bezmaksas izmēģinājumu.\n\nŠis ziņojums pazudīs, tiklīdz abonements būs aktīvs."
+    },
+    "household_full": {
+      "title": "{phone} nav mājsaimniecībā",
+      "description": "Ierīces {owner} mājsaimniecības abonements aptver līdz 6 tālruņiem šajā Home Assistant, un tas ir pilns. Ierīcei {phone} ir nepieciešams savs abonements, vai arī varat izvēlēties, kuri tālruņi ir mājsaimniecībā, sadaļā Heads-up, Konfigurēt, Mājsaimniecības abonements."
+    }
+  }
+}

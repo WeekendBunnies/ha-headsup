@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Setur upp Heads-up. Símar birtast sjálfkrafa meðal uppgötvaðra tækja þegar Heads-up-forritið er opið á sama neti. Prófílar eru búnir til undir Stilla."
+      },
+      "pair": {
+        "title": "Tengja {name}",
+        "description": "Gakktu úr skugga um að Heads-up-forritið á **{name}** sýni þennan kóða:\n\n## {code}\n\nHaltu aðeins áfram ef kóðarnir eru eins."
+      }
+    },
+    "error": {
+      "pair_failed": "Tenging mistókst. Hafðu forritið opið í símanum og reyndu aftur."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up er þegar uppsett. Símum er bætt við þegar þeir uppgötvast.",
+      "already_configured": "Þessi sími er þegar tengdur. Til að tengja hann aftur skaltu fyrst eyða tæki hans hér (eða ýta á „Aftengja þennan síma“ í forritinu, sem fjarlægir hann líka hér).",
+      "other_instance": "Þessi sími vill tengjast öðru Home Assistant.",
+      "not_supported": "Þetta tæki er ekki Heads-up-forrit.",
+      "cannot_connect": "Ekki náðist í símann. Hafðu forritið opið í símanum og reyndu aftur.",
+      "phone_added": "{name} er tengdur."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up-prófílar",
+        "menu_options": {
+          "add_profile": "Bæta við prófíl",
+          "edit_profile": "Breyta prófíl",
+          "delete_profile": "Fjarlægja prófíl",
+          "default_profile": "Sjálfgefinn prófíll",
+          "household": "Heimilisáskrift",
+          "add_alarm": "Bæta við tímasettri viðvörun",
+          "edit_alarm": "Breyta tímasettri viðvörun",
+          "delete_alarm": "Fjarlægja tímasetta viðvörun"
+        }
+      },
+      "add_profile": {
+        "title": "Nýr prófíll",
+        "description": "Hvernig símar meðhöndla tilkynningu sem er send með þessum prófíl.",
+        "data": {
+          "name": "Heiti",
+          "sound": "Hljóð",
+          "vibration": "Titringur",
+          "importance": "Mikilvægi",
+          "alarm_stream": "Hljóð jafnvel þegar slökkt er á hljóði símans",
+          "bypass_dnd": "Rjúfa Ónáðið ekki",
+          "full_screen": "Viðvörun á öllum skjánum (hunsa og blunda)",
+          "repeat": "Endurtaka hljóðið þar til svarað er",
+          "buttons": "Hnappar",
+          "snooze_minutes": "Blunda í",
+          "ring_minutes": "Hringja í mesta lagi í",
+          "auto_snoozes": "Blunda sjálfkrafa í mesta lagi (sinnum)"
+        },
+        "data_description": {
+          "alarm_stream": "Spilast með hljóðstyrk vekjarans, eins og vekjaraklukka, svo að það heyrist jafnvel þegar slökkt er á hljóði símans.",
+          "ring_minutes": "Fyrir endurteknar viðvaranir og viðvaranir á öllum skjánum. Ef enginn svarar í tæka tíð fer viðvörunin sjálf í blund. 0 hringir þar til einhver svarar.",
+          "auto_snoozes": "Eftir svona marga sjálfvirka blundi verður viðvörunin eftir sem hljóðlaus tilkynning „Ósvarað“ og Home Assistant fær atburðinn headsup_action með action unanswered.",
+          "repeat": "Hljóðið heldur áfram þar til tilkynningin er opnuð, henni svarað eða strokið burt (eða þar til „Hringja í mesta lagi í“ er liðið). Slökkt: það spilast einu sinni."
+        }
+      },
+      "edit_profile": {
+        "title": "Breyta prófíl",
+        "data": {
+          "profile": "Prófíll"
+        }
+      },
+      "profile": {
+        "title": "Breyta prófíl",
+        "description": "Símarnir fá breytinguna strax.",
+        "data": {
+          "name": "Heiti",
+          "sound": "Hljóð",
+          "vibration": "Titringur",
+          "importance": "Mikilvægi",
+          "alarm_stream": "Hljóð jafnvel þegar slökkt er á hljóði símans",
+          "bypass_dnd": "Rjúfa Ónáðið ekki",
+          "full_screen": "Viðvörun á öllum skjánum (hunsa og blunda)",
+          "repeat": "Endurtaka hljóðið þar til svarað er",
+          "buttons": "Hnappar",
+          "snooze_minutes": "Blunda í",
+          "ring_minutes": "Hringja í mesta lagi í",
+          "auto_snoozes": "Blunda sjálfkrafa í mesta lagi (sinnum)"
+        },
+        "data_description": {
+          "alarm_stream": "Spilast með hljóðstyrk vekjarans, eins og vekjaraklukka, svo að það heyrist jafnvel þegar slökkt er á hljóði símans.",
+          "ring_minutes": "Fyrir endurteknar viðvaranir og viðvaranir á öllum skjánum. Ef enginn svarar í tæka tíð fer viðvörunin sjálf í blund. 0 hringir þar til einhver svarar.",
+          "auto_snoozes": "Eftir svona marga sjálfvirka blundi verður viðvörunin eftir sem hljóðlaus tilkynning „Ósvarað“ og Home Assistant fær atburðinn headsup_action með action unanswered.",
+          "repeat": "Hljóðið heldur áfram þar til tilkynningin er opnuð, henni svarað eða strokið burt (eða þar til „Hringja í mesta lagi í“ er liðið). Slökkt: það spilast einu sinni."
+        }
+      },
+      "delete_profile": {
+        "title": "Fjarlægja prófíl",
+        "data": {
+          "profile": "Prófíll"
+        }
+      },
+      "default_profile": {
+        "title": "Sjálfgefinn prófíll",
+        "description": "Notaður þegar sjálfvirkni tilgreinir engan prófíl, til dæmis með aðgerðinni notify.",
+        "data": {
+          "profile": "Prófíll"
+        }
+      },
+      "add_alarm": {
+        "title": "Ný tímasett viðvörun",
+        "menu_options": {
+          "weekly": "Á völdum dögum á föstum tíma",
+          "calendar": "Fyrir stefnumót í dagatali"
+        }
+      },
+      "weekly": {
+        "title": "Viðvörun á völdum dögum",
+        "description": "Hringir á völdum dögum á völdum tíma. Ef tíminn lendir á stefnumóti í völdum dagatölum færist viðvörunin aðeins aftur fyrir stefnumótið, og líka fram yfir það næsta, þar til laus tími er. Símarnir muna tímana, svo viðvörunin hringir líka án tengingar.",
+        "data": {
+          "name": "Heiti",
+          "message": "Skilaboð",
+          "profile": "Prófíll",
+          "phones": "Símar",
+          "days": "Dagar",
+          "time": "Tími",
+          "calendars": "Færa þegar stefnumót eru í þessum dagatölum",
+          "after": "Eftir stefnumót hringja eftir",
+          "needed": "Laus tími sem þarf",
+          "latest": "Ekki seinna en",
+          "all_day": "Heilsdagsstefnumót teljast líka"
+        },
+        "data_description": {
+          "name": "Einnig titill tilkynningarinnar.",
+          "phones": "Skildu eftir autt fyrir alla tengda síma.",
+          "calendars": "Skildu eftir autt til að hringja alltaf á föstum tíma.",
+          "needed": "Viðvörunin hringir aðeins ef ekkert stefnumót hefst innan þessa tíma.",
+          "latest": "Ef enginn laus tími er fyrir þann tíma hringir hún samt á þessum tíma."
+        }
+      },
+      "calendar": {
+        "title": "Viðvörun fyrir stefnumót",
+        "description": "Hringir fyrir hvert stefnumót í völdum dagatölum þar sem titillinn inniheldur textann eða er nákvæmlega sá texti (há- og lágstafir skipta ekki máli). Tilkynningin sýnir titil stefnumótsins. Símarnir muna tímana, svo viðvörunin hringir líka án tengingar.",
+        "data": {
+          "name": "Heiti",
+          "message": "Skilaboð",
+          "profile": "Prófíll",
+          "phones": "Símar",
+          "calendars": "Dagatöl",
+          "match": "Titill",
+          "text": "Texti",
+          "offset": "Mínútum áður",
+          "anchor": "Talið frá"
+        },
+        "data_description": {
+          "name": "Aðeins til að finna viðvörunina hér; tilkynningin sýnir titil stefnumótsins.",
+          "message": "Skildu eftir autt til að sýna tíma og stað stefnumótsins.",
+          "phones": "Skildu eftir autt fyrir alla tengda síma.",
+          "offset": "Með neikvæðri tölu hringir hún á eftir."
+        }
+      },
+      "conditions": {
+        "title": "Skilyrði",
+        "description": "Viðvörunin hringir aðeins þegar allt þetta á við:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Bæta við skilyrði",
+          "remove_condition": "Fjarlægja skilyrði",
+          "save_alarm": "Vista viðvörunina"
+        }
+      },
+      "add_condition": {
+        "title": "Nýtt skilyrði",
+        "menu_options": {
+          "cond_start": "Stefnumótið hefst á milli tveggja tíma",
+          "cond_weekdays": "Stefnumótið er á ákveðnum dögum",
+          "cond_title": "Titillinn inniheldur texta, eða ekki",
+          "cond_day": "Þann dag er annað stefnumót, eða ekki",
+          "cond_state": "Eining hefur stöðu, eða ekki"
+        }
+      },
+      "cond_start": {
+        "title": "Hefst á milli",
+        "data": {
+          "from": "Frá",
+          "to": "Til"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Á ákveðnum dögum",
+        "data": {
+          "days": "Dagar"
+        }
+      },
+      "cond_title": {
+        "title": "Titill",
+        "data": {
+          "mode": "Titillinn",
+          "text": "Texti"
+        }
+      },
+      "cond_day": {
+        "title": "Annað stefnumót þann dag",
+        "description": "Til dæmis engin vakning á degi með „Frí“ í fjölskyldudagatalinu.",
+        "data": {
+          "calendars": "Dagatöl",
+          "mode": "Þann dag",
+          "text": "Þar sem titillinn inniheldur"
+        }
+      },
+      "cond_state": {
+        "title": "Staða einingar",
+        "description": "Athugað í hvert sinn sem Home Assistant reiknar út viðvaranirnar (á 15 mínútna fresti). Sími án tengingar heldur síðasta lista sínum.",
+        "data": {
+          "entity": "Eining",
+          "mode": "Hringir þegar staðan"
+        }
+      },
+      "cond_state_value": {
+        "title": "Staða {entity}",
+        "data": {
+          "state": "Staða"
+        }
+      },
+      "remove_condition": {
+        "title": "Fjarlægja skilyrði",
+        "data": {
+          "condition": "Skilyrði"
+        }
+      },
+      "edit_alarm": {
+        "title": "Breyta tímasettri viðvörun",
+        "data": {
+          "alarm": "Viðvörun"
+        }
+      },
+      "delete_alarm": {
+        "title": "Fjarlægja tímasetta viðvörun",
+        "data": {
+          "alarm": "Viðvörun"
+        }
+      },
+      "household": {
+        "title": "Heimilisáskrift",
+        "description": "Þegar einn sími er með heimilisáskrift fá allt að {max} símar á þessu Home Assistant ótakmarkaðar tilkynningar, sá sími meðtalinn. Skildu þetta eftir autt til að taka með símana sem voru tengdir fyrst, eða veldu símana hér. Síminn með áskriftina er alltaf með.",
+        "data": {
+          "phones": "Símar heimilisins"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Gefðu prófílnum heiti.",
+      "name_taken": "Það er þegar til prófíll með þessu heiti.",
+      "household_too_many": "Veldu í mesta lagi 6 síma.",
+      "alarm_name_required": "Gefðu viðvöruninni heiti.",
+      "alarm_name_taken": "Það er þegar til viðvörun með þessu heiti.",
+      "days_required": "Veldu að minnsta kosti einn dag.",
+      "calendars_required": "Veldu að minnsta kosti eitt dagatal.",
+      "text_required": "Sláðu inn textann sem leitað er að."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Sjálfgefið í símanum",
+        "chime": "Hljómur",
+        "bell": "Bjalla",
+        "beep": "Píp",
+        "soft": "Mjúkt",
+        "siren": "Sírena",
+        "alarm": "Vekjaraklukka",
+        "none": "Ekkert hljóð"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Sjálfgefið í símanum",
+        "short": "Stuttur",
+        "long": "Langur",
+        "pulse": "Púls",
+        "sos": "SOS",
+        "none": "Enginn titringur"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Lítið (birtist ekki efst)",
+        "default": "Venjulegt",
+        "high": "Mikið (birtist efst)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Staðfesta",
+        "snooze": "Blunda"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Mánudagur",
+        "tue": "Þriðjudagur",
+        "wed": "Miðvikudagur",
+        "thu": "Fimmtudagur",
+        "fri": "Föstudagur",
+        "sat": "Laugardagur",
+        "sun": "Sunnudagur"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Inniheldur textann",
+        "exact": "Er nákvæmlega textinn"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Upphafi stefnumótsins",
+        "end": "Lokum stefnumótsins"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Inniheldur",
+        "not": "Inniheldur ekki"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Er með slíkt stefnumót",
+        "not": "Er ekki með slíkt stefnumót"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Er",
+        "not": "Er ekki"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Hefst á milli {from} og {to}",
+        "weekdays": "Á {days}",
+        "title_has": "Titillinn inniheldur „{text}“",
+        "title_not": "Titillinn inniheldur ekki „{text}“",
+        "day_has": "Þann dag er stefnumót með „{text}“",
+        "day_not": "Þann dag er ekkert stefnumót með „{text}“",
+        "state_is": "{entity} er {state}",
+        "state_not": "{entity} er ekki {state}",
+        "none": "Engin enn."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Heimatenging"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Síðast séður heima"
+      },
+      "subscription": {
+        "name": "Áskrift",
+        "state": {
+          "subscribed": "Í áskrift",
+          "household": "Heimili",
+          "free": "Ókeypis (aðeins heima)",
+          "used_up": "Ókeypis tilkynningar búnar"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Áskriftarleið"
+          },
+          "free_left": {
+            "name": "Ókeypis tilkynningar eftir"
+          },
+          "paid_until": {
+            "name": "Greitt til"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Næsta viðvörun",
+        "state_attributes": {
+          "title": {
+            "name": "Titill"
+          },
+          "alarm": {
+            "name": "Viðvörun"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Senda heads-up",
+      "clear": "Hreinsa heads-up"
+    },
+    "extra_fields": {
+      "profile": "Prófíll",
+      "title": "Titill",
+      "message": "Skilaboð",
+      "entities": "Sýna þessar einingar",
+      "tag": "Merki"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Senda heads-up",
+      "description": "Sendir tilkynningu í Heads-up-síma, meðhöndlaða eins og prófíllinn segir til um.",
+      "fields": {
+        "device_id": {
+          "name": "Símar",
+          "description": "Skildu eftir autt til að senda í alla tengda síma."
+        },
+        "profile": {
+          "name": "Prófíll",
+          "description": "Heiti prófílsins. Autt: sjálfgefni prófíllinn."
+        },
+        "title": {
+          "name": "Titill",
+          "description": "Titill tilkynningarinnar."
+        },
+        "message": {
+          "name": "Skilaboð",
+          "description": "Texti tilkynningarinnar."
+        },
+        "entities": {
+          "name": "Einingar",
+          "description": "Núverandi staða þeirra birtist í tilkynningunni."
+        },
+        "buttons": {
+          "name": "Hnappar",
+          "description": "Aukahnappar; ef ýtt er á einn þeirra kemur atburðurinn headsup_action með auðkenni hans."
+        },
+        "tag": {
+          "name": "Merki",
+          "description": "Ný tilkynning með sama merki kemur í stað þeirrar fyrri (og hættir við blund hennar). Einnig notað af Hreinsa heads-up."
+        },
+        "ttl": {
+          "name": "Gildir í",
+          "description": "Ekki sýna tilkynninguna ef hún berst seinna en þetta."
+        }
+      }
+    },
+    "clear": {
+      "name": "Hreinsa heads-up",
+      "description": "Fjarlægir tilkynninguna með þessu merki úr símunum, lokar viðvörunarskjá hennar og hættir við blund.",
+      "fields": {
+        "device_id": {
+          "name": "Símar",
+          "description": "Skildu eftir autt til að hreinsa í öllum tengdum símum."
+        },
+        "tag": {
+          "name": "Merki",
+          "description": "Merkið sem tilkynningin var send með."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} þarf Heads-up-áskrift",
+      "description": "Home Assistant sendi tilkynningu sem {phone} sýndi ekki. Án áskriftar sýnir Heads-up 10 ókeypis tilkynningar, og aðeins á meðan síminn er heima.\n\nTil að fá allar tilkynningar, heima og að heiman, skaltu gerast áskrifandi í Heads-up-forritinu á {phone}, fyrir þann Google-reikning eða sem heimili fyrir allt að 6 síma. Báðar byrja á ókeypis prufutímabili.\n\nÞessi skilaboð hverfa þegar áskriftin er virk."
+    },
+    "household_full": {
+      "title": "{phone} tilheyrir ekki heimilinu",
+      "description": "Heimilisáskriftin á {owner} nær yfir allt að 6 síma á þessu Home Assistant og hún er full. {phone} þarf eigin áskrift, eða þú getur valið hvaða símar tilheyra heimilinu undir Heads-up, Stilla, Heimilisáskrift."
+    }
+  }
+}

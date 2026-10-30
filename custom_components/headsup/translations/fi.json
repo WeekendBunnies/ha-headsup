@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Ottaa Heads-upin käyttöön. Puhelimet ilmestyvät itsestään löydettyihin laitteisiin, kun Heads-up-sovellus on auki samassa verkossa. Profiilit tehdään kohdassa Määrittele."
+      },
+      "pair": {
+        "title": "Yhdistä {name}",
+        "description": "Tarkista, että Heads-up-sovellus laitteessa **{name}** näyttää tämän koodin:\n\n## {code}\n\nJatka vain, jos koodit täsmäävät."
+      }
+    },
+    "error": {
+      "pair_failed": "Yhdistäminen epäonnistui. Pidä sovellus auki puhelimessa ja yritä uudelleen."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up on jo otettu käyttöön. Puhelimet lisätään, kun ne löydetään.",
+      "already_configured": "Tämä puhelin on jo yhdistetty. Jos haluat yhdistää sen uudelleen, poista ensin sen laite täältä (tai napauta sovelluksessa Irrota, jolloin se poistuu myös täältä).",
+      "other_instance": "Tämä puhelin haluaa yhdistää toiseen Home Assistantiin.",
+      "not_supported": "Tämä laite ei ole Heads-up-sovellus.",
+      "cannot_connect": "Puhelinta ei tavoitettu. Pidä sovellus auki puhelimessa ja yritä uudelleen.",
+      "phone_added": "{name} on yhdistetty."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up-profiilit",
+        "menu_options": {
+          "add_profile": "Lisää profiili",
+          "edit_profile": "Muuta profiilia",
+          "delete_profile": "Poista profiili",
+          "default_profile": "Oletusprofiili",
+          "household": "Kotitaloustilaus",
+          "add_alarm": "Lisää ajastettu hälytys",
+          "edit_alarm": "Muuta ajastettua hälytystä",
+          "delete_alarm": "Poista ajastettu hälytys"
+        }
+      },
+      "add_profile": {
+        "title": "Uusi profiili",
+        "description": "Miten puhelimet käsittelevät tällä profiililla lähetetyn ilmoituksen.",
+        "data": {
+          "name": "Nimi",
+          "sound": "Ääni",
+          "vibration": "Värinä",
+          "importance": "Tärkeys",
+          "alarm_stream": "Soi, vaikka puhelin on äänettömällä",
+          "bypass_dnd": "Ohita Älä häiritse",
+          "full_screen": "Koko näytön hälytys (hylkää ja torkku)",
+          "repeat": "Toista ääntä, kunnes vastataan",
+          "buttons": "Painikkeet",
+          "snooze_minutes": "Torkun kesto",
+          "ring_minutes": "Soi enintään",
+          "auto_snoozes": "Torkuta automaattisesti enintään (kertaa)"
+        },
+        "data_description": {
+          "alarm_stream": "Soi hälytysten äänenvoimakkuudella kuten herätyskello, joten se kuuluu, vaikka puhelin on äänettömällä.",
+          "ring_minutes": "Toistuville ja koko näytön hälytyksille. Jos kukaan ei vastaa ajoissa, hälytys torkuttaa itsensä. 0 soi, kunnes joku vastaa.",
+          "auto_snoozes": "Näin monen automaattisen torkun jälkeen hälytys jää hiljaiseksi ”Vastaamatta”-ilmoitukseksi, ja Home Assistant saa tapahtuman headsup_action toiminnolla unanswered.",
+          "repeat": "Ääni soi, kunnes ilmoitus avataan, siihen vastataan tai se pyyhkäistään pois (tai kunnes ”Soi enintään” on kulunut). Pois: soi kerran."
+        }
+      },
+      "edit_profile": {
+        "title": "Muuta profiilia",
+        "data": {
+          "profile": "Profiili"
+        }
+      },
+      "profile": {
+        "title": "Muuta profiilia",
+        "description": "Puhelimet saavat muutoksen heti.",
+        "data": {
+          "name": "Nimi",
+          "sound": "Ääni",
+          "vibration": "Värinä",
+          "importance": "Tärkeys",
+          "alarm_stream": "Soi, vaikka puhelin on äänettömällä",
+          "bypass_dnd": "Ohita Älä häiritse",
+          "full_screen": "Koko näytön hälytys (hylkää ja torkku)",
+          "repeat": "Toista ääntä, kunnes vastataan",
+          "buttons": "Painikkeet",
+          "snooze_minutes": "Torkun kesto",
+          "ring_minutes": "Soi enintään",
+          "auto_snoozes": "Torkuta automaattisesti enintään (kertaa)"
+        },
+        "data_description": {
+          "alarm_stream": "Soi hälytysten äänenvoimakkuudella kuten herätyskello, joten se kuuluu, vaikka puhelin on äänettömällä.",
+          "ring_minutes": "Toistuville ja koko näytön hälytyksille. Jos kukaan ei vastaa ajoissa, hälytys torkuttaa itsensä. 0 soi, kunnes joku vastaa.",
+          "auto_snoozes": "Näin monen automaattisen torkun jälkeen hälytys jää hiljaiseksi ”Vastaamatta”-ilmoitukseksi, ja Home Assistant saa tapahtuman headsup_action toiminnolla unanswered.",
+          "repeat": "Ääni soi, kunnes ilmoitus avataan, siihen vastataan tai se pyyhkäistään pois (tai kunnes ”Soi enintään” on kulunut). Pois: soi kerran."
+        }
+      },
+      "delete_profile": {
+        "title": "Poista profiili",
+        "data": {
+          "profile": "Profiili"
+        }
+      },
+      "default_profile": {
+        "title": "Oletusprofiili",
+        "description": "Käytetään, kun automaatio ei nimeä profiilia, esimerkiksi notify-toiminnolla.",
+        "data": {
+          "profile": "Profiili"
+        }
+      },
+      "add_alarm": {
+        "title": "Uusi ajastettu hälytys",
+        "menu_options": {
+          "weekly": "Valittuina päivinä tiettyyn aikaan",
+          "calendar": "Kalenterin tapaamisille"
+        }
+      },
+      "weekly": {
+        "title": "Hälytys valittuina päivinä",
+        "description": "Soi valittuina päivinä valittuun aikaan. Jos aika osuu valittujen kalentereiden tapaamiseen, hälytys siirtyy hetken päähän tapaamisen jälkeen, ja myös seuraavan ohi, kunnes on vapaata aikaa. Puhelimet muistavat ajat, joten hälytys soi myös ilman yhteyttä.",
+        "data": {
+          "name": "Nimi",
+          "message": "Viesti",
+          "profile": "Profiili",
+          "phones": "Puhelimet",
+          "days": "Päivät",
+          "time": "Aika",
+          "calendars": "Siirrä, kun näissä kalentereissa on tapaamisia",
+          "after": "Tapaamisen jälkeen soi kuluttua",
+          "needed": "Tarvittava vapaa aika",
+          "latest": "Viimeistään",
+          "all_day": "Myös koko päivän tapaamiset lasketaan"
+        },
+        "data_description": {
+          "name": "Myös ilmoituksen otsikko.",
+          "phones": "Jätä tyhjäksi kaikille yhdistetyille puhelimille.",
+          "calendars": "Jätä tyhjäksi, niin hälytys soi aina asetettuun aikaan.",
+          "needed": "Hälytys soi vain, jos tämän ajan kuluessa ei ala yhtään tapaamista.",
+          "latest": "Jos siihen mennessä ei ole vapaata aikaa, se soi silti tähän aikaan."
+        }
+      },
+      "calendar": {
+        "title": "Hälytys tapaamisille",
+        "description": "Soi jokaiselle valittujen kalentereiden tapaamiselle, jonka otsikko sisältää tekstin tai on täsmälleen se teksti (isoilla kirjaimilla ei ole väliä). Ilmoitus näyttää tapaamisen otsikon. Puhelimet muistavat ajat, joten hälytys soi myös ilman yhteyttä.",
+        "data": {
+          "name": "Nimi",
+          "message": "Viesti",
+          "profile": "Profiili",
+          "phones": "Puhelimet",
+          "calendars": "Kalenterit",
+          "match": "Otsikko",
+          "text": "Teksti",
+          "offset": "Minuuttia ennen",
+          "anchor": "Laskettuna"
+        },
+        "data_description": {
+          "name": "Vain hälytyksen löytämiseen täältä; ilmoitus näyttää tapaamisen otsikon.",
+          "message": "Jätä tyhjäksi, niin näytetään tapaamisen aika ja paikka.",
+          "phones": "Jätä tyhjäksi kaikille yhdistetyille puhelimille.",
+          "offset": "Negatiivisella luvulla soi sen jälkeen."
+        }
+      },
+      "conditions": {
+        "title": "Ehdot",
+        "description": "Hälytys soi vain, kun kaikki nämä pitävät paikkansa:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Lisää ehto",
+          "remove_condition": "Poista ehto",
+          "save_alarm": "Tallenna hälytys"
+        }
+      },
+      "add_condition": {
+        "title": "Uusi ehto",
+        "menu_options": {
+          "cond_start": "Tapaaminen alkaa kahden kellonajan välillä",
+          "cond_weekdays": "Tapaaminen on tiettyinä päivinä",
+          "cond_title": "Otsikko sisältää tekstin, tai ei",
+          "cond_day": "Sinä päivänä on toinen tapaaminen, tai ei",
+          "cond_state": "Kohteella on tila, tai ei"
+        }
+      },
+      "cond_start": {
+        "title": "Alkaa välillä",
+        "data": {
+          "from": "Alkaen",
+          "to": "Asti"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Tiettyinä päivinä",
+        "data": {
+          "days": "Päivät"
+        }
+      },
+      "cond_title": {
+        "title": "Otsikko",
+        "data": {
+          "mode": "Otsikko",
+          "text": "Teksti"
+        }
+      },
+      "cond_day": {
+        "title": "Toinen tapaaminen samana päivänä",
+        "description": "Esimerkiksi ei herätystä päivänä, jona perheen kalenterissa on ”Loma”.",
+        "data": {
+          "calendars": "Kalenterit",
+          "mode": "Sinä päivänä",
+          "text": "Jonka otsikko sisältää"
+        }
+      },
+      "cond_state": {
+        "title": "Kohteen tila",
+        "description": "Tarkistetaan aina, kun Home Assistant laskee hälytykset (15 minuutin välein). Puhelin ilman yhteyttä pitää viimeisimmän listansa.",
+        "data": {
+          "entity": "Kohde",
+          "mode": "Soi, kun tila"
+        }
+      },
+      "cond_state_value": {
+        "title": "Kohteen {entity} tila",
+        "data": {
+          "state": "Tila"
+        }
+      },
+      "remove_condition": {
+        "title": "Poista ehto",
+        "data": {
+          "condition": "Ehto"
+        }
+      },
+      "edit_alarm": {
+        "title": "Muuta ajastettua hälytystä",
+        "data": {
+          "alarm": "Hälytys"
+        }
+      },
+      "delete_alarm": {
+        "title": "Poista ajastettu hälytys",
+        "data": {
+          "alarm": "Hälytys"
+        }
+      },
+      "household": {
+        "title": "Kotitaloustilaus",
+        "description": "Kun yhdellä puhelimella on kotitaloustilaus, enintään {max} tämän Home Assistantin puhelinta saa rajattomasti ilmoituksia, se puhelin mukaan lukien. Jätä tyhjäksi, niin mukaan otetaan ensimmäisinä yhdistetyt puhelimet, tai valitse puhelimet tässä. Puhelin, jolla on tilaus, on aina mukana.",
+        "data": {
+          "phones": "Kotitalouden puhelimet"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Anna profiilille nimi.",
+      "name_taken": "Tämän niminen profiili on jo olemassa.",
+      "household_too_many": "Valitse enintään 6 puhelinta.",
+      "alarm_name_required": "Anna hälytykselle nimi.",
+      "alarm_name_taken": "Tämänniminen hälytys on jo olemassa.",
+      "days_required": "Valitse vähintään yksi päivä.",
+      "calendars_required": "Valitse vähintään yksi kalenteri.",
+      "text_required": "Kirjoita haettava teksti."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Puhelimen oletus",
+        "chime": "Kilahdus",
+        "bell": "Kello",
+        "beep": "Piippaus",
+        "soft": "Pehmeä",
+        "siren": "Sireeni",
+        "alarm": "Herätyskello",
+        "none": "Ei ääntä"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Puhelimen oletus",
+        "short": "Lyhyt",
+        "long": "Pitkä",
+        "pulse": "Sykkivä",
+        "sos": "SOS",
+        "none": "Ei värinää"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Matala (ei ponnahda esiin)",
+        "default": "Normaali",
+        "high": "Korkea (ponnahtaa esiin)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Kuittaa",
+        "snooze": "Torkku"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Maanantai",
+        "tue": "Tiistai",
+        "wed": "Keskiviikko",
+        "thu": "Torstai",
+        "fri": "Perjantai",
+        "sat": "Lauantai",
+        "sun": "Sunnuntai"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Sisältää tekstin",
+        "exact": "On täsmälleen teksti"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Tapaamisen alusta",
+        "end": "Tapaamisen lopusta"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Sisältää",
+        "not": "Ei sisällä"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "On tällainen tapaaminen",
+        "not": "Ei ole tällaista tapaamista"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "On",
+        "not": "Ei ole"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Alkaa välillä {from} ja {to}",
+        "weekdays": "Päivät: {days}",
+        "title_has": "Otsikko sisältää ”{text}”",
+        "title_not": "Otsikko ei sisällä ”{text}”",
+        "day_has": "Sinä päivänä on tapaaminen ”{text}”",
+        "day_not": "Sinä päivänä ei ole tapaamista ”{text}”",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: ei {state}",
+        "none": "Ei vielä yhtään."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Kotiyhteys"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Viimeksi nähty kotona"
+      },
+      "subscription": {
+        "name": "Tilaus",
+        "state": {
+          "subscribed": "Tilattu",
+          "household": "Kotitalous",
+          "free": "Ilmainen (vain kotona)",
+          "used_up": "Ilmaiset ilmoitukset käytetty"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Paketti"
+          },
+          "free_left": {
+            "name": "Ilmaisia ilmoituksia jäljellä"
+          },
+          "paid_until": {
+            "name": "Maksettu asti"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Seuraava hälytys",
+        "state_attributes": {
+          "title": {
+            "name": "Otsikko"
+          },
+          "alarm": {
+            "name": "Hälytys"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Lähetä heads-up",
+      "clear": "Tyhjennä heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profiili",
+      "title": "Otsikko",
+      "message": "Viesti",
+      "entities": "Näytä nämä entiteetit",
+      "tag": "Tunniste"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Lähetä heads-up",
+      "description": "Lähettää ilmoituksen Heads-up-puhelimiin, jotka käsittelevät sen profiilin mukaan.",
+      "fields": {
+        "device_id": {
+          "name": "Puhelimet",
+          "description": "Jätä tyhjäksi, niin ilmoitus lähetetään kaikkiin yhdistettyihin puhelimiin."
+        },
+        "profile": {
+          "name": "Profiili",
+          "description": "Profiilin nimi. Tyhjä: oletusprofiili."
+        },
+        "title": {
+          "name": "Otsikko",
+          "description": "Ilmoituksen otsikko."
+        },
+        "message": {
+          "name": "Viesti",
+          "description": "Ilmoituksen teksti."
+        },
+        "entities": {
+          "name": "Entiteetit",
+          "description": "Niiden nykyinen tila näytetään ilmoituksessa."
+        },
+        "buttons": {
+          "name": "Painikkeet",
+          "description": "Lisäpainikkeet; painikkeen napautus laukaisee tapahtuman headsup_action painikkeen tunnuksella."
+        },
+        "tag": {
+          "name": "Tunniste",
+          "description": "Uusi ilmoitus samalla tunnisteella korvaa aiemman (ja peruu sen torkun). Myös Tyhjennä heads-up käyttää tätä."
+        },
+        "ttl": {
+          "name": "Voimassa",
+          "description": "Älä näytä ilmoitusta, jos se saapuu tätä myöhemmin."
+        }
+      }
+    },
+    "clear": {
+      "name": "Tyhjennä heads-up",
+      "description": "Poistaa tällä tunnisteella lähetetyn ilmoituksen puhelimista, sulkee sen hälytysnäkymän ja peruu torkun.",
+      "fields": {
+        "device_id": {
+          "name": "Puhelimet",
+          "description": "Jätä tyhjäksi, niin ilmoitus tyhjennetään kaikista yhdistetyistä puhelimista."
+        },
+        "tag": {
+          "name": "Tunniste",
+          "description": "Tunniste, jolla ilmoitus lähetettiin."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} tarvitsee Heads-up-tilauksen",
+      "description": "Home Assistant lähetti ilmoituksen, jota {phone} ei näyttänyt. Ilman tilausta Heads-up näyttää 10 ilmaista ilmoitusta ja vain silloin, kun puhelin on kotona.\n\nJos haluat saada kaikki ilmoitukset kotona ja muualla, tilaa Heads-up-sovelluksessa laitteessa {phone}, kyseiselle Google-tilille tai kotitaloutena enintään 6 puhelimelle. Molemmat alkavat ilmaisella kokeilujaksolla.\n\nTämä viesti katoaa, kun tilaus on voimassa."
+    },
+    "household_full": {
+      "title": "{phone} ei kuulu kotitalouteen",
+      "description": "Laitteen {owner} kotitaloustilaus kattaa enintään 6 puhelinta tässä Home Assistantissa, ja se on täynnä. {phone} tarvitsee oman tilauksen, tai voit valita kotitalouteen kuuluvat puhelimet kohdassa Heads-up, Määrittele, Kotitaloustilaus."
+    }
+  }
+}

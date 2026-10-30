@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Configura o Heads-up. Os telemóveis aparecem sozinhos nos dispositivos descobertos assim que a aplicação Heads-up estiver aberta na mesma rede. Os perfis criam-se em Configurar."
+      },
+      "pair": {
+        "title": "Associar {name}",
+        "description": "Confirme que a aplicação Heads-up em **{name}** mostra este código:\n\n## {code}\n\nSó continue se os códigos forem iguais."
+      }
+    },
+    "error": {
+      "pair_failed": "A associação falhou. Mantenha a aplicação aberta no telemóvel e tente novamente."
+    },
+    "abort": {
+      "single_instance_allowed": "O Heads-up já está configurado. Os telemóveis são adicionados quando são descobertos.",
+      "already_configured": "Este telemóvel já está associado. Para o associar novamente, elimine primeiro aqui o respetivo dispositivo (ou toque em Desassociar este telemóvel na aplicação, o que também o remove daqui).",
+      "other_instance": "Este telemóvel quer associar-se a outro Home Assistant.",
+      "not_supported": "Este dispositivo não é uma aplicação Heads-up.",
+      "cannot_connect": "Não foi possível contactar o telemóvel. Mantenha a aplicação aberta no telemóvel e tente novamente.",
+      "phone_added": "{name} está associado."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Perfis do Heads-up",
+        "menu_options": {
+          "add_profile": "Adicionar um perfil",
+          "edit_profile": "Alterar um perfil",
+          "delete_profile": "Remover um perfil",
+          "default_profile": "Perfil predefinido",
+          "household": "Subscrição Casa",
+          "add_alarm": "Adicionar um alarme agendado",
+          "edit_alarm": "Alterar um alarme agendado",
+          "delete_alarm": "Remover um alarme agendado"
+        }
+      },
+      "add_profile": {
+        "title": "Novo perfil",
+        "description": "Como os telemóveis tratam uma notificação enviada com este perfil.",
+        "data": {
+          "name": "Nome",
+          "sound": "Som",
+          "vibration": "Vibração",
+          "importance": "Importância",
+          "alarm_stream": "Tocar mesmo com o telemóvel em silêncio",
+          "bypass_dnd": "Ignorar o modo Não incomodar",
+          "full_screen": "Alarme em ecrã inteiro (desligar e adiar)",
+          "repeat": "Repetir o som até haver resposta",
+          "buttons": "Botões",
+          "snooze_minutes": "Adiar durante",
+          "ring_minutes": "Tocar no máximo durante",
+          "auto_snoozes": "Adiar automaticamente no máximo (vezes)"
+        },
+        "data_description": {
+          "alarm_stream": "Toca pelo volume do alarme, como um despertador, por isso ouve-se mesmo com o telemóvel em silêncio.",
+          "ring_minutes": "Para alarmes repetidos e em ecrã inteiro. Se ninguém responder a tempo, o alarme adia-se sozinho. 0 toca até alguém responder.",
+          "auto_snoozes": "Depois de tantos adiamentos automáticos, o alarme fica como uma notificação silenciosa «Sem resposta» e o Home Assistant recebe o evento headsup_action com a ação unanswered.",
+          "repeat": "O som continua a tocar até a notificação ser aberta, respondida ou afastada (ou até passar o tempo «Tocar no máximo durante»). Desativado: toca uma vez."
+        }
+      },
+      "edit_profile": {
+        "title": "Alterar um perfil",
+        "data": {
+          "profile": "Perfil"
+        }
+      },
+      "profile": {
+        "title": "Alterar perfil",
+        "description": "Os telemóveis recebem a alteração de imediato.",
+        "data": {
+          "name": "Nome",
+          "sound": "Som",
+          "vibration": "Vibração",
+          "importance": "Importância",
+          "alarm_stream": "Tocar mesmo com o telemóvel em silêncio",
+          "bypass_dnd": "Ignorar o modo Não incomodar",
+          "full_screen": "Alarme em ecrã inteiro (desligar e adiar)",
+          "repeat": "Repetir o som até haver resposta",
+          "buttons": "Botões",
+          "snooze_minutes": "Adiar durante",
+          "ring_minutes": "Tocar no máximo durante",
+          "auto_snoozes": "Adiar automaticamente no máximo (vezes)"
+        },
+        "data_description": {
+          "alarm_stream": "Toca pelo volume do alarme, como um despertador, por isso ouve-se mesmo com o telemóvel em silêncio.",
+          "ring_minutes": "Para alarmes repetidos e em ecrã inteiro. Se ninguém responder a tempo, o alarme adia-se sozinho. 0 toca até alguém responder.",
+          "auto_snoozes": "Depois de tantos adiamentos automáticos, o alarme fica como uma notificação silenciosa «Sem resposta» e o Home Assistant recebe o evento headsup_action com a ação unanswered.",
+          "repeat": "O som continua a tocar até a notificação ser aberta, respondida ou afastada (ou até passar o tempo «Tocar no máximo durante»). Desativado: toca uma vez."
+        }
+      },
+      "delete_profile": {
+        "title": "Remover um perfil",
+        "data": {
+          "profile": "Perfil"
+        }
+      },
+      "default_profile": {
+        "title": "Perfil predefinido",
+        "description": "Usado quando uma automação não indica um perfil, por exemplo com a ação notify.",
+        "data": {
+          "profile": "Perfil"
+        }
+      },
+      "add_alarm": {
+        "title": "Novo alarme agendado",
+        "menu_options": {
+          "weekly": "Em dias fixos a uma hora fixa",
+          "calendar": "Para os compromissos de um calendário"
+        }
+      },
+      "weekly": {
+        "title": "Alarme em dias fixos",
+        "description": "Toca nos dias escolhidos à hora escolhida. Se essa hora calhar num compromisso dos calendários escolhidos, o alarme passa para algum tempo depois do compromisso, e também depois do seguinte, até haver tempo livre. Os telemóveis guardam as horas, por isso o alarme também toca sem ligação.",
+        "data": {
+          "name": "Nome",
+          "message": "Mensagem",
+          "profile": "Perfil",
+          "phones": "Telemóveis",
+          "days": "Dias",
+          "time": "Hora",
+          "calendars": "Adiar se houver compromissos nestes calendários",
+          "after": "Depois de um compromisso, tocar ao fim de",
+          "needed": "Tempo livre necessário",
+          "latest": "Não depois das",
+          "all_day": "Os compromissos de dia inteiro também contam"
+        },
+        "data_description": {
+          "name": "Também é o título da notificação.",
+          "phones": "Deixe vazio para todos os telemóveis associados.",
+          "calendars": "Deixe vazio para tocar sempre à hora definida.",
+          "needed": "O alarme só toca se nenhum compromisso começar dentro deste tempo.",
+          "latest": "Sem tempo livre antes disso, toca a esta hora na mesma."
+        }
+      },
+      "calendar": {
+        "title": "Alarme para compromissos",
+        "description": "Toca para cada compromisso dos calendários escolhidos cujo título contém o texto, ou é exatamente esse texto (as maiúsculas não importam). A notificação mostra o título do compromisso. Os telemóveis guardam as horas, por isso o alarme também toca sem ligação.",
+        "data": {
+          "name": "Nome",
+          "message": "Mensagem",
+          "profile": "Perfil",
+          "phones": "Telemóveis",
+          "calendars": "Calendários",
+          "match": "Título",
+          "text": "Texto",
+          "offset": "Minutos antes",
+          "anchor": "Contado a partir de"
+        },
+        "data_description": {
+          "name": "Só para encontrar o alarme aqui; a notificação mostra o título do compromisso.",
+          "message": "Deixe vazio para mostrar a hora e o local do compromisso.",
+          "phones": "Deixe vazio para todos os telemóveis associados.",
+          "offset": "Com um número negativo toca depois."
+        }
+      },
+      "conditions": {
+        "title": "Condições",
+        "description": "O alarme só toca quando tudo isto se verifica:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Adicionar uma condição",
+          "remove_condition": "Remover uma condição",
+          "save_alarm": "Guardar o alarme"
+        }
+      },
+      "add_condition": {
+        "title": "Nova condição",
+        "menu_options": {
+          "cond_start": "O compromisso começa entre duas horas",
+          "cond_weekdays": "O compromisso é em certos dias",
+          "cond_title": "O título contém um texto, ou não",
+          "cond_day": "Nesse dia há outro compromisso, ou não",
+          "cond_state": "Uma entidade tem um estado, ou não"
+        }
+      },
+      "cond_start": {
+        "title": "Começa entre",
+        "data": {
+          "from": "Das",
+          "to": "Às"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Em certos dias",
+        "data": {
+          "days": "Dias"
+        }
+      },
+      "cond_title": {
+        "title": "Título",
+        "data": {
+          "mode": "O título",
+          "text": "Texto"
+        }
+      },
+      "cond_day": {
+        "title": "Outro compromisso nesse dia",
+        "description": "Por exemplo, nenhum despertador num dia com «Férias» no calendário da família.",
+        "data": {
+          "calendars": "Calendários",
+          "mode": "Nesse dia",
+          "text": "Cujo título contém"
+        }
+      },
+      "cond_state": {
+        "title": "Estado de uma entidade",
+        "description": "Verificado sempre que o Home Assistant calcula os alarmes (a cada 15 minutos). Um telemóvel sem ligação mantém a última lista.",
+        "data": {
+          "entity": "Entidade",
+          "mode": "Toca quando o estado"
+        }
+      },
+      "cond_state_value": {
+        "title": "Estado de {entity}",
+        "data": {
+          "state": "Estado"
+        }
+      },
+      "remove_condition": {
+        "title": "Remover uma condição",
+        "data": {
+          "condition": "Condição"
+        }
+      },
+      "edit_alarm": {
+        "title": "Alterar um alarme agendado",
+        "data": {
+          "alarm": "Alarme"
+        }
+      },
+      "delete_alarm": {
+        "title": "Remover um alarme agendado",
+        "data": {
+          "alarm": "Alarme"
+        }
+      },
+      "household": {
+        "title": "Subscrição Casa",
+        "description": "Quando um telemóvel tem a subscrição Casa, até {max} telemóveis deste Home Assistant recebem notificações ilimitadas, incluindo esse telemóvel. Deixe vazio para incluir os telemóveis associados primeiro, ou escolha aqui os telemóveis. O telemóvel com a subscrição está sempre incluído.",
+        "data": {
+          "phones": "Telemóveis da casa"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Dê um nome ao perfil.",
+      "name_taken": "Já existe um perfil com este nome.",
+      "household_too_many": "Escolha no máximo 6 telemóveis.",
+      "alarm_name_required": "Dê um nome ao alarme.",
+      "alarm_name_taken": "Já existe um alarme com este nome.",
+      "days_required": "Escolha pelo menos um dia.",
+      "calendars_required": "Escolha pelo menos um calendário.",
+      "text_required": "Indique o texto a procurar."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Predefinição do telemóvel",
+        "chime": "Carrilhão",
+        "bell": "Campainha",
+        "beep": "Bip",
+        "soft": "Suave",
+        "siren": "Sirene",
+        "alarm": "Despertador",
+        "none": "Sem som"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Predefinição do telemóvel",
+        "short": "Curta",
+        "long": "Longa",
+        "pulse": "Pulsada",
+        "sos": "SOS",
+        "none": "Sem vibração"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Baixa (sem pop-up)",
+        "default": "Normal",
+        "high": "Alta (com pop-up)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Confirmar",
+        "snooze": "Adiar"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Segunda-feira",
+        "tue": "Terça-feira",
+        "wed": "Quarta-feira",
+        "thu": "Quinta-feira",
+        "fri": "Sexta-feira",
+        "sat": "Sábado",
+        "sun": "Domingo"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Contém o texto",
+        "exact": "É exatamente o texto"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "O início do compromisso",
+        "end": "O fim do compromisso"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Contém",
+        "not": "Não contém"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Há um compromisso assim",
+        "not": "Não há nenhum compromisso assim"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "É",
+        "not": "Não é"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Começa entre as {from} e as {to}",
+        "weekdays": "À {days}",
+        "title_has": "O título contém «{text}»",
+        "title_not": "O título não contém «{text}»",
+        "day_has": "Nesse dia há um compromisso com «{text}»",
+        "day_not": "Nesse dia não há compromisso com «{text}»",
+        "state_is": "{entity} é {state}",
+        "state_not": "{entity} não é {state}",
+        "none": "Nenhuma ainda."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Ligação em casa"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Visto em casa pela última vez"
+      },
+      "subscription": {
+        "name": "Subscrição",
+        "state": {
+          "subscribed": "Subscrito",
+          "household": "Casa",
+          "free": "Gratuito (só em casa)",
+          "used_up": "Notificações gratuitas esgotadas"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Plano"
+          },
+          "free_left": {
+            "name": "Notificações gratuitas restantes"
+          },
+          "paid_until": {
+            "name": "Pago até"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Próximo alarme",
+        "state_attributes": {
+          "title": {
+            "name": "Título"
+          },
+          "alarm": {
+            "name": "Alarme"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Enviar notificação Heads-up",
+      "clear": "Limpar notificação Heads-up"
+    },
+    "extra_fields": {
+      "profile": "Perfil",
+      "title": "Título",
+      "message": "Mensagem",
+      "entities": "Mostrar estas entidades",
+      "tag": "Etiqueta"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Enviar notificação Heads-up",
+      "description": "Envia uma notificação para telemóveis com o Heads-up, tratada como o perfil indica.",
+      "fields": {
+        "device_id": {
+          "name": "Telemóveis",
+          "description": "Deixe vazio para enviar para todos os telemóveis associados."
+        },
+        "profile": {
+          "name": "Perfil",
+          "description": "Nome do perfil. Vazio: o perfil predefinido."
+        },
+        "title": {
+          "name": "Título",
+          "description": "Título da notificação."
+        },
+        "message": {
+          "name": "Mensagem",
+          "description": "Texto da notificação."
+        },
+        "entities": {
+          "name": "Entidades",
+          "description": "O estado atual destas entidades é mostrado na notificação."
+        },
+        "buttons": {
+          "name": "Botões",
+          "description": "Botões extra; tocar num deles dispara o evento headsup_action com o respetivo id."
+        },
+        "tag": {
+          "name": "Etiqueta",
+          "description": "Uma nova notificação com a mesma etiqueta substitui a anterior (e cancela o respetivo adiamento). Também é usada por Limpar notificação Heads-up."
+        },
+        "ttl": {
+          "name": "Válida durante",
+          "description": "Não mostrar a notificação se chegar mais tarde do que isto."
+        }
+      }
+    },
+    "clear": {
+      "name": "Limpar notificação Heads-up",
+      "description": "Remove dos telemóveis a notificação com esta etiqueta, fecha o respetivo ecrã de alarme e cancela um adiamento.",
+      "fields": {
+        "device_id": {
+          "name": "Telemóveis",
+          "description": "Deixe vazio para limpar em todos os telemóveis associados."
+        },
+        "tag": {
+          "name": "Etiqueta",
+          "description": "A etiqueta com que a notificação foi enviada."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} precisa de uma subscrição do Heads-up",
+      "description": "O Home Assistant enviou uma notificação que {phone} não mostrou. Sem subscrição, o Heads-up mostra 10 notificações gratuitas, e só enquanto o telemóvel estiver em casa.\n\nPara receber todas as notificações, em casa e fora de casa, subscreva na aplicação Heads-up em {phone}, para essa conta Google ou com a subscrição Casa para até 6 telemóveis. Ambas começam com uma avaliação gratuita.\n\nEsta mensagem desaparece assim que a subscrição estiver ativa."
+    },
+    "household_full": {
+      "title": "{phone} não faz parte da casa",
+      "description": "A subscrição Casa de {owner} abrange até 6 telemóveis deste Home Assistant e está completa. {phone} precisa da sua própria subscrição, ou pode escolher que telemóveis fazem parte da casa em Heads-up, Configurar, Subscrição Casa."
+    }
+  }
+}

@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Jissettja Heads-up. It-telefowns jidhru waħedhom taħt l-apparati skoperti meta l-app Heads-up tkun miftuħa fuq l-istess netwerk. Il-profili jinħolqu taħt Configure."
+      },
+      "pair": {
+        "title": "Orbot {name}",
+        "description": "Iċċekkja li l-app Heads-up fuq **{name}** turi dan il-kodiċi:\n\n## {code}\n\nKompli biss jekk il-kodiċijiet jaqblu."
+      }
+    },
+    "error": {
+      "pair_failed": "Ir-rabta ma rnexxietx. Żomm l-app miftuħa fuq it-telefown u erġa' pprova."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up diġà ssettjat. It-telefowns jiżdiedu meta jiġu skoperti.",
+      "already_configured": "Dan it-telefown diġà marbut. Biex terġa' torbtu, l-ewwel ħassar l-apparat tiegħu hawn (jew agħfas “Neħħi r-rabta ta' dan it-telefown” fl-app, li jneħħih minn hawn ukoll).",
+      "other_instance": "Dan it-telefown irid jintrabat ma' Home Assistant ieħor.",
+      "not_supported": "Dan l-apparat mhuwiex app Heads-up.",
+      "cannot_connect": "It-telefown ma setax jintlaħaq. Żomm l-app miftuħa fuq it-telefown u erġa' pprova.",
+      "phone_added": "{name} huwa marbut."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Profili ta' Heads-up",
+        "menu_options": {
+          "add_profile": "Żid profil",
+          "edit_profile": "Ibdel profil",
+          "delete_profile": "Neħħi profil",
+          "default_profile": "Profil prestabbilit",
+          "household": "Abbonament tad-Dar",
+          "add_alarm": "Żid allarm skedat",
+          "edit_alarm": "Ibdel allarm skedat",
+          "delete_alarm": "Neħħi allarm skedat"
+        }
+      },
+      "add_profile": {
+        "title": "Profil ġdid",
+        "description": "Kif it-telefowns jittrattaw notifika mibgħuta b'dan il-profil.",
+        "data": {
+          "name": "Isem",
+          "sound": "Ħoss",
+          "vibration": "Vibrazzjoni",
+          "importance": "Importanza",
+          "alarm_stream": "Ħoss anke meta t-telefown ikun fis-silenzju",
+          "bypass_dnd": "Għaddi minn Tiddisturbax",
+          "full_screen": "Allarm fuq l-iskrin kollu (waqqaf u ipposponi)",
+          "repeat": "Irrepeti l-ħoss sakemm titwieġeb",
+          "buttons": "Buttuni",
+          "snooze_minutes": "Ipposponi għal",
+          "ring_minutes": "Doqq għal mhux aktar minn",
+          "auto_snoozes": "Ipposponi awtomatikament mhux aktar minn (darbiet)"
+        },
+        "data_description": {
+          "alarm_stream": "Idoqq bil-volum tal-allarm, bħal arloġġ tal-allarm, biex jinstema' anke meta t-telefown ikun issettjat fis-silenzju.",
+          "ring_minutes": "Għal allarmi li jirrepetu u allarmi fuq l-iskrin kollu. Jekk ħadd ma jwieġeb fil-ħin, l-allarm jipposponi lilu nnifsu. 0 idoqq sakemm xi ħadd iwieġeb.",
+          "auto_snoozes": "Wara dawn il-posponimenti awtomatiċi kollha, l-allarm jibqa' bħala notifika siekta “Mitluf”, u Home Assistant jirċievi l-avveniment headsup_action b'action unanswered.",
+          "repeat": "Il-ħoss jibqa' jdoqq sakemm in-notifika tinfetaħ, titwieġeb jew titkaxkar 'il barra (jew sakemm jgħaddi “Doqq għal mhux aktar minn”). Mitfi: idoqq darba."
+        }
+      },
+      "edit_profile": {
+        "title": "Ibdel profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Ibdel il-profil",
+        "description": "It-telefowns jirċievu l-bidla mill-ewwel.",
+        "data": {
+          "name": "Isem",
+          "sound": "Ħoss",
+          "vibration": "Vibrazzjoni",
+          "importance": "Importanza",
+          "alarm_stream": "Ħoss anke meta t-telefown ikun fis-silenzju",
+          "bypass_dnd": "Għaddi minn Tiddisturbax",
+          "full_screen": "Allarm fuq l-iskrin kollu (waqqaf u ipposponi)",
+          "repeat": "Irrepeti l-ħoss sakemm titwieġeb",
+          "buttons": "Buttuni",
+          "snooze_minutes": "Ipposponi għal",
+          "ring_minutes": "Doqq għal mhux aktar minn",
+          "auto_snoozes": "Ipposponi awtomatikament mhux aktar minn (darbiet)"
+        },
+        "data_description": {
+          "alarm_stream": "Idoqq bil-volum tal-allarm, bħal arloġġ tal-allarm, biex jinstema' anke meta t-telefown ikun issettjat fis-silenzju.",
+          "ring_minutes": "Għal allarmi li jirrepetu u allarmi fuq l-iskrin kollu. Jekk ħadd ma jwieġeb fil-ħin, l-allarm jipposponi lilu nnifsu. 0 idoqq sakemm xi ħadd iwieġeb.",
+          "auto_snoozes": "Wara dawn il-posponimenti awtomatiċi kollha, l-allarm jibqa' bħala notifika siekta “Mitluf”, u Home Assistant jirċievi l-avveniment headsup_action b'action unanswered.",
+          "repeat": "Il-ħoss jibqa' jdoqq sakemm in-notifika tinfetaħ, titwieġeb jew titkaxkar 'il barra (jew sakemm jgħaddi “Doqq għal mhux aktar minn”). Mitfi: idoqq darba."
+        }
+      },
+      "delete_profile": {
+        "title": "Neħħi profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Profil prestabbilit",
+        "description": "Jintuża meta awtomazzjoni ma ssemmix profil, pereżempju bl-azzjoni notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Allarm skedat ġdid",
+        "menu_options": {
+          "weekly": "F'ċerti jiem f'ħin fiss",
+          "calendar": "Għal appuntamenti f'kalendarju"
+        }
+      },
+      "weekly": {
+        "title": "Allarm f'ċerti jiem",
+        "description": "Idoqq fil-jiem magħżula fil-ħin magħżul. Jekk dak il-ħin jaħbat ma' appuntament fil-kalendarji magħżula, l-allarm jitmexxa ftit wara l-appuntament, u wara dak ta' wara wkoll, sakemm ikun hemm ħin liberu. It-telefowns jiftakru l-ħinijiet, għalhekk l-allarm idoqq anke mingħajr konnessjoni.",
+        "data": {
+          "name": "Isem",
+          "message": "Messaġġ",
+          "profile": "Profil",
+          "phones": "Telefowns",
+          "days": "Jiem",
+          "time": "Ħin",
+          "calendars": "Mexxi meta jkun hemm appuntamenti f'dawn il-kalendarji",
+          "after": "Wara appuntament idoqq wara",
+          "needed": "Ħin liberu meħtieġ",
+          "latest": "Mhux aktar tard mill",
+          "all_day": "L-appuntamenti tal-ġurnata kollha jgħoddu wkoll"
+        },
+        "data_description": {
+          "name": "Ukoll it-titlu tan-notifika.",
+          "phones": "Ħallih vojt għat-telefowns marbuta kollha.",
+          "calendars": "Ħallih vojt biex dejjem idoqq fil-ħin fiss.",
+          "needed": "L-allarm idoqq biss meta ebda appuntament ma jibda f'dan il-ħin.",
+          "latest": "Jekk ma jkunx hemm ħin liberu sa dakinhar, idoqq f'dan il-ħin xorta waħda."
+        }
+      },
+      "calendar": {
+        "title": "Allarm għal appuntamenti",
+        "description": "Idoqq għal kull appuntament fil-kalendarji magħżula li t-titlu tiegħu fih it-test, jew huwa eżatt dak it-test (l-ittri kbar ma jimpurtawx). In-notifika turi t-titlu tal-appuntament. It-telefowns jiftakru l-ħinijiet, għalhekk l-allarm idoqq anke mingħajr konnessjoni.",
+        "data": {
+          "name": "Isem",
+          "message": "Messaġġ",
+          "profile": "Profil",
+          "phones": "Telefowns",
+          "calendars": "Kalendarji",
+          "match": "Titlu",
+          "text": "Test",
+          "offset": "Minuti qabel",
+          "anchor": "Magħdud minn"
+        },
+        "data_description": {
+          "name": "Biss biex issib l-allarm hawn; in-notifika turi t-titlu tal-appuntament.",
+          "message": "Ħallih vojt biex jintwerew il-ħin u l-post tal-appuntament.",
+          "phones": "Ħallih vojt għat-telefowns marbuta kollha.",
+          "offset": "B'numru negattiv idoqq wara."
+        }
+      },
+      "conditions": {
+        "title": "Kundizzjonijiet",
+        "description": "L-allarm idoqq biss meta dawn kollha jkunu veri:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Żid kundizzjoni",
+          "remove_condition": "Neħħi kundizzjoni",
+          "save_alarm": "Issejvja l-allarm"
+        }
+      },
+      "add_condition": {
+        "title": "Kundizzjoni ġdida",
+        "menu_options": {
+          "cond_start": "L-appuntament jibda bejn żewġ ħinijiet",
+          "cond_weekdays": "L-appuntament huwa f'ċerti jiem",
+          "cond_title": "It-titlu fih test, jew le",
+          "cond_day": "Dak il-jum hemm appuntament ieħor, jew le",
+          "cond_state": "Entità għandha stat, jew le"
+        }
+      },
+      "cond_start": {
+        "title": "Jibda bejn",
+        "data": {
+          "from": "Minn",
+          "to": "Sa"
+        }
+      },
+      "cond_weekdays": {
+        "title": "F'ċerti jiem",
+        "data": {
+          "days": "Jiem"
+        }
+      },
+      "cond_title": {
+        "title": "Titlu",
+        "data": {
+          "mode": "It-titlu",
+          "text": "Test"
+        }
+      },
+      "cond_day": {
+        "title": "Appuntament ieħor dak il-jum",
+        "description": "Pereżempju, l-ebda sveljarin f'jum b'\"Btala\" fil-kalendarju tal-familja.",
+        "data": {
+          "calendars": "Kalendarji",
+          "mode": "Dak il-jum",
+          "text": "Li t-titlu tiegħu fih"
+        }
+      },
+      "cond_state": {
+        "title": "Stat ta' entità",
+        "description": "Jiġi ċċekkjat kull darba li Home Assistant jaħdem l-allarmi (kull 15-il minuta). Telefon mingħajr konnessjoni jżomm l-aħħar lista tiegħu.",
+        "data": {
+          "entity": "Entità",
+          "mode": "Idoqq meta l-istat"
+        }
+      },
+      "cond_state_value": {
+        "title": "Stat ta' {entity}",
+        "data": {
+          "state": "Stat"
+        }
+      },
+      "remove_condition": {
+        "title": "Neħħi kundizzjoni",
+        "data": {
+          "condition": "Kundizzjoni"
+        }
+      },
+      "edit_alarm": {
+        "title": "Ibdel allarm skedat",
+        "data": {
+          "alarm": "Allarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Neħħi allarm skedat",
+        "data": {
+          "alarm": "Allarm"
+        }
+      },
+      "household": {
+        "title": "Abbonament tad-Dar",
+        "description": "Meta telefown wieħed ikollu l-Abbonament tad-Dar, sa {max} telefowns fuq dan Home Assistant jirċievu notifiki bla limitu, inkluż dak it-telefown. Ħallih vojt biex tinkludi t-telefowns li ġew marbuta l-ewwel, jew agħżel it-telefowns hawn. It-telefown bl-abbonament dejjem ikun inkluż.",
+        "data": {
+          "phones": "Telefowns tad-dar"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Agħti isem lill-profil.",
+      "name_taken": "Diġà hemm profil b'dan l-isem.",
+      "household_too_many": "Agħżel mhux aktar minn 6 telefowns.",
+      "alarm_name_required": "Agħti isem lill-allarm.",
+      "alarm_name_taken": "Diġà hemm allarm b'dan l-isem.",
+      "days_required": "Agħżel mill-inqas jum wieħed.",
+      "calendars_required": "Agħżel mill-inqas kalendarju wieħed.",
+      "text_required": "Daħħal it-test li għandu jiġi mfittex."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Il-prestabbilit tat-telefown",
+        "chime": "Daqqa ħelwa",
+        "bell": "Qanpiena",
+        "beep": "Bip",
+        "soft": "Artab",
+        "siren": "Sirena",
+        "alarm": "Arloġġ tal-allarm",
+        "none": "L-ebda ħoss"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Il-prestabbilit tat-telefown",
+        "short": "Qasira",
+        "long": "Twila",
+        "pulse": "Polz",
+        "sos": "SOS",
+        "none": "L-ebda vibrazzjoni"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Baxxa (ma titlax fuq l-iskrin)",
+        "default": "Normali",
+        "high": "Għolja (titla' fuq l-iskrin)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Ikkonferma",
+        "snooze": "Ipposponi"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "It-Tnejn",
+        "tue": "It-Tlieta",
+        "wed": "L-Erbgħa",
+        "thu": "Il-Ħamis",
+        "fri": "Il-Ġimgħa",
+        "sat": "Is-Sibt",
+        "sun": "Il-Ħadd"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Fih it-test",
+        "exact": "Huwa eżatt it-test"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Il-bidu tal-appuntament",
+        "end": "It-tmiem tal-appuntament"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Fih",
+        "not": "Ma fihx"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Hemm appuntament bħal dan",
+        "not": "M'hemmx appuntament bħal dan"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Huwa",
+        "not": "Mhuwiex"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Jibda bejn {from} u {to}",
+        "weekdays": "F'{days}",
+        "title_has": "It-titlu fih \"{text}\"",
+        "title_not": "It-titlu ma fihx \"{text}\"",
+        "day_has": "Dak il-jum hemm appuntament b'\"{text}\"",
+        "day_not": "Dak il-jum m'hemmx appuntament b'\"{text}\"",
+        "state_is": "{entity} huwa {state}",
+        "state_not": "{entity} mhuwiex {state}",
+        "none": "Għad m'hemm xejn."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Konnessjoni tad-dar"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "L-aħħar darba d-dar"
+      },
+      "subscription": {
+        "name": "Abbonament",
+        "state": {
+          "subscribed": "Abbonat",
+          "household": "Dar",
+          "free": "B'xejn (id-dar biss)",
+          "used_up": "In-notifiki b'xejn spiċċaw"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Pjan"
+          },
+          "free_left": {
+            "name": "Notifiki b'xejn li fadal"
+          },
+          "paid_until": {
+            "name": "Imħallas sa"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "L-allarm li jmiss",
+        "state_attributes": {
+          "title": {
+            "name": "Titlu"
+          },
+          "alarm": {
+            "name": "Allarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Ibgħat heads-up",
+      "clear": "Neħħi heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Titlu",
+      "message": "Messaġġ",
+      "entities": "Uri dawn l-entitajiet",
+      "tag": "Tikketta"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Ibgħat heads-up",
+      "description": "Jibgħat notifika lit-telefowns ta' Heads-up, ittrattata kif jgħid il-profil.",
+      "fields": {
+        "device_id": {
+          "name": "Telefowns",
+          "description": "Ħallih vojt biex tibgħat lit-telefowns marbuta kollha."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Isem il-profil. Vojt: il-profil prestabbilit."
+        },
+        "title": {
+          "name": "Titlu",
+          "description": "It-titlu tan-notifika."
+        },
+        "message": {
+          "name": "Messaġġ",
+          "description": "It-test tan-notifika."
+        },
+        "entities": {
+          "name": "Entitajiet",
+          "description": "L-istat attwali tagħhom jintwera fin-notifika."
+        },
+        "buttons": {
+          "name": "Buttuni",
+          "description": "Buttuni żejda; meta tagħfas wieħed minnhom jiskatta l-avveniment headsup_action bl-id tiegħu."
+        },
+        "tag": {
+          "name": "Tikketta",
+          "description": "Notifika ġdida bl-istess tikketta tieħu post dik ta' qabel (u tikkanċella l-posponiment tagħha). Tintuża wkoll minn Neħħi heads-up."
+        },
+        "ttl": {
+          "name": "Validu għal",
+          "description": "Turix in-notifika jekk tasal aktar tard minn hekk."
+        }
+      }
+    },
+    "clear": {
+      "name": "Neħħi heads-up",
+      "description": "Tneħħi n-notifika b'din it-tikketta mit-telefowns, tagħlaq l-iskrin tal-allarm tagħha u tikkanċella posponiment.",
+      "fields": {
+        "device_id": {
+          "name": "Telefowns",
+          "description": "Ħallih vojt biex tneħħi mit-telefowns marbuta kollha."
+        },
+        "tag": {
+          "name": "Tikketta",
+          "description": "It-tikketta li biha ntbagħtet in-notifika."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} jeħtieġ abbonament ta' Heads-up",
+      "description": "Home Assistant bagħat notifika li {phone} ma wrietx. Mingħajr abbonament, Heads-up juri 10 notifiki b'xejn, u biss waqt li t-telefown ikun id-dar.\n\nBiex tirċievi kull notifika, id-dar u barra, abbona fl-app Heads-up fuq {phone}, għal dak il-kont Google jew bħala dar għal sa 6 telefowns. It-tnejn jibdew bi prova b'xejn.\n\nDan il-messaġġ jisparixxi ladarba l-abbonament ikun attiv."
+    },
+    "household_full": {
+      "title": "{phone} mhuwiex parti mid-dar",
+      "description": "L-Abbonament tad-Dar ta' {owner} ikopri sa 6 telefowns fuq dan Home Assistant, u huwa mimli. {phone} jeħtieġ abbonament tiegħu, jew tista' tagħżel liema telefowns huma parti mid-dar taħt Heads-up, Configure, Abbonament tad-Dar."
+    }
+  }
+}

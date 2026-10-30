@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Postavlja Heads-up. Telefoni se sami pojavljuju među otkrivenim uređajima čim je aplikacija Heads-up otvorena na istoj mreži. Profili se izrađuju pod Konfiguriraj."
+      },
+      "pair": {
+        "title": "Poveži {name}",
+        "description": "Provjerite prikazuje li aplikacija Heads-up na uređaju **{name}** ovaj kod:\n\n## {code}\n\nNastavite samo ako se kodovi podudaraju."
+      }
+    },
+    "error": {
+      "pair_failed": "Povezivanje nije uspjelo. Držite aplikaciju otvorenom na telefonu i pokušajte ponovno."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up je već postavljen. Telefoni se dodaju kad budu otkriveni.",
+      "already_configured": "Ovaj je telefon već povezan. Da biste ga ponovno povezali, najprije ovdje izbrišite njegov uređaj (ili u aplikaciji dodirnite „Odspoji ovaj telefon”, čime se uklanja i ovdje).",
+      "other_instance": "Ovaj se telefon želi povezati s drugim Home Assistantom.",
+      "not_supported": "Ovaj uređaj nije aplikacija Heads-up.",
+      "cannot_connect": "Telefon nije dostupan. Držite aplikaciju otvorenom na telefonu i pokušajte ponovno.",
+      "phone_added": "{name} je povezan."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up profili",
+        "menu_options": {
+          "add_profile": "Dodaj profil",
+          "edit_profile": "Promijeni profil",
+          "delete_profile": "Ukloni profil",
+          "default_profile": "Zadani profil",
+          "household": "Pretplata za kućanstvo",
+          "add_alarm": "Dodaj zakazani alarm",
+          "edit_alarm": "Promijeni zakazani alarm",
+          "delete_alarm": "Ukloni zakazani alarm"
+        }
+      },
+      "add_profile": {
+        "title": "Novi profil",
+        "description": "Kako telefoni obrađuju obavijest poslanu s ovim profilom.",
+        "data": {
+          "name": "Naziv",
+          "sound": "Zvuk",
+          "vibration": "Vibracija",
+          "importance": "Važnost",
+          "alarm_stream": "Zvuk i kad je telefon utišan",
+          "bypass_dnd": "Nadjačavanje načina Ne uznemiravaj",
+          "full_screen": "Alarm na cijelom zaslonu (odbacivanje i odgoda)",
+          "repeat": "Ponavljanje zvuka do odgovora",
+          "buttons": "Gumbi",
+          "snooze_minutes": "Odgodi za",
+          "ring_minutes": "Zvoni najdulje",
+          "auto_snoozes": "Automatska odgoda najviše (puta)"
+        },
+        "data_description": {
+          "alarm_stream": "Svira glasnoćom alarma, kao budilica, pa se čuje i kad je telefon utišan.",
+          "ring_minutes": "Za alarme koji se ponavljaju i alarme na cijelom zaslonu. Ako nitko ne odgovori na vrijeme, alarm se sam odgodi. 0 zvoni dok netko ne odgovori.",
+          "auto_snoozes": "Nakon toliko automatskih odgoda alarm ostaje kao tiha obavijest „Propušteno” i Home Assistant dobiva događaj headsup_action s radnjom unanswered.",
+          "repeat": "Zvuk svira dok se obavijest ne otvori, ne odgovori na nju ili je se ne odbaci povlačenjem (ili dok ne istekne „Zvoni najdulje”). Isključeno: svira jednom."
+        }
+      },
+      "edit_profile": {
+        "title": "Promijeni profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Promjena profila",
+        "description": "Telefoni odmah dobivaju promjenu.",
+        "data": {
+          "name": "Naziv",
+          "sound": "Zvuk",
+          "vibration": "Vibracija",
+          "importance": "Važnost",
+          "alarm_stream": "Zvuk i kad je telefon utišan",
+          "bypass_dnd": "Nadjačavanje načina Ne uznemiravaj",
+          "full_screen": "Alarm na cijelom zaslonu (odbacivanje i odgoda)",
+          "repeat": "Ponavljanje zvuka do odgovora",
+          "buttons": "Gumbi",
+          "snooze_minutes": "Odgodi za",
+          "ring_minutes": "Zvoni najdulje",
+          "auto_snoozes": "Automatska odgoda najviše (puta)"
+        },
+        "data_description": {
+          "alarm_stream": "Svira glasnoćom alarma, kao budilica, pa se čuje i kad je telefon utišan.",
+          "ring_minutes": "Za alarme koji se ponavljaju i alarme na cijelom zaslonu. Ako nitko ne odgovori na vrijeme, alarm se sam odgodi. 0 zvoni dok netko ne odgovori.",
+          "auto_snoozes": "Nakon toliko automatskih odgoda alarm ostaje kao tiha obavijest „Propušteno” i Home Assistant dobiva događaj headsup_action s radnjom unanswered.",
+          "repeat": "Zvuk svira dok se obavijest ne otvori, ne odgovori na nju ili je se ne odbaci povlačenjem (ili dok ne istekne „Zvoni najdulje”). Isključeno: svira jednom."
+        }
+      },
+      "delete_profile": {
+        "title": "Ukloni profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Zadani profil",
+        "description": "Koristi se kad automatizacija ne navodi profil, primjerice s radnjom notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Novi zakazani alarm",
+        "menu_options": {
+          "weekly": "Određenim danima u određeno vrijeme",
+          "calendar": "Za sastanke iz kalendara"
+        }
+      },
+      "weekly": {
+        "title": "Alarm određenim danima",
+        "description": "Zvoni odabranim danima u odabrano vrijeme. Ako to vrijeme pada u sastanak iz odabranih kalendara, alarm se pomiče malo nakon sastanka, i iza sljedećeg također, dok ne bude slobodnog vremena. Telefoni pamte vremena, pa alarm zvoni i bez veze.",
+        "data": {
+          "name": "Naziv",
+          "message": "Poruka",
+          "profile": "Profil",
+          "phones": "Telefoni",
+          "days": "Dani",
+          "time": "Vrijeme",
+          "calendars": "Pomakni kod sastanaka u ovim kalendarima",
+          "after": "Nakon sastanka zvoni za",
+          "needed": "Potrebno slobodno vrijeme",
+          "latest": "Najkasnije u",
+          "all_day": "Računaju se i cjelodnevni sastanci"
+        },
+        "data_description": {
+          "name": "Ujedno naslov obavijesti.",
+          "phones": "Ostavite prazno za sve povezane telefone.",
+          "calendars": "Ostavite prazno da uvijek zvoni u zadano vrijeme.",
+          "needed": "Alarm zvoni samo ako u tom vremenu ne počinje nijedan sastanak.",
+          "latest": "Ako do tada nema slobodnog vremena, ipak zvoni u ovo vrijeme."
+        }
+      },
+      "calendar": {
+        "title": "Alarm za sastanke",
+        "description": "Zvoni za svaki sastanak iz odabranih kalendara čiji naslov sadrži tekst ili je točno taj tekst (velika i mala slova nisu važna). Obavijest prikazuje naslov sastanka. Telefoni pamte vremena, pa alarm zvoni i bez veze.",
+        "data": {
+          "name": "Naziv",
+          "message": "Poruka",
+          "profile": "Profil",
+          "phones": "Telefoni",
+          "calendars": "Kalendari",
+          "match": "Naslov",
+          "text": "Tekst",
+          "offset": "Minuta prije",
+          "anchor": "Računato od"
+        },
+        "data_description": {
+          "name": "Samo da ovdje pronađete alarm; obavijest prikazuje naslov sastanka.",
+          "message": "Ostavite prazno za prikaz vremena i mjesta sastanka.",
+          "phones": "Ostavite prazno za sve povezane telefone.",
+          "offset": "S negativnim brojem zvoni nakon njega."
+        }
+      },
+      "conditions": {
+        "title": "Uvjeti",
+        "description": "Alarm zvoni samo kad je sve ovo ispunjeno:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Dodaj uvjet",
+          "remove_condition": "Ukloni uvjet",
+          "save_alarm": "Spremi alarm"
+        }
+      },
+      "add_condition": {
+        "title": "Novi uvjet",
+        "menu_options": {
+          "cond_start": "Sastanak počinje između dva vremena",
+          "cond_weekdays": "Sastanak je određenim danima",
+          "cond_title": "Naslov sadrži tekst, ili ne",
+          "cond_day": "Tog dana postoji drugi sastanak, ili ne",
+          "cond_state": "Entitet ima stanje, ili ne"
+        }
+      },
+      "cond_start": {
+        "title": "Počinje između",
+        "data": {
+          "from": "Od",
+          "to": "Do"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Određenim danima",
+        "data": {
+          "days": "Dani"
+        }
+      },
+      "cond_title": {
+        "title": "Naslov",
+        "data": {
+          "mode": "Naslov",
+          "text": "Tekst"
+        }
+      },
+      "cond_day": {
+        "title": "Drugi sastanak tog dana",
+        "description": "Na primjer, bez budilice na dan s „Godišnji” u obiteljskom kalendaru.",
+        "data": {
+          "calendars": "Kalendari",
+          "mode": "Tog dana",
+          "text": "Čiji naslov sadrži"
+        }
+      },
+      "cond_state": {
+        "title": "Stanje entiteta",
+        "description": "Provjerava se svaki put kad Home Assistant izračunava alarme (svakih 15 minuta). Telefon bez veze zadržava svoj zadnji popis.",
+        "data": {
+          "entity": "Entitet",
+          "mode": "Zvoni kad je stanje"
+        }
+      },
+      "cond_state_value": {
+        "title": "Stanje: {entity}",
+        "data": {
+          "state": "Stanje"
+        }
+      },
+      "remove_condition": {
+        "title": "Ukloni uvjet",
+        "data": {
+          "condition": "Uvjet"
+        }
+      },
+      "edit_alarm": {
+        "title": "Promijeni zakazani alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Ukloni zakazani alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "household": {
+        "title": "Pretplata za kućanstvo",
+        "description": "Kada jedan telefon ima pretplatu za kućanstvo, do {max} telefona na ovom Home Assistantu dobiva neograničene obavijesti, uključujući taj telefon. Ostavite prazno kako biste uključili telefone koji su prvi povezani ili ovdje odaberite telefone. Telefon s pretplatom uvijek je uključen.",
+        "data": {
+          "phones": "Telefoni u kućanstvu"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Dajte profilu naziv.",
+      "name_taken": "Profil s tim nazivom već postoji.",
+      "household_too_many": "Odaberite najviše 6 telefona.",
+      "alarm_name_required": "Dajte alarmu naziv.",
+      "alarm_name_taken": "Alarm s tim nazivom već postoji.",
+      "days_required": "Odaberite barem jedan dan.",
+      "calendars_required": "Odaberite barem jedan kalendar.",
+      "text_required": "Upišite traženi tekst."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Zadano na telefonu",
+        "chime": "Zvončić",
+        "bell": "Zvono",
+        "beep": "Pištanje",
+        "soft": "Tiho",
+        "siren": "Sirena",
+        "alarm": "Budilica",
+        "none": "Bez zvuka"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Zadano na telefonu",
+        "short": "Kratko",
+        "long": "Dugo",
+        "pulse": "Pulsirajuće",
+        "sos": "SOS",
+        "none": "Bez vibracije"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Niska (bez skočnog prikaza)",
+        "default": "Normalna",
+        "high": "Visoka (skočni prikaz)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Potvrdi",
+        "snooze": "Odgodi"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Ponedjeljak",
+        "tue": "Utorak",
+        "wed": "Srijeda",
+        "thu": "Četvrtak",
+        "fri": "Petak",
+        "sat": "Subota",
+        "sun": "Nedjelja"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Sadrži tekst",
+        "exact": "Točno je tekst"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Početka sastanka",
+        "end": "Kraja sastanka"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Sadrži",
+        "not": "Ne sadrži"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Postoji takav sastanak",
+        "not": "Ne postoji takav sastanak"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Jest",
+        "not": "Nije"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Počinje između {from} i {to}",
+        "weekdays": "Dani: {days}",
+        "title_has": "Naslov sadrži „{text}”",
+        "title_not": "Naslov ne sadrži „{text}”",
+        "day_has": "Tog dana postoji sastanak s „{text}”",
+        "day_not": "Tog dana ne postoji sastanak s „{text}”",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: nije {state}",
+        "none": "Još nema."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Kućna veza"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Zadnji put viđen kod kuće"
+      },
+      "subscription": {
+        "name": "Pretplata",
+        "state": {
+          "subscribed": "Pretplaćeno",
+          "household": "Kućanstvo",
+          "free": "Besplatno (samo kod kuće)",
+          "used_up": "Besplatne obavijesti iskorištene"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Paket"
+          },
+          "free_left": {
+            "name": "Preostale besplatne obavijesti"
+          },
+          "paid_until": {
+            "name": "Plaćeno do"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Sljedeći alarm",
+        "state_attributes": {
+          "title": {
+            "name": "Naslov"
+          },
+          "alarm": {
+            "name": "Alarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Pošalji Heads-up obavijest",
+      "clear": "Očisti Heads-up obavijest"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Naslov",
+      "message": "Poruka",
+      "entities": "Prikaži ove entitete",
+      "tag": "Oznaka"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Pošalji Heads-up obavijest",
+      "description": "Šalje obavijest na telefone s aplikacijom Heads-up, obrađenu prema profilu.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoni",
+          "description": "Ostavite prazno za slanje na sve povezane telefone."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Naziv profila. Prazno: zadani profil."
+        },
+        "title": {
+          "name": "Naslov",
+          "description": "Naslov obavijesti."
+        },
+        "message": {
+          "name": "Poruka",
+          "description": "Tekst obavijesti."
+        },
+        "entities": {
+          "name": "Entiteti",
+          "description": "Njihovo se trenutačno stanje prikazuje u obavijesti."
+        },
+        "buttons": {
+          "name": "Gumbi",
+          "description": "Dodatni gumbi; dodir na gumb pokreće događaj headsup_action s njegovim id-om."
+        },
+        "tag": {
+          "name": "Oznaka",
+          "description": "Nova obavijest s istom oznakom zamjenjuje prethodnu (i poništava njezinu odgodu). Koristi je i radnja Očisti Heads-up obavijest."
+        },
+        "ttl": {
+          "name": "Vrijedi",
+          "description": "Obavijest se ne prikazuje ako stigne kasnije od ovoga."
+        }
+      }
+    },
+    "clear": {
+      "name": "Očisti Heads-up obavijest",
+      "description": "Uklanja obavijest s ovom oznakom s telefona, zatvara njezin zaslon alarma i poništava odgodu.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoni",
+          "description": "Ostavite prazno za čišćenje na svim povezanim telefonima."
+        },
+        "tag": {
+          "name": "Oznaka",
+          "description": "Oznaka s kojom je obavijest poslana."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone}: potrebna je pretplata na Heads-up",
+      "description": "Home Assistant poslao je obavijest koju {phone} nije prikazao. Bez pretplate Heads-up prikazuje 10 besplatnih obavijesti, i to samo dok je telefon kod kuće.\n\nDa biste primali sve obavijesti, kod kuće i izvan nje, pretplatite se u aplikaciji Heads-up na uređaju {phone}, za taj Google račun ili kao kućanstvo za do 6 telefona. Obje počinju besplatnim probnim razdobljem.\n\nOva poruka nestaje čim pretplata postane aktivna."
+    },
+    "household_full": {
+      "title": "{phone} nije u kućanstvu",
+      "description": "Pretplata za kućanstvo na uređaju {owner} pokriva do 6 telefona na ovom Home Assistantu i popunjena je. {phone} treba vlastitu pretplatu ili možete odabrati koji su telefoni u kućanstvu pod Heads-up, Konfiguriraj, Pretplata za kućanstvo."
+    }
+  }
+}

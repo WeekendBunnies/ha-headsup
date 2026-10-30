@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Sets up Heads-up. Phones appear by themselves under discovered devices once the Heads-up app is open on the same network. Profiles are made under Configure."
+      },
+      "pair": {
+        "title": "Link {name}",
+        "description": "Check that the Heads-up app on **{name}** shows this code:\n\n## {code}\n\nOnly continue when the codes match."
+      }
+    },
+    "error": {
+      "pair_failed": "Linking failed. Keep the app open on the phone and try again."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up is already set up. Phones are added when they are discovered.",
+      "already_configured": "This phone is already linked. To link it again, delete its device here first (or tap Unlink in the app, which removes it here too).",
+      "other_instance": "This phone wants to link with another Home Assistant.",
+      "not_supported": "This device is not a Heads-up app.",
+      "cannot_connect": "The phone could not be reached. Keep the app open on the phone and try again.",
+      "phone_added": "{name} is linked."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up profiles",
+        "menu_options": {
+          "add_profile": "Add a profile",
+          "edit_profile": "Change a profile",
+          "delete_profile": "Remove a profile",
+          "default_profile": "Default profile",
+          "household": "Household subscription",
+          "add_alarm": "Add a scheduled alarm",
+          "edit_alarm": "Change a scheduled alarm",
+          "delete_alarm": "Remove a scheduled alarm"
+        }
+      },
+      "add_profile": {
+        "title": "New profile",
+        "description": "How phones handle a notification sent with this profile.",
+        "data": {
+          "name": "Name",
+          "sound": "Sound",
+          "vibration": "Vibration",
+          "importance": "Importance",
+          "alarm_stream": "Sound even when the phone is silent",
+          "bypass_dnd": "Break through Do Not Disturb",
+          "full_screen": "Full-screen alarm (dismiss and snooze)",
+          "repeat": "Repeat the sound until answered",
+          "buttons": "Buttons",
+          "snooze_minutes": "Snooze for",
+          "ring_minutes": "Ring for at most",
+          "auto_snoozes": "Snooze automatically at most (times)"
+        },
+        "data_description": {
+          "alarm_stream": "Plays through the alarm volume, like an alarm clock, so it sounds even when the phone is set to silent.",
+          "ring_minutes": "For repeating and full-screen alarms. When nobody answers in time, the alarm snoozes itself. 0 rings until someone answers.",
+          "auto_snoozes": "After this many automatic snoozes the alarm stays as a silent \"Missed\" notification, and Home Assistant gets the event headsup_action with action unanswered.",
+          "repeat": "The sound keeps playing until the notification is opened, answered or swiped away (or until \"Ring for at most\" has passed). Off: it plays once."
+        }
+      },
+      "edit_profile": {
+        "title": "Change a profile",
+        "data": {
+          "profile": "Profile"
+        }
+      },
+      "profile": {
+        "title": "Change profile",
+        "description": "Phones get the change right away.",
+        "data": {
+          "name": "Name",
+          "sound": "Sound",
+          "vibration": "Vibration",
+          "importance": "Importance",
+          "alarm_stream": "Sound even when the phone is silent",
+          "bypass_dnd": "Break through Do Not Disturb",
+          "full_screen": "Full-screen alarm (dismiss and snooze)",
+          "repeat": "Repeat the sound until answered",
+          "buttons": "Buttons",
+          "snooze_minutes": "Snooze for",
+          "ring_minutes": "Ring for at most",
+          "auto_snoozes": "Snooze automatically at most (times)"
+        },
+        "data_description": {
+          "alarm_stream": "Plays through the alarm volume, like an alarm clock, so it sounds even when the phone is set to silent.",
+          "ring_minutes": "For repeating and full-screen alarms. When nobody answers in time, the alarm snoozes itself. 0 rings until someone answers.",
+          "auto_snoozes": "After this many automatic snoozes the alarm stays as a silent \"Missed\" notification, and Home Assistant gets the event headsup_action with action unanswered.",
+          "repeat": "The sound keeps playing until the notification is opened, answered or swiped away (or until \"Ring for at most\" has passed). Off: it plays once."
+        }
+      },
+      "delete_profile": {
+        "title": "Remove a profile",
+        "data": {
+          "profile": "Profile"
+        }
+      },
+      "default_profile": {
+        "title": "Default profile",
+        "description": "Used when an automation doesn't name a profile, for example with the notify action.",
+        "data": {
+          "profile": "Profile"
+        }
+      },
+      "add_alarm": {
+        "title": "New scheduled alarm",
+        "menu_options": {
+          "weekly": "On set days at a set time",
+          "calendar": "For appointments in a calendar"
+        }
+      },
+      "weekly": {
+        "title": "Alarm on set days",
+        "description": "Rings on the chosen days at the chosen time. When that time falls in an appointment in the chosen calendars, the alarm moves to a while after the appointment, and past the next one too, until there is free time. The phones keep the times, so the alarm also rings without a connection.",
+        "data": {
+          "name": "Name",
+          "message": "Message",
+          "profile": "Profile",
+          "phones": "Phones",
+          "days": "Days",
+          "time": "Time",
+          "calendars": "Move when busy in these calendars",
+          "after": "When busy, ring this long after the appointment",
+          "needed": "Free time needed",
+          "latest": "Not later than",
+          "all_day": "All-day appointments count as busy"
+        },
+        "data_description": {
+          "name": "Also the title of the notification.",
+          "phones": "Leave empty for all linked phones.",
+          "calendars": "Leave empty to always ring at the set time.",
+          "needed": "The alarm only rings when no appointment starts within this time.",
+          "latest": "Without free time before then, it rings at this time anyway."
+        }
+      },
+      "calendar": {
+        "title": "Alarm for appointments",
+        "description": "Rings for every appointment in the chosen calendars whose title contains the text, or is exactly that text (capitals don't matter). The notification shows the appointment's title. The phones keep the times, so the alarm also rings without a connection.",
+        "data": {
+          "name": "Name",
+          "message": "Message",
+          "profile": "Profile",
+          "phones": "Phones",
+          "calendars": "Calendars",
+          "match": "Title",
+          "text": "Text",
+          "offset": "Minutes before",
+          "anchor": "Counted from"
+        },
+        "data_description": {
+          "name": "Only to find the alarm here; the notification shows the appointment's title.",
+          "message": "Leave empty to show the appointment's time and place.",
+          "phones": "Leave empty for all linked phones.",
+          "offset": "A negative number rings after it."
+        }
+      },
+      "conditions": {
+        "title": "Conditions",
+        "description": "The alarm only rings when all of these are true:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Add a condition",
+          "remove_condition": "Remove a condition",
+          "save_alarm": "Save the alarm"
+        }
+      },
+      "add_condition": {
+        "title": "New condition",
+        "menu_options": {
+          "cond_start": "The appointment starts between two times",
+          "cond_weekdays": "The appointment is on certain days",
+          "cond_title": "The title contains a text, or doesn't",
+          "cond_day": "That day has another appointment, or doesn't",
+          "cond_state": "An entity has a state, or doesn't"
+        }
+      },
+      "cond_start": {
+        "title": "Starts between",
+        "data": {
+          "from": "From",
+          "to": "To"
+        }
+      },
+      "cond_weekdays": {
+        "title": "On certain days",
+        "data": {
+          "days": "Days"
+        }
+      },
+      "cond_title": {
+        "title": "Title",
+        "data": {
+          "mode": "The title",
+          "text": "Text"
+        }
+      },
+      "cond_day": {
+        "title": "Another appointment that day",
+        "description": "For example, no wake-up alarm on a day with \"Holiday\" in the family calendar.",
+        "data": {
+          "calendars": "Calendars",
+          "mode": "That day",
+          "text": "Whose title contains"
+        }
+      },
+      "cond_state": {
+        "title": "Entity state",
+        "description": "Checked each time Home Assistant works out the alarms (every 15 minutes). A phone without a connection keeps its last list.",
+        "data": {
+          "entity": "Entity",
+          "mode": "Rings when the state"
+        }
+      },
+      "cond_state_value": {
+        "title": "State of {entity}",
+        "data": {
+          "state": "State"
+        }
+      },
+      "remove_condition": {
+        "title": "Remove a condition",
+        "data": {
+          "condition": "Condition"
+        }
+      },
+      "edit_alarm": {
+        "title": "Change a scheduled alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Remove a scheduled alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "household": {
+        "title": "Household subscription",
+        "description": "When one phone has the Household subscription, up to {max} phones on this Home Assistant get unlimited notifications, that phone included. Leave this empty to include the phones that were linked first, or pick the phones here. The phone with the subscription is always included.",
+        "data": {
+          "phones": "Phones in the household"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Give the profile a name.",
+      "name_taken": "There is already a profile with this name.",
+      "household_too_many": "Pick at most 6 phones.",
+      "alarm_name_required": "Give the alarm a name.",
+      "alarm_name_taken": "There is already an alarm with this name.",
+      "days_required": "Pick at least one day.",
+      "calendars_required": "Pick at least one calendar.",
+      "text_required": "Fill in the text to look for."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Phone's default",
+        "chime": "Chime",
+        "bell": "Bell",
+        "beep": "Beep",
+        "soft": "Soft",
+        "siren": "Siren",
+        "alarm": "Alarm clock",
+        "none": "No sound"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Phone's default",
+        "short": "Short",
+        "long": "Long",
+        "pulse": "Pulse",
+        "sos": "SOS",
+        "none": "No vibration"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Low (no pop-up)",
+        "default": "Normal",
+        "high": "High (pops up)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Acknowledge",
+        "snooze": "Snooze"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday",
+        "sat": "Saturday",
+        "sun": "Sunday"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Contains the text",
+        "exact": "Is exactly the text"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "The start of the appointment",
+        "end": "The end of the appointment"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Contains",
+        "not": "Doesn't contain"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Has such an appointment",
+        "not": "Has no such appointment"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Is",
+        "not": "Is not"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Starts between {from} and {to}",
+        "weekdays": "On {days}",
+        "title_has": "Title contains \"{text}\"",
+        "title_not": "Title doesn't contain \"{text}\"",
+        "day_has": "That day has an appointment with \"{text}\"",
+        "day_not": "That day has no appointment with \"{text}\"",
+        "state_is": "{entity} is {state}",
+        "state_not": "{entity} is not {state}",
+        "none": "None yet."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Home connection"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Last seen at home"
+      },
+      "subscription": {
+        "name": "Subscription",
+        "state": {
+          "subscribed": "Subscribed",
+          "household": "Household",
+          "free": "Free (at home only)",
+          "used_up": "Free notifications used up"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Plan"
+          },
+          "free_left": {
+            "name": "Free notifications left"
+          },
+          "paid_until": {
+            "name": "Paid until"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Next alarm",
+        "state_attributes": {
+          "title": {
+            "name": "Title"
+          },
+          "alarm": {
+            "name": "Alarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Send heads-up",
+      "clear": "Clear heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profile",
+      "title": "Title",
+      "message": "Message",
+      "entities": "Show these entities",
+      "tag": "Tag"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Send heads-up",
+      "description": "Sends a notification to Heads-up phones, handled as the profile says.",
+      "fields": {
+        "device_id": {
+          "name": "Phones",
+          "description": "Leave empty to send to all linked phones."
+        },
+        "profile": {
+          "name": "Profile",
+          "description": "Name of the profile. Empty: the default profile."
+        },
+        "title": {
+          "name": "Title",
+          "description": "Title of the notification."
+        },
+        "message": {
+          "name": "Message",
+          "description": "Text of the notification."
+        },
+        "entities": {
+          "name": "Entities",
+          "description": "Their current state is shown in the notification."
+        },
+        "buttons": {
+          "name": "Buttons",
+          "description": "Extra buttons; tapping one fires the event headsup_action with its id."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "A new notification with the same tag replaces the earlier one (and cancels its snooze). Also used by Clear heads-up."
+        },
+        "ttl": {
+          "name": "Valid for",
+          "description": "Don't show the notification when it arrives later than this."
+        }
+      }
+    },
+    "clear": {
+      "name": "Clear heads-up",
+      "description": "Removes the notification with this tag from the phones, closes its alarm screen and cancels a snooze.",
+      "fields": {
+        "device_id": {
+          "name": "Phones",
+          "description": "Leave empty to clear on all linked phones."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "The tag the notification was sent with."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} needs a Heads-up subscription",
+      "description": "Home Assistant sent a notification that {phone} did not show. Without a subscription, Heads-up shows 10 free notifications, and only while the phone is at home.\n\nTo receive every notification, at home and away, subscribe in the Heads-up app on {phone}, for that Google account or as a household for up to 6 phones. Both start with a free trial.\n\nThis message goes away once the subscription is active."
+    },
+    "household_full": {
+      "title": "{phone} is not in the household",
+      "description": "The Household subscription of {owner} covers up to 6 phones on this Home Assistant, and it is full. {phone} needs its own subscription, or you can choose which phones are in the household under Heads-up, Configure, Household subscription."
+    }
+  }
+}

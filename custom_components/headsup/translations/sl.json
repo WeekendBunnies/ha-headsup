@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Nastavi Heads-up. Telefoni se sami prikažejo med odkritimi napravami, ko je aplikacija Heads-up odprta v istem omrežju. Profile ustvarite v Nastavi."
+      },
+      "pair": {
+        "title": "Poveži {name}",
+        "description": "Preverite, ali aplikacija Heads-up v napravi **{name}** prikazuje to kodo:\n\n## {code}\n\nNadaljujte samo, če se kodi ujemata."
+      }
+    },
+    "error": {
+      "pair_failed": "Povezovanje ni uspelo. Aplikacijo v telefonu pustite odprto in poskusite znova."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up je že nastavljen. Telefoni so dodani, ko so odkriti.",
+      "already_configured": "Ta telefon je že povezan. Če ga želite znova povezati, najprej tukaj izbrišite njegovo napravo (ali se v aplikaciji dotaknite »Odklopi ta telefon«, kar ga odstrani tudi tukaj).",
+      "other_instance": "Ta telefon se želi povezati z drugim Home Assistantom.",
+      "not_supported": "Ta naprava ni aplikacija Heads-up.",
+      "cannot_connect": "Telefon ni dosegljiv. Aplikacijo v telefonu pustite odprto in poskusite znova.",
+      "phone_added": "{name} je povezan."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Profili Heads-up",
+        "menu_options": {
+          "add_profile": "Dodaj profil",
+          "edit_profile": "Spremeni profil",
+          "delete_profile": "Odstrani profil",
+          "default_profile": "Privzeti profil",
+          "household": "Naročnina za gospodinjstvo",
+          "add_alarm": "Dodaj načrtovan alarm",
+          "edit_alarm": "Spremeni načrtovan alarm",
+          "delete_alarm": "Odstrani načrtovan alarm"
+        }
+      },
+      "add_profile": {
+        "title": "Nov profil",
+        "description": "Kako telefoni obravnavajo obvestilo, poslano s tem profilom.",
+        "data": {
+          "name": "Ime",
+          "sound": "Zvok",
+          "vibration": "Vibriranje",
+          "importance": "Pomembnost",
+          "alarm_stream": "Zvok tudi, ko je telefon utišan",
+          "bypass_dnd": "Preglasitev načina »Ne moti«",
+          "full_screen": "Alarm čez cel zaslon (opusti in odloži)",
+          "repeat": "Ponavljaj zvok do odziva",
+          "buttons": "Gumbi",
+          "snooze_minutes": "Odloži za",
+          "ring_minutes": "Zvoni največ",
+          "auto_snoozes": "Samodejno odloži največ (krat)"
+        },
+        "data_description": {
+          "alarm_stream": "Predvaja se z glasnostjo alarma, kot budilka, zato zazveni tudi, ko je telefon utišan.",
+          "ring_minutes": "Za ponavljajoče se alarme in alarme čez cel zaslon. Če se nihče ne odzove pravočasno, se alarm sam odloži. 0 zvoni, dokler se nekdo ne odzove.",
+          "auto_snoozes": "Po toliko samodejnih odložitvah alarm ostane kot tiho obvestilo »Zamujeno«, Home Assistant pa prejme dogodek headsup_action z dejanjem unanswered.",
+          "repeat": "Zvok se predvaja, dokler obvestilo ni odprto, potrjeno ali odstranjeno s potegom (ali dokler ne poteče »Zvoni največ«). Izklopljeno: predvaja se enkrat."
+        }
+      },
+      "edit_profile": {
+        "title": "Spremeni profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Sprememba profila",
+        "description": "Telefoni spremembo prejmejo takoj.",
+        "data": {
+          "name": "Ime",
+          "sound": "Zvok",
+          "vibration": "Vibriranje",
+          "importance": "Pomembnost",
+          "alarm_stream": "Zvok tudi, ko je telefon utišan",
+          "bypass_dnd": "Preglasitev načina »Ne moti«",
+          "full_screen": "Alarm čez cel zaslon (opusti in odloži)",
+          "repeat": "Ponavljaj zvok do odziva",
+          "buttons": "Gumbi",
+          "snooze_minutes": "Odloži za",
+          "ring_minutes": "Zvoni največ",
+          "auto_snoozes": "Samodejno odloži največ (krat)"
+        },
+        "data_description": {
+          "alarm_stream": "Predvaja se z glasnostjo alarma, kot budilka, zato zazveni tudi, ko je telefon utišan.",
+          "ring_minutes": "Za ponavljajoče se alarme in alarme čez cel zaslon. Če se nihče ne odzove pravočasno, se alarm sam odloži. 0 zvoni, dokler se nekdo ne odzove.",
+          "auto_snoozes": "Po toliko samodejnih odložitvah alarm ostane kot tiho obvestilo »Zamujeno«, Home Assistant pa prejme dogodek headsup_action z dejanjem unanswered.",
+          "repeat": "Zvok se predvaja, dokler obvestilo ni odprto, potrjeno ali odstranjeno s potegom (ali dokler ne poteče »Zvoni največ«). Izklopljeno: predvaja se enkrat."
+        }
+      },
+      "delete_profile": {
+        "title": "Odstrani profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Privzeti profil",
+        "description": "Uporabi se, ko avtomatizacija ne navede profila, na primer z dejanjem notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Nov načrtovan alarm",
+        "menu_options": {
+          "weekly": "Na izbrane dni ob določeni uri",
+          "calendar": "Za sestanke iz koledarja"
+        }
+      },
+      "weekly": {
+        "title": "Alarm na izbrane dni",
+        "description": "Zazvoni na izbrane dni ob izbrani uri. Če ta ura pade v sestanek iz izbranih koledarjev, se alarm premakne malo po sestanku, in tudi za naslednjega, dokler ni prostega časa. Telefoni si zapomnijo ure, zato alarm zazvoni tudi brez povezave.",
+        "data": {
+          "name": "Ime",
+          "message": "Sporočilo",
+          "profile": "Profil",
+          "phones": "Telefoni",
+          "days": "Dnevi",
+          "time": "Ura",
+          "calendars": "Premakni ob sestankih v teh koledarjih",
+          "after": "Po sestanku zazvoni čez",
+          "needed": "Potreben prosti čas",
+          "latest": "Najpozneje ob",
+          "all_day": "Štejejo tudi celodnevni sestanki"
+        },
+        "data_description": {
+          "name": "Hkrati naslov obvestila.",
+          "phones": "Pustite prazno za vse povezane telefone.",
+          "calendars": "Pustite prazno, da vedno zazvoni ob nastavljeni uri.",
+          "needed": "Alarm zazvoni samo, če se v tem času ne začne noben sestanek.",
+          "latest": "Če do takrat ni prostega časa, vseeno zazvoni ob tej uri."
+        }
+      },
+      "calendar": {
+        "title": "Alarm za sestanke",
+        "description": "Zazvoni za vsak sestanek iz izbranih koledarjev, katerega naslov vsebuje besedilo ali je točno to besedilo (velike in male črke niso pomembne). Obvestilo pokaže naslov sestanka. Telefoni si zapomnijo ure, zato alarm zazvoni tudi brez povezave.",
+        "data": {
+          "name": "Ime",
+          "message": "Sporočilo",
+          "profile": "Profil",
+          "phones": "Telefoni",
+          "calendars": "Koledarji",
+          "match": "Naslov",
+          "text": "Besedilo",
+          "offset": "Minut prej",
+          "anchor": "Šteto od"
+        },
+        "data_description": {
+          "name": "Samo da alarm najdete tukaj; obvestilo pokaže naslov sestanka.",
+          "message": "Pustite prazno, da se pokažeta ura in kraj sestanka.",
+          "phones": "Pustite prazno za vse povezane telefone.",
+          "offset": "Z negativnim številom zazvoni po njem."
+        }
+      },
+      "conditions": {
+        "title": "Pogoji",
+        "description": "Alarm zazvoni samo, ko drži vse to:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Dodaj pogoj",
+          "remove_condition": "Odstrani pogoj",
+          "save_alarm": "Shrani alarm"
+        }
+      },
+      "add_condition": {
+        "title": "Nov pogoj",
+        "menu_options": {
+          "cond_start": "Sestanek se začne med dvema urama",
+          "cond_weekdays": "Sestanek je na določene dni",
+          "cond_title": "Naslov vsebuje besedilo, ali ne",
+          "cond_day": "Ta dan je drug sestanek, ali ne",
+          "cond_state": "Entiteta ima stanje, ali ne"
+        }
+      },
+      "cond_start": {
+        "title": "Začne se med",
+        "data": {
+          "from": "Od",
+          "to": "Do"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Na določene dni",
+        "data": {
+          "days": "Dnevi"
+        }
+      },
+      "cond_title": {
+        "title": "Naslov",
+        "data": {
+          "mode": "Naslov",
+          "text": "Besedilo"
+        }
+      },
+      "cond_day": {
+        "title": "Drug sestanek ta dan",
+        "description": "Na primer brez budilke na dan z »Dopust« v družinskem koledarju.",
+        "data": {
+          "calendars": "Koledarji",
+          "mode": "Ta dan",
+          "text": "Katerega naslov vsebuje"
+        }
+      },
+      "cond_state": {
+        "title": "Stanje entitete",
+        "description": "Preveri se vsakič, ko Home Assistant izračuna alarme (vsakih 15 minut). Telefon brez povezave obdrži svoj zadnji seznam.",
+        "data": {
+          "entity": "Entiteta",
+          "mode": "Zazvoni, ko je stanje"
+        }
+      },
+      "cond_state_value": {
+        "title": "Stanje: {entity}",
+        "data": {
+          "state": "Stanje"
+        }
+      },
+      "remove_condition": {
+        "title": "Odstrani pogoj",
+        "data": {
+          "condition": "Pogoj"
+        }
+      },
+      "edit_alarm": {
+        "title": "Spremeni načrtovan alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Odstrani načrtovan alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "household": {
+        "title": "Naročnina za gospodinjstvo",
+        "description": "Ko ima en telefon naročnino za gospodinjstvo, do {max} telefonov v tem Home Assistantu prejema neomejeno število obvestil, vključno s tem telefonom. Pustite prazno, če želite vključiti telefone, ki so bili povezani prvi, ali pa tu izberite telefone. Telefon z naročnino je vedno vključen.",
+        "data": {
+          "phones": "Telefoni v gospodinjstvu"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Profilu dajte ime.",
+      "name_taken": "Profil s tem imenom že obstaja.",
+      "household_too_many": "Izberite največ 6 telefonov.",
+      "alarm_name_required": "Alarmu dajte ime.",
+      "alarm_name_taken": "Alarm s tem imenom že obstaja.",
+      "days_required": "Izberite vsaj en dan.",
+      "calendars_required": "Izberite vsaj en koledar.",
+      "text_required": "Vnesite iskano besedilo."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Privzeto v telefonu",
+        "chime": "Zvonček",
+        "bell": "Zvon",
+        "beep": "Pisk",
+        "soft": "Mehko",
+        "siren": "Sirena",
+        "alarm": "Budilka",
+        "none": "Brez zvoka"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Privzeto v telefonu",
+        "short": "Kratko",
+        "long": "Dolgo",
+        "pulse": "Utripajoče",
+        "sos": "SOS",
+        "none": "Brez vibriranja"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Nizka (brez pojavnega okna)",
+        "default": "Običajna",
+        "high": "Visoka (pojavno okno)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Potrdi",
+        "snooze": "Odloži"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Ponedeljek",
+        "tue": "Torek",
+        "wed": "Sreda",
+        "thu": "Četrtek",
+        "fri": "Petek",
+        "sat": "Sobota",
+        "sun": "Nedelja"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Vsebuje besedilo",
+        "exact": "Je točno besedilo"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Začetka sestanka",
+        "end": "Konca sestanka"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Vsebuje",
+        "not": "Ne vsebuje"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Je tak sestanek",
+        "not": "Ni takega sestanka"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Je",
+        "not": "Ni"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Začne se med {from} in {to}",
+        "weekdays": "Dnevi: {days}",
+        "title_has": "Naslov vsebuje »{text}«",
+        "title_not": "Naslov ne vsebuje »{text}«",
+        "day_has": "Ta dan je sestanek z »{text}«",
+        "day_not": "Ta dan ni sestanka z »{text}«",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: ni {state}",
+        "none": "Še nobenega."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Domača povezava"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Nazadnje viden doma"
+      },
+      "subscription": {
+        "name": "Naročnina",
+        "state": {
+          "subscribed": "Naročeno",
+          "household": "Gospodinjstvo",
+          "free": "Brezplačno (samo doma)",
+          "used_up": "Brezplačna obvestila porabljena"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Paket"
+          },
+          "free_left": {
+            "name": "Preostala brezplačna obvestila"
+          },
+          "paid_until": {
+            "name": "Plačano do"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Naslednji alarm",
+        "state_attributes": {
+          "title": {
+            "name": "Naslov"
+          },
+          "alarm": {
+            "name": "Alarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Pošlji obvestilo Heads-up",
+      "clear": "Počisti obvestilo Heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Naslov",
+      "message": "Sporočilo",
+      "entities": "Prikaži te entitete",
+      "tag": "Oznaka"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Pošlji obvestilo Heads-up",
+      "description": "Pošlje obvestilo v telefone z aplikacijo Heads-up, obravnavano po profilu.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoni",
+          "description": "Pustite prazno, če želite poslati v vse povezane telefone."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Ime profila. Prazno: privzeti profil."
+        },
+        "title": {
+          "name": "Naslov",
+          "description": "Naslov obvestila."
+        },
+        "message": {
+          "name": "Sporočilo",
+          "description": "Besedilo obvestila."
+        },
+        "entities": {
+          "name": "Entitete",
+          "description": "Njihovo trenutno stanje je prikazano v obvestilu."
+        },
+        "buttons": {
+          "name": "Gumbi",
+          "description": "Dodatni gumbi; dotik gumba sproži dogodek headsup_action z njegovim id."
+        },
+        "tag": {
+          "name": "Oznaka",
+          "description": "Novo obvestilo z isto oznako nadomesti prejšnje (in prekliče njegovo odložitev). Uporablja jo tudi dejanje Počisti obvestilo Heads-up."
+        },
+        "ttl": {
+          "name": "Velja",
+          "description": "Obvestilo se ne prikaže, če prispe pozneje od tega."
+        }
+      }
+    },
+    "clear": {
+      "name": "Počisti obvestilo Heads-up",
+      "description": "Odstrani obvestilo s to oznako iz telefonov, zapre njegov zaslon alarma in prekliče odložitev.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoni",
+          "description": "Pustite prazno, če želite počistiti v vseh povezanih telefonih."
+        },
+        "tag": {
+          "name": "Oznaka",
+          "description": "Oznaka, s katero je bilo obvestilo poslano."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} potrebuje naročnino na Heads-up",
+      "description": "Home Assistant je poslal obvestilo, ki ga {phone} ni prikazal. Brez naročnine Heads-up prikaže 10 brezplačnih obvestil, in to samo, ko je telefon doma.\n\nČe želite prejemati vsa obvestila, doma in zdoma, se naročite v aplikaciji Heads-up v napravi {phone}, za ta račun Google ali kot gospodinjstvo za do 6 telefonov. Obe se začneta z brezplačnim preskusnim obdobjem.\n\nTo sporočilo izgine, ko je naročnina aktivna."
+    },
+    "household_full": {
+      "title": "{phone} ni v gospodinjstvu",
+      "description": "Naročnina za gospodinjstvo v napravi {owner} velja za do 6 telefonov v tem Home Assistantu in je polna. {phone} potrebuje lastno naročnino, lahko pa izberete, kateri telefoni so v gospodinjstvu, pod Heads-up, Nastavi, Naročnina za gospodinjstvo."
+    }
+  }
+}

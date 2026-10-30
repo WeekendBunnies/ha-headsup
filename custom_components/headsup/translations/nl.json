@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Stelt Heads-up in. Telefoons verschijnen vanzelf onder de ontdekte apparaten zodra de Heads-up-app op hetzelfde netwerk open staat. Profielen maak je onder Configureer."
+      },
+      "pair": {
+        "title": "{name} koppelen",
+        "description": "Controleer of de Heads-up-app op **{name}** deze code toont:\n\n## {code}\n\nGa alleen verder als de codes overeenkomen."
+      }
+    },
+    "error": {
+      "pair_failed": "Koppelen mislukt. Houd de app open op de telefoon en probeer het opnieuw."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up is al ingesteld. Telefoons worden toegevoegd zodra ze ontdekt worden.",
+      "already_configured": "Deze telefoon is al gekoppeld. Wil je hem opnieuw koppelen, verwijder dan eerst hier het apparaat (of tik in de app op Ontkoppelen, dan wordt het hier ook verwijderd).",
+      "other_instance": "Deze telefoon wil koppelen met een andere Home Assistant.",
+      "not_supported": "Dit apparaat is geen Heads-up-app.",
+      "cannot_connect": "De telefoon was niet bereikbaar. Houd de app open op de telefoon en probeer het opnieuw.",
+      "phone_added": "{name} is gekoppeld."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up-profielen",
+        "menu_options": {
+          "add_profile": "Profiel toevoegen",
+          "edit_profile": "Profiel wijzigen",
+          "delete_profile": "Profiel verwijderen",
+          "default_profile": "Standaardprofiel",
+          "household": "Huishoudabonnement",
+          "add_alarm": "Gepland alarm toevoegen",
+          "edit_alarm": "Gepland alarm wijzigen",
+          "delete_alarm": "Gepland alarm verwijderen"
+        }
+      },
+      "add_profile": {
+        "title": "Nieuw profiel",
+        "description": "Hoe telefoons omgaan met een melding die met dit profiel is verstuurd.",
+        "data": {
+          "name": "Naam",
+          "sound": "Geluid",
+          "vibration": "Trillen",
+          "importance": "Belang",
+          "alarm_stream": "Geluid ook als de telefoon op stil staat",
+          "bypass_dnd": "Niet storen doorbreken",
+          "full_screen": "Alarm op volledig scherm (stoppen en snoozen)",
+          "repeat": "Geluid herhalen tot er gereageerd wordt",
+          "buttons": "Knoppen",
+          "snooze_minutes": "Snoozen voor",
+          "ring_minutes": "Maximale beltijd",
+          "auto_snoozes": "Maximaal aantal keer automatisch snoozen"
+        },
+        "data_description": {
+          "alarm_stream": "Speelt af via het alarmvolume, zoals een wekker, zodat het ook klinkt als de telefoon op stil staat.",
+          "ring_minutes": "Voor herhalende alarmen en alarmen op volledig scherm. Reageert niemand op tijd, dan snoozet het alarm zichzelf. 0 blijft afgaan tot iemand reageert.",
+          "auto_snoozes": "Na zoveel keer automatisch snoozen blijft het alarm staan als stille melding \"Gemist\", en krijgt Home Assistant de gebeurtenis headsup_action met action unanswered.",
+          "repeat": "Het geluid blijft spelen tot de melding geopend, beantwoord of weggeveegd wordt (of tot de \"Maximale beltijd\" voorbij is). Uit: het speelt één keer."
+        }
+      },
+      "edit_profile": {
+        "title": "Profiel wijzigen",
+        "data": {
+          "profile": "Profiel"
+        }
+      },
+      "profile": {
+        "title": "Profiel wijzigen",
+        "description": "Telefoons krijgen de wijziging meteen.",
+        "data": {
+          "name": "Naam",
+          "sound": "Geluid",
+          "vibration": "Trillen",
+          "importance": "Belang",
+          "alarm_stream": "Geluid ook als de telefoon op stil staat",
+          "bypass_dnd": "Niet storen doorbreken",
+          "full_screen": "Alarm op volledig scherm (stoppen en snoozen)",
+          "repeat": "Geluid herhalen tot er gereageerd wordt",
+          "buttons": "Knoppen",
+          "snooze_minutes": "Snoozen voor",
+          "ring_minutes": "Maximale beltijd",
+          "auto_snoozes": "Maximaal aantal keer automatisch snoozen"
+        },
+        "data_description": {
+          "alarm_stream": "Speelt af via het alarmvolume, zoals een wekker, zodat het ook klinkt als de telefoon op stil staat.",
+          "ring_minutes": "Voor herhalende alarmen en alarmen op volledig scherm. Reageert niemand op tijd, dan snoozet het alarm zichzelf. 0 blijft afgaan tot iemand reageert.",
+          "auto_snoozes": "Na zoveel keer automatisch snoozen blijft het alarm staan als stille melding \"Gemist\", en krijgt Home Assistant de gebeurtenis headsup_action met action unanswered.",
+          "repeat": "Het geluid blijft spelen tot de melding geopend, beantwoord of weggeveegd wordt (of tot de \"Maximale beltijd\" voorbij is). Uit: het speelt één keer."
+        }
+      },
+      "delete_profile": {
+        "title": "Profiel verwijderen",
+        "data": {
+          "profile": "Profiel"
+        }
+      },
+      "default_profile": {
+        "title": "Standaardprofiel",
+        "description": "Wordt gebruikt als een automatisering geen profiel noemt, bijvoorbeeld bij de actie notify.",
+        "data": {
+          "profile": "Profiel"
+        }
+      },
+      "add_alarm": {
+        "title": "Nieuw gepland alarm",
+        "menu_options": {
+          "weekly": "Op vaste dagen op een vaste tijd",
+          "calendar": "Voor afspraken in een agenda"
+        }
+      },
+      "weekly": {
+        "title": "Alarm op vaste dagen",
+        "description": "Gaat af op de gekozen dagen op de gekozen tijd. Valt die tijd in een afspraak in de gekozen agenda's, dan schuift het alarm op naar een tijdje na die afspraak, en ook voorbij de volgende, tot er vrije tijd is. De telefoons onthouden de tijden, dus het alarm gaat ook af zonder verbinding.",
+        "data": {
+          "name": "Naam",
+          "message": "Bericht",
+          "profile": "Profiel",
+          "phones": "Telefoons",
+          "days": "Dagen",
+          "time": "Tijd",
+          "calendars": "Opschuiven bij afspraken in deze agenda's",
+          "after": "Na een afspraak afgaan na",
+          "needed": "Benodigde vrije tijd",
+          "latest": "Niet later dan",
+          "all_day": "Afspraken voor de hele dag tellen mee"
+        },
+        "data_description": {
+          "name": "Ook de titel van de melding.",
+          "phones": "Leeg laten voor alle gekoppelde telefoons.",
+          "calendars": "Leeg laten om altijd op de vaste tijd af te gaan.",
+          "needed": "Het alarm gaat alleen af als er binnen deze tijd geen afspraak begint.",
+          "latest": "Is er tot dan geen vrije tijd, dan gaat het alarm toch op deze tijd af."
+        }
+      },
+      "calendar": {
+        "title": "Alarm voor afspraken",
+        "description": "Gaat af voor elke afspraak in de gekozen agenda's waarvan de titel de tekst bevat, of precies die tekst is (hoofdletters maken niet uit). De melding toont de titel van de afspraak. De telefoons onthouden de tijden, dus het alarm gaat ook af zonder verbinding.",
+        "data": {
+          "name": "Naam",
+          "message": "Bericht",
+          "profile": "Profiel",
+          "phones": "Telefoons",
+          "calendars": "Agenda's",
+          "match": "Titel",
+          "text": "Tekst",
+          "offset": "Minuten ervoor",
+          "anchor": "Gerekend vanaf"
+        },
+        "data_description": {
+          "name": "Alleen om het alarm hier terug te vinden; de melding toont de titel van de afspraak.",
+          "message": "Leeg laten om de tijd en plaats van de afspraak te tonen.",
+          "phones": "Leeg laten voor alle gekoppelde telefoons.",
+          "offset": "Met een negatief getal gaat het erna af."
+        }
+      },
+      "conditions": {
+        "title": "Voorwaarden",
+        "description": "Het alarm gaat alleen af als dit allemaal klopt:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Voorwaarde toevoegen",
+          "remove_condition": "Voorwaarde verwijderen",
+          "save_alarm": "Alarm opslaan"
+        }
+      },
+      "add_condition": {
+        "title": "Nieuwe voorwaarde",
+        "menu_options": {
+          "cond_start": "De afspraak begint tussen twee tijden",
+          "cond_weekdays": "De afspraak valt op bepaalde dagen",
+          "cond_title": "De titel bevat een tekst, of juist niet",
+          "cond_day": "Die dag heeft een andere afspraak, of juist niet",
+          "cond_state": "Een entiteit heeft een status, of juist niet"
+        }
+      },
+      "cond_start": {
+        "title": "Begint tussen",
+        "data": {
+          "from": "Van",
+          "to": "Tot"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Op bepaalde dagen",
+        "data": {
+          "days": "Dagen"
+        }
+      },
+      "cond_title": {
+        "title": "Titel",
+        "data": {
+          "mode": "De titel",
+          "text": "Tekst"
+        }
+      },
+      "cond_day": {
+        "title": "Andere afspraak die dag",
+        "description": "Bijvoorbeeld geen wekker op een dag met \"Vrij\" in de gezinsagenda.",
+        "data": {
+          "calendars": "Agenda's",
+          "mode": "Die dag",
+          "text": "Waarvan de titel bevat"
+        }
+      },
+      "cond_state": {
+        "title": "Status van een entiteit",
+        "description": "Gecontroleerd telkens als Home Assistant de alarmen uitrekent (elke 15 minuten). Een telefoon zonder verbinding houdt zijn laatste lijst.",
+        "data": {
+          "entity": "Entiteit",
+          "mode": "Gaat af als de status"
+        }
+      },
+      "cond_state_value": {
+        "title": "Status van {entity}",
+        "data": {
+          "state": "Status"
+        }
+      },
+      "remove_condition": {
+        "title": "Voorwaarde verwijderen",
+        "data": {
+          "condition": "Voorwaarde"
+        }
+      },
+      "edit_alarm": {
+        "title": "Gepland alarm wijzigen",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Gepland alarm verwijderen",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "household": {
+        "title": "Huishoudabonnement",
+        "description": "Als één telefoon het Huishoudabonnement heeft, krijgen maximaal {max} telefoons op deze Home Assistant onbeperkt meldingen, die telefoon meegerekend. Laat dit leeg om de telefoons te nemen die het eerst gekoppeld zijn, of kies hier de telefoons. De telefoon met het abonnement hoort er altijd bij.",
+        "data": {
+          "phones": "Telefoons in het huishouden"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Geef het profiel een naam.",
+      "name_taken": "Er is al een profiel met deze naam.",
+      "household_too_many": "Kies maximaal 6 telefoons.",
+      "alarm_name_required": "Geef het alarm een naam.",
+      "alarm_name_taken": "Er is al een alarm met deze naam.",
+      "days_required": "Kies minstens één dag.",
+      "calendars_required": "Kies minstens één agenda.",
+      "text_required": "Vul de tekst in waarop gezocht wordt."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Standaard van de telefoon",
+        "chime": "Gong",
+        "bell": "Bel",
+        "beep": "Piep",
+        "soft": "Zacht",
+        "siren": "Sirene",
+        "alarm": "Wekker",
+        "none": "Geen geluid"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Standaard van de telefoon",
+        "short": "Kort",
+        "long": "Lang",
+        "pulse": "Puls",
+        "sos": "SOS",
+        "none": "Niet trillen"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Laag (geen pop-up)",
+        "default": "Normaal",
+        "high": "Hoog (als pop-up)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Gezien",
+        "snooze": "Snoozen"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Maandag",
+        "tue": "Dinsdag",
+        "wed": "Woensdag",
+        "thu": "Donderdag",
+        "fri": "Vrijdag",
+        "sat": "Zaterdag",
+        "sun": "Zondag"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Bevat de tekst",
+        "exact": "Is precies de tekst"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Het begin van de afspraak",
+        "end": "Het einde van de afspraak"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Bevat",
+        "not": "Bevat niet"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Heeft zo'n afspraak",
+        "not": "Heeft geen zo'n afspraak"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Is",
+        "not": "Is niet"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Begint tussen {from} en {to}",
+        "weekdays": "Op {days}",
+        "title_has": "Titel bevat \"{text}\"",
+        "title_not": "Titel bevat niet \"{text}\"",
+        "day_has": "Die dag heeft een afspraak met \"{text}\"",
+        "day_not": "Die dag heeft geen afspraak met \"{text}\"",
+        "state_is": "{entity} is {state}",
+        "state_not": "{entity} is niet {state}",
+        "none": "Nog geen."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Thuisverbinding"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Laatst thuis gezien"
+      },
+      "subscription": {
+        "name": "Abonnement",
+        "state": {
+          "subscribed": "Geabonneerd",
+          "household": "Huishouden",
+          "free": "Gratis (alleen thuis)",
+          "used_up": "Gratis meldingen op"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Abonnementsvorm"
+          },
+          "free_left": {
+            "name": "Gratis meldingen over"
+          },
+          "paid_until": {
+            "name": "Betaald tot"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Volgend alarm",
+        "state_attributes": {
+          "title": {
+            "name": "Titel"
+          },
+          "alarm": {
+            "name": "Alarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Heads-up sturen",
+      "clear": "Heads-up wissen"
+    },
+    "extra_fields": {
+      "profile": "Profiel",
+      "title": "Titel",
+      "message": "Bericht",
+      "entities": "Deze entiteiten tonen",
+      "tag": "Tag"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Heads-up sturen",
+      "description": "Stuurt een melding naar Heads-up-telefoons, die ermee omgaan zoals het profiel zegt.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoons",
+          "description": "Leeg laten om naar alle gekoppelde telefoons te sturen."
+        },
+        "profile": {
+          "name": "Profiel",
+          "description": "Naam van het profiel. Leeg: het standaardprofiel."
+        },
+        "title": {
+          "name": "Titel",
+          "description": "Titel van de melding."
+        },
+        "message": {
+          "name": "Bericht",
+          "description": "Tekst van de melding."
+        },
+        "entities": {
+          "name": "Entiteiten",
+          "description": "Hun huidige status wordt in de melding getoond."
+        },
+        "buttons": {
+          "name": "Knoppen",
+          "description": "Extra knoppen; een tik op een knop vuurt de gebeurtenis headsup_action af met de id van die knop."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "Een nieuwe melding met dezelfde tag vervangt de vorige (en annuleert de snooze daarvan). Wordt ook gebruikt door Heads-up wissen."
+        },
+        "ttl": {
+          "name": "Geldig voor",
+          "description": "Toon de melding niet als ze later aankomt dan dit."
+        }
+      }
+    },
+    "clear": {
+      "name": "Heads-up wissen",
+      "description": "Haalt de melding met deze tag weg van de telefoons, sluit het alarmscherm ervan en annuleert een snooze.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoons",
+          "description": "Leeg laten om op alle gekoppelde telefoons te wissen."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "De tag waarmee de melding is verstuurd."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} heeft een Heads-up-abonnement nodig",
+      "description": "Home Assistant heeft een melding gestuurd die {phone} niet heeft getoond. Zonder abonnement toont Heads-up 10 gratis meldingen, en alleen als de telefoon thuis is.\n\nWil je elke melding ontvangen, thuis en onderweg, neem dan een abonnement in de Heads-up-app op {phone}, voor dat Google-account of als huishouden voor maximaal 6 telefoons. Beide beginnen met een gratis proefperiode.\n\nDit bericht verdwijnt zodra het abonnement actief is."
+    },
+    "household_full": {
+      "title": "{phone} hoort niet bij het huishouden",
+      "description": "Het Huishoudabonnement van {owner} geldt voor maximaal 6 telefoons op deze Home Assistant, en het is vol. {phone} heeft een eigen abonnement nodig, of je kiest welke telefoons in het huishouden zitten onder Heads-up, Configureer, Huishoudabonnement."
+    }
+  }
+}

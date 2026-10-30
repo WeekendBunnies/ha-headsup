@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Configurează Heads-up. Telefoanele apar singure la dispozitivele descoperite de îndată ce aplicația Heads-up este deschisă în aceeași rețea. Profilurile se creează din Configurare."
+      },
+      "pair": {
+        "title": "Asociază {name}",
+        "description": "Verifică dacă aplicația Heads-up de pe **{name}** afișează acest cod:\n\n## {code}\n\nContinuă doar dacă codurile coincid."
+      }
+    },
+    "error": {
+      "pair_failed": "Asocierea a eșuat. Ține aplicația deschisă pe telefon și încearcă din nou."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up este deja configurat. Telefoanele se adaugă atunci când sunt descoperite.",
+      "already_configured": "Acest telefon este deja asociat. Ca să-l asociezi din nou, șterge mai întâi aici dispozitivul lui (sau atinge Disociază acest telefon în aplicație, ceea ce îl elimină și de aici).",
+      "other_instance": "Acest telefon vrea să se asocieze cu alt Home Assistant.",
+      "not_supported": "Acest dispozitiv nu este o aplicație Heads-up.",
+      "cannot_connect": "Telefonul nu a putut fi contactat. Ține aplicația deschisă pe telefon și încearcă din nou.",
+      "phone_added": "{name} este asociat."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Profiluri Heads-up",
+        "menu_options": {
+          "add_profile": "Adaugă un profil",
+          "edit_profile": "Modifică un profil",
+          "delete_profile": "Elimină un profil",
+          "default_profile": "Profil implicit",
+          "household": "Abonament pentru gospodărie",
+          "add_alarm": "Adaugă o alarmă programată",
+          "edit_alarm": "Modifică o alarmă programată",
+          "delete_alarm": "Elimină o alarmă programată"
+        }
+      },
+      "add_profile": {
+        "title": "Profil nou",
+        "description": "Cum tratează telefoanele o notificare trimisă cu acest profil.",
+        "data": {
+          "name": "Nume",
+          "sound": "Sunet",
+          "vibration": "Vibrație",
+          "importance": "Importanță",
+          "alarm_stream": "Sună chiar și când telefonul este pe silențios",
+          "bypass_dnd": "Trece peste Nu deranja",
+          "full_screen": "Alarmă pe tot ecranul (oprire și amânare)",
+          "repeat": "Repetă sunetul până la răspuns",
+          "buttons": "Butoane",
+          "snooze_minutes": "Amână pentru",
+          "ring_minutes": "Sună cel mult",
+          "auto_snoozes": "Amână automat de cel mult (ori)"
+        },
+        "data_description": {
+          "alarm_stream": "Sună la volumul alarmei, ca un ceas deșteptător, așa că se aude chiar și când telefonul este pe silențios.",
+          "ring_minutes": "Pentru alarmele repetate și cele pe tot ecranul. Dacă nimeni nu răspunde la timp, alarma se amână singură. 0 sună până răspunde cineva.",
+          "auto_snoozes": "După atâtea amânări automate, alarma rămâne ca notificare silențioasă „Fără răspuns”, iar Home Assistant primește evenimentul headsup_action cu acțiunea unanswered.",
+          "repeat": "Sunetul continuă până când notificarea este deschisă, primește răspuns sau este închisă prin glisare (sau până trece timpul de la „Sună cel mult”). Dezactivat: sună o dată."
+        }
+      },
+      "edit_profile": {
+        "title": "Modifică un profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Modifică profilul",
+        "description": "Telefoanele primesc modificarea imediat.",
+        "data": {
+          "name": "Nume",
+          "sound": "Sunet",
+          "vibration": "Vibrație",
+          "importance": "Importanță",
+          "alarm_stream": "Sună chiar și când telefonul este pe silențios",
+          "bypass_dnd": "Trece peste Nu deranja",
+          "full_screen": "Alarmă pe tot ecranul (oprire și amânare)",
+          "repeat": "Repetă sunetul până la răspuns",
+          "buttons": "Butoane",
+          "snooze_minutes": "Amână pentru",
+          "ring_minutes": "Sună cel mult",
+          "auto_snoozes": "Amână automat de cel mult (ori)"
+        },
+        "data_description": {
+          "alarm_stream": "Sună la volumul alarmei, ca un ceas deșteptător, așa că se aude chiar și când telefonul este pe silențios.",
+          "ring_minutes": "Pentru alarmele repetate și cele pe tot ecranul. Dacă nimeni nu răspunde la timp, alarma se amână singură. 0 sună până răspunde cineva.",
+          "auto_snoozes": "După atâtea amânări automate, alarma rămâne ca notificare silențioasă „Fără răspuns”, iar Home Assistant primește evenimentul headsup_action cu acțiunea unanswered.",
+          "repeat": "Sunetul continuă până când notificarea este deschisă, primește răspuns sau este închisă prin glisare (sau până trece timpul de la „Sună cel mult”). Dezactivat: sună o dată."
+        }
+      },
+      "delete_profile": {
+        "title": "Elimină un profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Profil implicit",
+        "description": "Folosit când o automatizare nu numește un profil, de exemplu cu acțiunea notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Alarmă programată nouă",
+        "menu_options": {
+          "weekly": "În anumite zile la o oră fixă",
+          "calendar": "Pentru programările dintr-un calendar"
+        }
+      },
+      "weekly": {
+        "title": "Alarmă în anumite zile",
+        "description": "Sună în zilele alese la ora aleasă. Dacă ora cade în timpul unei programări din calendarele alese, alarma se mută la ceva timp după programare, și după următoarea, până când există timp liber. Telefoanele păstrează orele, așa că alarma sună și fără conexiune.",
+        "data": {
+          "name": "Nume",
+          "message": "Mesaj",
+          "profile": "Profil",
+          "phones": "Telefoane",
+          "days": "Zile",
+          "time": "Ora",
+          "calendars": "Mută la programări din aceste calendare",
+          "after": "După o programare, sună peste",
+          "needed": "Timp liber necesar",
+          "latest": "Nu mai târziu de",
+          "all_day": "Contează și programările de o zi întreagă"
+        },
+        "data_description": {
+          "name": "Este și titlul notificării.",
+          "phones": "Lasă gol pentru toate telefoanele asociate.",
+          "calendars": "Lasă gol ca să sune mereu la ora stabilită.",
+          "needed": "Alarma sună doar dacă nicio programare nu începe în acest timp.",
+          "latest": "Fără timp liber până atunci, sună oricum la această oră."
+        }
+      },
+      "calendar": {
+        "title": "Alarmă pentru programări",
+        "description": "Sună pentru fiecare programare din calendarele alese al cărei titlu conține textul sau este exact acel text (literele mari nu contează). Notificarea arată titlul programării. Telefoanele păstrează orele, așa că alarma sună și fără conexiune.",
+        "data": {
+          "name": "Nume",
+          "message": "Mesaj",
+          "profile": "Profil",
+          "phones": "Telefoane",
+          "calendars": "Calendare",
+          "match": "Titlu",
+          "text": "Text",
+          "offset": "Minute înainte",
+          "anchor": "Socotit de la"
+        },
+        "data_description": {
+          "name": "Doar ca să găsești alarma aici; notificarea arată titlul programării.",
+          "message": "Lasă gol ca să afișezi ora și locul programării.",
+          "phones": "Lasă gol pentru toate telefoanele asociate.",
+          "offset": "Cu un număr negativ sună după."
+        }
+      },
+      "conditions": {
+        "title": "Condiții",
+        "description": "Alarma sună doar când toate acestea sunt adevărate:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Adaugă o condiție",
+          "remove_condition": "Elimină o condiție",
+          "save_alarm": "Salvează alarma"
+        }
+      },
+      "add_condition": {
+        "title": "Condiție nouă",
+        "menu_options": {
+          "cond_start": "Programarea începe între două ore",
+          "cond_weekdays": "Programarea este în anumite zile",
+          "cond_title": "Titlul conține un text, sau nu",
+          "cond_day": "În ziua aceea există altă programare, sau nu",
+          "cond_state": "O entitate are o stare, sau nu"
+        }
+      },
+      "cond_start": {
+        "title": "Începe între",
+        "data": {
+          "from": "De la",
+          "to": "Până la"
+        }
+      },
+      "cond_weekdays": {
+        "title": "În anumite zile",
+        "data": {
+          "days": "Zile"
+        }
+      },
+      "cond_title": {
+        "title": "Titlu",
+        "data": {
+          "mode": "Titlul",
+          "text": "Text"
+        }
+      },
+      "cond_day": {
+        "title": "Altă programare în ziua aceea",
+        "description": "De exemplu, fără deșteptător într-o zi cu „Concediu” în calendarul familiei.",
+        "data": {
+          "calendars": "Calendare",
+          "mode": "În ziua aceea",
+          "text": "Al cărei titlu conține"
+        }
+      },
+      "cond_state": {
+        "title": "Starea unei entități",
+        "description": "Verificată de fiecare dată când Home Assistant calculează alarmele (la fiecare 15 minute). Un telefon fără conexiune își păstrează ultima listă.",
+        "data": {
+          "entity": "Entitate",
+          "mode": "Sună când starea"
+        }
+      },
+      "cond_state_value": {
+        "title": "Starea pentru {entity}",
+        "data": {
+          "state": "Stare"
+        }
+      },
+      "remove_condition": {
+        "title": "Elimină o condiție",
+        "data": {
+          "condition": "Condiție"
+        }
+      },
+      "edit_alarm": {
+        "title": "Modifică o alarmă programată",
+        "data": {
+          "alarm": "Alarmă"
+        }
+      },
+      "delete_alarm": {
+        "title": "Elimină o alarmă programată",
+        "data": {
+          "alarm": "Alarmă"
+        }
+      },
+      "household": {
+        "title": "Abonament pentru gospodărie",
+        "description": "Când un telefon are abonamentul pentru gospodărie, până la {max} telefoane din acest Home Assistant primesc notificări nelimitate, inclusiv acel telefon. Lasă gol ca să incluzi telefoanele asociate primele sau alege aici telefoanele. Telefonul cu abonamentul este inclus mereu.",
+        "data": {
+          "phones": "Telefoane din gospodărie"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Dă un nume profilului.",
+      "name_taken": "Există deja un profil cu acest nume.",
+      "household_too_many": "Alege cel mult 6 telefoane.",
+      "alarm_name_required": "Dă un nume alarmei.",
+      "alarm_name_taken": "Există deja o alarmă cu acest nume.",
+      "days_required": "Alege cel puțin o zi.",
+      "calendars_required": "Alege cel puțin un calendar.",
+      "text_required": "Completează textul căutat."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Implicit pe telefon",
+        "chime": "Clopoțel",
+        "bell": "Sonerie",
+        "beep": "Bip",
+        "soft": "Discret",
+        "siren": "Sirenă",
+        "alarm": "Ceas deșteptător",
+        "none": "Fără sunet"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Implicit pe telefon",
+        "short": "Scurtă",
+        "long": "Lungă",
+        "pulse": "Puls",
+        "sos": "SOS",
+        "none": "Fără vibrație"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Scăzută (fără pop-up)",
+        "default": "Normală",
+        "high": "Ridicată (cu pop-up)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Confirmă",
+        "snooze": "Amână"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Luni",
+        "tue": "Marți",
+        "wed": "Miercuri",
+        "thu": "Joi",
+        "fri": "Vineri",
+        "sat": "Sâmbătă",
+        "sun": "Duminică"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Conține textul",
+        "exact": "Este exact textul"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Începutul programării",
+        "end": "Sfârșitul programării"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Conține",
+        "not": "Nu conține"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Există o asemenea programare",
+        "not": "Nu există o asemenea programare"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Este",
+        "not": "Nu este"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Începe între {from} și {to}",
+        "weekdays": "În zilele: {days}",
+        "title_has": "Titlul conține „{text}”",
+        "title_not": "Titlul nu conține „{text}”",
+        "day_has": "În ziua aceea există o programare cu „{text}”",
+        "day_not": "În ziua aceea nu există o programare cu „{text}”",
+        "state_is": "{entity} este {state}",
+        "state_not": "{entity} nu este {state}",
+        "none": "Niciuna încă."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Conexiune acasă"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Văzut ultima dată acasă"
+      },
+      "subscription": {
+        "name": "Abonament",
+        "state": {
+          "subscribed": "Abonat",
+          "household": "Gospodărie",
+          "free": "Gratuit (doar acasă)",
+          "used_up": "Notificări gratuite epuizate"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Plan"
+          },
+          "free_left": {
+            "name": "Notificări gratuite rămase"
+          },
+          "paid_until": {
+            "name": "Plătit până la"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Următoarea alarmă",
+        "state_attributes": {
+          "title": {
+            "name": "Titlu"
+          },
+          "alarm": {
+            "name": "Alarmă"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Trimite notificare Heads-up",
+      "clear": "Șterge notificarea Heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Titlu",
+      "message": "Mesaj",
+      "entities": "Afișează aceste entități",
+      "tag": "Etichetă"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Trimite notificare Heads-up",
+      "description": "Trimite o notificare la telefoanele cu Heads-up, tratată cum spune profilul.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoane",
+          "description": "Lasă gol ca să trimiți la toate telefoanele asociate."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Numele profilului. Gol: profilul implicit."
+        },
+        "title": {
+          "name": "Titlu",
+          "description": "Titlul notificării."
+        },
+        "message": {
+          "name": "Mesaj",
+          "description": "Textul notificării."
+        },
+        "entities": {
+          "name": "Entități",
+          "description": "Starea lor curentă este afișată în notificare."
+        },
+        "buttons": {
+          "name": "Butoane",
+          "description": "Butoane suplimentare; atingerea unuia declanșează evenimentul headsup_action cu id-ul lui."
+        },
+        "tag": {
+          "name": "Etichetă",
+          "description": "O notificare nouă cu aceeași etichetă o înlocuiește pe cea anterioară (și îi anulează amânarea). Folosită și de Șterge notificarea Heads-up."
+        },
+        "ttl": {
+          "name": "Valabilă timp de",
+          "description": "Nu afișa notificarea dacă ajunge mai târziu de atât."
+        }
+      }
+    },
+    "clear": {
+      "name": "Șterge notificarea Heads-up",
+      "description": "Elimină de pe telefoane notificarea cu această etichetă, închide ecranul ei de alarmă și anulează o amânare.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoane",
+          "description": "Lasă gol ca să ștergi de pe toate telefoanele asociate."
+        },
+        "tag": {
+          "name": "Etichetă",
+          "description": "Eticheta cu care a fost trimisă notificarea."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} are nevoie de un abonament Heads-up",
+      "description": "Home Assistant a trimis o notificare pe care {phone} nu a afișat-o. Fără abonament, Heads-up afișează 10 notificări gratuite și doar cât timp telefonul este acasă.\n\nCa să primești toate notificările, acasă și oriunde altundeva, abonează-te în aplicația Heads-up de pe {phone}, pentru acel cont Google sau pentru gospodărie, cu până la 6 telefoane. Ambele încep cu o perioadă de probă gratuită.\n\nAcest mesaj dispare după ce abonamentul devine activ."
+    },
+    "household_full": {
+      "title": "{phone} nu face parte din gospodărie",
+      "description": "Abonamentul pentru gospodărie de pe {owner} acoperă până la 6 telefoane din acest Home Assistant și este complet. {phone} are nevoie de propriul abonament sau poți alege ce telefoane fac parte din gospodărie din Heads-up, Configurare, Abonament pentru gospodărie."
+    }
+  }
+}

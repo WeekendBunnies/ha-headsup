@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Konfigurerar Heads-up. Telefoner dyker upp av sig själva bland upptäckta enheter när Heads-up-appen är öppen i samma nätverk. Profiler skapas under Konfigurera."
+      },
+      "pair": {
+        "title": "Koppla {name}",
+        "description": "Kontrollera att Heads-up-appen på **{name}** visar den här koden:\n\n## {code}\n\nFortsätt bara om koderna stämmer överens."
+      }
+    },
+    "error": {
+      "pair_failed": "Kopplingen misslyckades. Håll appen öppen på telefonen och försök igen."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up är redan konfigurerat. Telefoner läggs till när de upptäcks.",
+      "already_configured": "Den här telefonen är redan kopplad. Om du vill koppla den igen tar du först bort dess enhet här (eller trycker på Koppla bort telefonen i appen, som också tar bort den här).",
+      "other_instance": "Den här telefonen vill koppla till en annan Home Assistant.",
+      "not_supported": "Den här enheten är ingen Heads-up-app.",
+      "cannot_connect": "Det gick inte att nå telefonen. Håll appen öppen på telefonen och försök igen.",
+      "phone_added": "{name} är kopplad."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up-profiler",
+        "menu_options": {
+          "add_profile": "Lägg till en profil",
+          "edit_profile": "Ändra en profil",
+          "delete_profile": "Ta bort en profil",
+          "default_profile": "Standardprofil",
+          "household": "Hushållsprenumeration",
+          "add_alarm": "Lägg till ett schemalagt larm",
+          "edit_alarm": "Ändra ett schemalagt larm",
+          "delete_alarm": "Ta bort ett schemalagt larm"
+        }
+      },
+      "add_profile": {
+        "title": "Ny profil",
+        "description": "Hur telefonerna hanterar en avisering som skickas med den här profilen.",
+        "data": {
+          "name": "Namn",
+          "sound": "Ljud",
+          "vibration": "Vibration",
+          "importance": "Prioritet",
+          "alarm_stream": "Ljud även när telefonen är ljudlös",
+          "bypass_dnd": "Bryt igenom Stör ej",
+          "full_screen": "Larm i helskärm (stäng av och snooza)",
+          "repeat": "Upprepa ljudet tills någon svarar",
+          "buttons": "Knappar",
+          "snooze_minutes": "Snooza i",
+          "ring_minutes": "Ring i högst",
+          "auto_snoozes": "Snooza automatiskt högst (gånger)"
+        },
+        "data_description": {
+          "alarm_stream": "Spelas upp med alarmvolymen, som en väckarklocka, så att det hörs även när telefonen är inställd på ljudlös.",
+          "ring_minutes": "För upprepade larm och larm i helskärm. Om ingen svarar i tid snoozar larmet sig självt. 0 ringer tills någon svarar.",
+          "auto_snoozes": "Efter så här många automatiska snoozningar ligger larmet kvar som en tyst avisering ”Missat”, och Home Assistant får händelsen headsup_action med action unanswered.",
+          "repeat": "Ljudet fortsätter att spelas tills aviseringen öppnas, besvaras eller sveps bort (eller tills ”Ring i högst” har passerat). Av: det spelas en gång."
+        }
+      },
+      "edit_profile": {
+        "title": "Ändra en profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Ändra profil",
+        "description": "Telefonerna får ändringen direkt.",
+        "data": {
+          "name": "Namn",
+          "sound": "Ljud",
+          "vibration": "Vibration",
+          "importance": "Prioritet",
+          "alarm_stream": "Ljud även när telefonen är ljudlös",
+          "bypass_dnd": "Bryt igenom Stör ej",
+          "full_screen": "Larm i helskärm (stäng av och snooza)",
+          "repeat": "Upprepa ljudet tills någon svarar",
+          "buttons": "Knappar",
+          "snooze_minutes": "Snooza i",
+          "ring_minutes": "Ring i högst",
+          "auto_snoozes": "Snooza automatiskt högst (gånger)"
+        },
+        "data_description": {
+          "alarm_stream": "Spelas upp med alarmvolymen, som en väckarklocka, så att det hörs även när telefonen är inställd på ljudlös.",
+          "ring_minutes": "För upprepade larm och larm i helskärm. Om ingen svarar i tid snoozar larmet sig självt. 0 ringer tills någon svarar.",
+          "auto_snoozes": "Efter så här många automatiska snoozningar ligger larmet kvar som en tyst avisering ”Missat”, och Home Assistant får händelsen headsup_action med action unanswered.",
+          "repeat": "Ljudet fortsätter att spelas tills aviseringen öppnas, besvaras eller sveps bort (eller tills ”Ring i högst” har passerat). Av: det spelas en gång."
+        }
+      },
+      "delete_profile": {
+        "title": "Ta bort en profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Standardprofil",
+        "description": "Används när en automatisering inte anger någon profil, till exempel med åtgärden notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Nytt schemalagt larm",
+        "menu_options": {
+          "weekly": "Vissa dagar vid en bestämd tid",
+          "calendar": "För möten i en kalender"
+        }
+      },
+      "weekly": {
+        "title": "Larm vissa dagar",
+        "description": "Ringer de valda dagarna vid den valda tiden. Om tiden infaller under ett möte i de valda kalendrarna flyttas larmet till en stund efter mötet, och förbi nästa också, tills det finns ledig tid. Telefonerna kommer ihåg tiderna, så larmet ringer även utan anslutning.",
+        "data": {
+          "name": "Namn",
+          "message": "Meddelande",
+          "profile": "Profil",
+          "phones": "Telefoner",
+          "days": "Dagar",
+          "time": "Tid",
+          "calendars": "Flytta vid möten i dessa kalendrar",
+          "after": "Efter ett möte ring om",
+          "needed": "Ledig tid som behövs",
+          "latest": "Senast kl.",
+          "all_day": "Heldagsmöten räknas också"
+        },
+        "data_description": {
+          "name": "Även aviseringens rubrik.",
+          "phones": "Lämna tomt för alla kopplade telefoner.",
+          "calendars": "Lämna tomt för att alltid ringa vid den bestämda tiden.",
+          "needed": "Larmet ringer bara när inget möte börjar inom den här tiden.",
+          "latest": "Finns ingen ledig tid före dess ringer det ändå vid den här tiden."
+        }
+      },
+      "calendar": {
+        "title": "Larm för möten",
+        "description": "Ringer för varje möte i de valda kalendrarna vars rubrik innehåller texten eller är exakt den texten (versaler spelar ingen roll). Aviseringen visar mötets rubrik. Telefonerna kommer ihåg tiderna, så larmet ringer även utan anslutning.",
+        "data": {
+          "name": "Namn",
+          "message": "Meddelande",
+          "profile": "Profil",
+          "phones": "Telefoner",
+          "calendars": "Kalendrar",
+          "match": "Rubrik",
+          "text": "Text",
+          "offset": "Minuter före",
+          "anchor": "Räknat från"
+        },
+        "data_description": {
+          "name": "Bara för att hitta larmet här; aviseringen visar mötets rubrik.",
+          "message": "Lämna tomt för att visa mötets tid och plats.",
+          "phones": "Lämna tomt för alla kopplade telefoner.",
+          "offset": "Med ett negativt tal ringer det efter."
+        }
+      },
+      "conditions": {
+        "title": "Villkor",
+        "description": "Larmet ringer bara när allt detta stämmer:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Lägg till ett villkor",
+          "remove_condition": "Ta bort ett villkor",
+          "save_alarm": "Spara larmet"
+        }
+      },
+      "add_condition": {
+        "title": "Nytt villkor",
+        "menu_options": {
+          "cond_start": "Mötet börjar mellan två tider",
+          "cond_weekdays": "Mötet är vissa dagar",
+          "cond_title": "Rubriken innehåller en text, eller inte",
+          "cond_day": "Den dagen finns ett annat möte, eller inte",
+          "cond_state": "En entitet har ett tillstånd, eller inte"
+        }
+      },
+      "cond_start": {
+        "title": "Börjar mellan",
+        "data": {
+          "from": "Från",
+          "to": "Till"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Vissa dagar",
+        "data": {
+          "days": "Dagar"
+        }
+      },
+      "cond_title": {
+        "title": "Rubrik",
+        "data": {
+          "mode": "Rubriken",
+          "text": "Text"
+        }
+      },
+      "cond_day": {
+        "title": "Annat möte den dagen",
+        "description": "Till exempel ingen väckning en dag med ”Ledig” i familjekalendern.",
+        "data": {
+          "calendars": "Kalendrar",
+          "mode": "Den dagen",
+          "text": "Vars rubrik innehåller"
+        }
+      },
+      "cond_state": {
+        "title": "En entitets tillstånd",
+        "description": "Kontrolleras varje gång Home Assistant räknar ut larmen (var 15:e minut). En telefon utan anslutning behåller sin senaste lista.",
+        "data": {
+          "entity": "Entitet",
+          "mode": "Ringer när tillståndet"
+        }
+      },
+      "cond_state_value": {
+        "title": "Tillstånd för {entity}",
+        "data": {
+          "state": "Tillstånd"
+        }
+      },
+      "remove_condition": {
+        "title": "Ta bort ett villkor",
+        "data": {
+          "condition": "Villkor"
+        }
+      },
+      "edit_alarm": {
+        "title": "Ändra ett schemalagt larm",
+        "data": {
+          "alarm": "Larm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Ta bort ett schemalagt larm",
+        "data": {
+          "alarm": "Larm"
+        }
+      },
+      "household": {
+        "title": "Hushållsprenumeration",
+        "description": "När en telefon har hushållsprenumerationen får upp till {max} telefoner på den här Home Assistant obegränsat antal aviseringar, den telefonen inräknad. Lämna tomt för att ta med de telefoner som kopplades först, eller välj telefonerna här. Telefonen med prenumerationen ingår alltid.",
+        "data": {
+          "phones": "Telefoner i hushållet"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Ge profilen ett namn.",
+      "name_taken": "Det finns redan en profil med det här namnet.",
+      "household_too_many": "Välj högst 6 telefoner.",
+      "alarm_name_required": "Ge larmet ett namn.",
+      "alarm_name_taken": "Det finns redan ett larm med det här namnet.",
+      "days_required": "Välj minst en dag.",
+      "calendars_required": "Välj minst en kalender.",
+      "text_required": "Fyll i texten att söka efter."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Telefonens standard",
+        "chime": "Klockspel",
+        "bell": "Klocka",
+        "beep": "Pip",
+        "soft": "Mjukt",
+        "siren": "Siren",
+        "alarm": "Väckarklocka",
+        "none": "Inget ljud"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Telefonens standard",
+        "short": "Kort",
+        "long": "Lång",
+        "pulse": "Puls",
+        "sos": "SOS",
+        "none": "Ingen vibration"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Låg (ingen popup)",
+        "default": "Normal",
+        "high": "Hög (visas som popup)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Kvittera",
+        "snooze": "Snooza"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Måndag",
+        "tue": "Tisdag",
+        "wed": "Onsdag",
+        "thu": "Torsdag",
+        "fri": "Fredag",
+        "sat": "Lördag",
+        "sun": "Söndag"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Innehåller texten",
+        "exact": "Är exakt texten"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Mötets början",
+        "end": "Mötets slut"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Innehåller",
+        "not": "Innehåller inte"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Har ett sådant möte",
+        "not": "Har inget sådant möte"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Är",
+        "not": "Är inte"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Börjar mellan {from} och {to}",
+        "weekdays": "På {days}",
+        "title_has": "Rubriken innehåller ”{text}”",
+        "title_not": "Rubriken innehåller inte ”{text}”",
+        "day_has": "Den dagen finns ett möte med ”{text}”",
+        "day_not": "Den dagen finns inget möte med ”{text}”",
+        "state_is": "{entity} är {state}",
+        "state_not": "{entity} är inte {state}",
+        "none": "Inga än."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Hemanslutning"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Senast sedd hemma"
+      },
+      "subscription": {
+        "name": "Prenumeration",
+        "state": {
+          "subscribed": "Prenumererar",
+          "household": "Hushåll",
+          "free": "Gratis (bara hemma)",
+          "used_up": "Gratis aviseringar förbrukade"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Prenumerationstyp"
+          },
+          "free_left": {
+            "name": "Gratis aviseringar kvar"
+          },
+          "paid_until": {
+            "name": "Betald till"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Nästa larm",
+        "state_attributes": {
+          "title": {
+            "name": "Rubrik"
+          },
+          "alarm": {
+            "name": "Larm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Skicka heads-up",
+      "clear": "Rensa heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Rubrik",
+      "message": "Meddelande",
+      "entities": "Visa de här entiteterna",
+      "tag": "Tagg"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Skicka heads-up",
+      "description": "Skickar en avisering till Heads-up-telefoner, som hanteras enligt profilen.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoner",
+          "description": "Lämna tomt för att skicka till alla kopplade telefoner."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Profilens namn. Tomt: standardprofilen."
+        },
+        "title": {
+          "name": "Rubrik",
+          "description": "Aviseringens rubrik."
+        },
+        "message": {
+          "name": "Meddelande",
+          "description": "Aviseringens text."
+        },
+        "entities": {
+          "name": "Entiteter",
+          "description": "Deras aktuella tillstånd visas i aviseringen."
+        },
+        "buttons": {
+          "name": "Knappar",
+          "description": "Extra knappar; ett tryck på en av dem utlöser händelsen headsup_action med dess id."
+        },
+        "tag": {
+          "name": "Tagg",
+          "description": "En ny avisering med samma tagg ersätter den tidigare (och avbryter dess snoozning). Används också av Rensa heads-up."
+        },
+        "ttl": {
+          "name": "Giltig i",
+          "description": "Visa inte aviseringen om den kommer fram senare än så här."
+        }
+      }
+    },
+    "clear": {
+      "name": "Rensa heads-up",
+      "description": "Tar bort aviseringen med den här taggen från telefonerna, stänger dess larmskärm och avbryter en snoozning.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoner",
+          "description": "Lämna tomt för att rensa på alla kopplade telefoner."
+        },
+        "tag": {
+          "name": "Tagg",
+          "description": "Taggen som aviseringen skickades med."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} behöver en Heads-up-prenumeration",
+      "description": "Home Assistant skickade en avisering som {phone} inte visade. Utan prenumeration visar Heads-up 10 gratis aviseringar, och bara medan telefonen är hemma.\n\nOm du vill ta emot alla aviseringar, hemma och borta, prenumererar du i Heads-up-appen på {phone}, för det Google-kontot eller som hushåll för upp till 6 telefoner. Båda börjar med en gratis provperiod.\n\nDet här meddelandet försvinner när prenumerationen är aktiv."
+    },
+    "household_full": {
+      "title": "{phone} ingår inte i hushållet",
+      "description": "Hushållsprenumerationen på {owner} omfattar upp till 6 telefoner på den här Home Assistant, och den är full. {phone} behöver en egen prenumeration, eller så kan du välja vilka telefoner som ingår i hushållet under Heads-up, Konfigurera, Hushållsprenumeration."
+    }
+  }
+}

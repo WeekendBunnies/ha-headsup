@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Configure Heads-up. Les téléphones apparaissent d'eux-mêmes parmi les appareils découverts dès que l'application Heads-up est ouverte sur le même réseau. Les profils se créent dans Configurer."
+      },
+      "pair": {
+        "title": "Associer {name}",
+        "description": "Vérifiez que l'application Heads-up sur **{name}** affiche ce code :\n\n## {code}\n\nNe continuez que si les codes correspondent."
+      }
+    },
+    "error": {
+      "pair_failed": "L'association a échoué. Gardez l'application ouverte sur le téléphone et réessayez."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up est déjà configuré. Les téléphones sont ajoutés lorsqu'ils sont découverts.",
+      "already_configured": "Ce téléphone est déjà associé. Pour l'associer à nouveau, supprimez d'abord son appareil ici (ou touchez Dissocier dans l'application, ce qui le supprime aussi ici).",
+      "other_instance": "Ce téléphone veut s'associer à un autre Home Assistant.",
+      "not_supported": "Cet appareil n'est pas une application Heads-up.",
+      "cannot_connect": "Le téléphone est injoignable. Gardez l'application ouverte sur le téléphone et réessayez.",
+      "phone_added": "{name} est associé."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Profils Heads-up",
+        "menu_options": {
+          "add_profile": "Ajouter un profil",
+          "edit_profile": "Modifier un profil",
+          "delete_profile": "Supprimer un profil",
+          "default_profile": "Profil par défaut",
+          "household": "Abonnement Foyer",
+          "add_alarm": "Ajouter une alarme planifiée",
+          "edit_alarm": "Modifier une alarme planifiée",
+          "delete_alarm": "Supprimer une alarme planifiée"
+        }
+      },
+      "add_profile": {
+        "title": "Nouveau profil",
+        "description": "Comment les téléphones traitent une notification envoyée avec ce profil.",
+        "data": {
+          "name": "Nom",
+          "sound": "Son",
+          "vibration": "Vibration",
+          "importance": "Importance",
+          "alarm_stream": "Sonner même si le téléphone est en mode silencieux",
+          "bypass_dnd": "Ignorer le mode Ne pas déranger",
+          "full_screen": "Alarme en plein écran (arrêter et reporter)",
+          "repeat": "Répéter le son jusqu'à une réponse",
+          "buttons": "Boutons",
+          "snooze_minutes": "Reporter de",
+          "ring_minutes": "Sonner au maximum pendant",
+          "auto_snoozes": "Nombre maximal de reports automatiques"
+        },
+        "data_description": {
+          "alarm_stream": "Passe par le volume des alarmes, comme un réveil, pour sonner même quand le téléphone est en mode silencieux.",
+          "ring_minutes": "Pour les alarmes répétées et en plein écran. Si personne ne répond à temps, l'alarme se reporte d'elle-même. 0 sonne jusqu'à ce que quelqu'un réponde.",
+          "auto_snoozes": "Après ce nombre de reports automatiques, l'alarme reste affichée comme notification silencieuse \"Manquée\", et Home Assistant reçoit l'événement headsup_action avec action unanswered.",
+          "repeat": "Le son continue jusqu'à ce que la notification soit ouverte, traitée ou balayée (ou jusqu'à ce que la durée \"Sonner au maximum pendant\" soit écoulée). Désactivé : il est joué une fois."
+        }
+      },
+      "edit_profile": {
+        "title": "Modifier un profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Modifier le profil",
+        "description": "Les téléphones reçoivent la modification immédiatement.",
+        "data": {
+          "name": "Nom",
+          "sound": "Son",
+          "vibration": "Vibration",
+          "importance": "Importance",
+          "alarm_stream": "Sonner même si le téléphone est en mode silencieux",
+          "bypass_dnd": "Ignorer le mode Ne pas déranger",
+          "full_screen": "Alarme en plein écran (arrêter et reporter)",
+          "repeat": "Répéter le son jusqu'à une réponse",
+          "buttons": "Boutons",
+          "snooze_minutes": "Reporter de",
+          "ring_minutes": "Sonner au maximum pendant",
+          "auto_snoozes": "Nombre maximal de reports automatiques"
+        },
+        "data_description": {
+          "alarm_stream": "Passe par le volume des alarmes, comme un réveil, pour sonner même quand le téléphone est en mode silencieux.",
+          "ring_minutes": "Pour les alarmes répétées et en plein écran. Si personne ne répond à temps, l'alarme se reporte d'elle-même. 0 sonne jusqu'à ce que quelqu'un réponde.",
+          "auto_snoozes": "Après ce nombre de reports automatiques, l'alarme reste affichée comme notification silencieuse \"Manquée\", et Home Assistant reçoit l'événement headsup_action avec action unanswered.",
+          "repeat": "Le son continue jusqu'à ce que la notification soit ouverte, traitée ou balayée (ou jusqu'à ce que la durée \"Sonner au maximum pendant\" soit écoulée). Désactivé : il est joué une fois."
+        }
+      },
+      "delete_profile": {
+        "title": "Supprimer un profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Profil par défaut",
+        "description": "Utilisé quand une automatisation ne nomme pas de profil, par exemple avec l'action notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Nouvelle alarme planifiée",
+        "menu_options": {
+          "weekly": "Certains jours à une heure fixe",
+          "calendar": "Pour les rendez-vous d'un calendrier"
+        }
+      },
+      "weekly": {
+        "title": "Alarme certains jours",
+        "description": "Sonne les jours choisis à l'heure choisie. Si cette heure tombe pendant un rendez-vous des calendriers choisis, l'alarme est décalée à un moment après ce rendez-vous, et après le suivant aussi, jusqu'à ce qu'il y ait du temps libre. Les téléphones gardent les horaires, donc l'alarme sonne aussi sans connexion.",
+        "data": {
+          "name": "Nom",
+          "message": "Message",
+          "profile": "Profil",
+          "phones": "Téléphones",
+          "days": "Jours",
+          "time": "Heure",
+          "calendars": "Décaler en cas de rendez-vous dans ces calendriers",
+          "after": "Après un rendez-vous, sonner au bout de",
+          "needed": "Temps libre nécessaire",
+          "latest": "Pas plus tard que",
+          "all_day": "Les rendez-vous sur la journée entière comptent"
+        },
+        "data_description": {
+          "name": "Aussi le titre de la notification.",
+          "phones": "Laissez vide pour tous les téléphones associés.",
+          "calendars": "Laissez vide pour toujours sonner à l'heure fixée.",
+          "needed": "L'alarme ne sonne que si aucun rendez-vous ne commence pendant ce temps.",
+          "latest": "Sans temps libre avant cette heure, elle sonne quand même à cette heure."
+        }
+      },
+      "calendar": {
+        "title": "Alarme pour des rendez-vous",
+        "description": "Sonne pour chaque rendez-vous des calendriers choisis dont le titre contient le texte, ou est exactement ce texte (majuscules sans importance). La notification affiche le titre du rendez-vous. Les téléphones gardent les horaires, donc l'alarme sonne aussi sans connexion.",
+        "data": {
+          "name": "Nom",
+          "message": "Message",
+          "profile": "Profil",
+          "phones": "Téléphones",
+          "calendars": "Calendriers",
+          "match": "Titre",
+          "text": "Texte",
+          "offset": "Minutes avant",
+          "anchor": "Compté à partir de"
+        },
+        "data_description": {
+          "name": "Seulement pour retrouver l'alarme ici ; la notification affiche le titre du rendez-vous.",
+          "message": "Laissez vide pour afficher l'heure et le lieu du rendez-vous.",
+          "phones": "Laissez vide pour tous les téléphones associés.",
+          "offset": "Avec un nombre négatif, elle sonne après."
+        }
+      },
+      "conditions": {
+        "title": "Conditions",
+        "description": "L'alarme ne sonne que si tout ceci est vrai :\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Ajouter une condition",
+          "remove_condition": "Supprimer une condition",
+          "save_alarm": "Enregistrer l'alarme"
+        }
+      },
+      "add_condition": {
+        "title": "Nouvelle condition",
+        "menu_options": {
+          "cond_start": "Le rendez-vous commence entre deux heures",
+          "cond_weekdays": "Le rendez-vous tombe certains jours",
+          "cond_title": "Le titre contient un texte, ou non",
+          "cond_day": "Ce jour-là a un autre rendez-vous, ou non",
+          "cond_state": "Une entité a un état, ou non"
+        }
+      },
+      "cond_start": {
+        "title": "Commence entre",
+        "data": {
+          "from": "De",
+          "to": "À"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Certains jours",
+        "data": {
+          "days": "Jours"
+        }
+      },
+      "cond_title": {
+        "title": "Titre",
+        "data": {
+          "mode": "Le titre",
+          "text": "Texte"
+        }
+      },
+      "cond_day": {
+        "title": "Autre rendez-vous ce jour-là",
+        "description": "Par exemple, pas de réveil un jour où « Congé » figure dans le calendrier familial.",
+        "data": {
+          "calendars": "Calendriers",
+          "mode": "Ce jour-là",
+          "text": "Dont le titre contient"
+        }
+      },
+      "cond_state": {
+        "title": "État d'une entité",
+        "description": "Vérifié chaque fois que Home Assistant calcule les alarmes (toutes les 15 minutes). Un téléphone sans connexion garde sa dernière liste.",
+        "data": {
+          "entity": "Entité",
+          "mode": "Sonne quand l'état"
+        }
+      },
+      "cond_state_value": {
+        "title": "État de {entity}",
+        "data": {
+          "state": "État"
+        }
+      },
+      "remove_condition": {
+        "title": "Supprimer une condition",
+        "data": {
+          "condition": "Condition"
+        }
+      },
+      "edit_alarm": {
+        "title": "Modifier une alarme planifiée",
+        "data": {
+          "alarm": "Alarme"
+        }
+      },
+      "delete_alarm": {
+        "title": "Supprimer une alarme planifiée",
+        "data": {
+          "alarm": "Alarme"
+        }
+      },
+      "household": {
+        "title": "Abonnement Foyer",
+        "description": "Quand un téléphone a l'abonnement Foyer, jusqu'à {max} téléphones sur ce Home Assistant reçoivent des notifications illimitées, ce téléphone compris. Laissez vide pour inclure les téléphones associés en premier, ou choisissez les téléphones ici. Le téléphone qui a l'abonnement est toujours inclus.",
+        "data": {
+          "phones": "Téléphones du foyer"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Donnez un nom au profil.",
+      "name_taken": "Un profil porte déjà ce nom.",
+      "household_too_many": "Choisissez 6 téléphones au maximum.",
+      "alarm_name_required": "Donnez un nom à l'alarme.",
+      "alarm_name_taken": "Il existe déjà une alarme portant ce nom.",
+      "days_required": "Choisissez au moins un jour.",
+      "calendars_required": "Choisissez au moins un calendrier.",
+      "text_required": "Saisissez le texte à rechercher."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Son par défaut du téléphone",
+        "chime": "Carillon",
+        "bell": "Cloche",
+        "beep": "Bip",
+        "soft": "Doux",
+        "siren": "Sirène",
+        "alarm": "Réveil",
+        "none": "Aucun son"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Vibration par défaut du téléphone",
+        "short": "Courte",
+        "long": "Longue",
+        "pulse": "Pulsation",
+        "sos": "SOS",
+        "none": "Aucune vibration"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Faible (sans pop-up)",
+        "default": "Normale",
+        "high": "Élevée (en pop-up)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Bien reçu",
+        "snooze": "Reporter"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Lundi",
+        "tue": "Mardi",
+        "wed": "Mercredi",
+        "thu": "Jeudi",
+        "fri": "Vendredi",
+        "sat": "Samedi",
+        "sun": "Dimanche"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Contient le texte",
+        "exact": "Est exactement le texte"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Le début du rendez-vous",
+        "end": "La fin du rendez-vous"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Contient",
+        "not": "Ne contient pas"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "A un tel rendez-vous",
+        "not": "N'a pas de tel rendez-vous"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Est",
+        "not": "N'est pas"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Commence entre {from} et {to}",
+        "weekdays": "Le {days}",
+        "title_has": "Le titre contient « {text} »",
+        "title_not": "Le titre ne contient pas « {text} »",
+        "day_has": "Ce jour-là a un rendez-vous avec « {text} »",
+        "day_not": "Ce jour-là n'a pas de rendez-vous avec « {text} »",
+        "state_is": "{entity} est {state}",
+        "state_not": "{entity} n'est pas {state}",
+        "none": "Aucune pour l'instant."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Connexion à la maison"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Vu à la maison pour la dernière fois"
+      },
+      "subscription": {
+        "name": "Abonnement",
+        "state": {
+          "subscribed": "Abonné",
+          "household": "Foyer",
+          "free": "Gratuit (à la maison uniquement)",
+          "used_up": "Notifications gratuites épuisées"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Formule"
+          },
+          "free_left": {
+            "name": "Notifications gratuites restantes"
+          },
+          "paid_until": {
+            "name": "Payé jusqu'au"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Prochaine alarme",
+        "state_attributes": {
+          "title": {
+            "name": "Titre"
+          },
+          "alarm": {
+            "name": "Alarme"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Envoyer un Heads-up",
+      "clear": "Effacer un Heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Titre",
+      "message": "Message",
+      "entities": "Afficher ces entités",
+      "tag": "Tag"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Envoyer un Heads-up",
+      "description": "Envoie une notification aux téléphones Heads-up, qui la traitent comme le prévoit le profil.",
+      "fields": {
+        "device_id": {
+          "name": "Téléphones",
+          "description": "Laissez vide pour envoyer à tous les téléphones associés."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Nom du profil. Vide : le profil par défaut."
+        },
+        "title": {
+          "name": "Titre",
+          "description": "Titre de la notification."
+        },
+        "message": {
+          "name": "Message",
+          "description": "Texte de la notification."
+        },
+        "entities": {
+          "name": "Entités",
+          "description": "Leur état actuel est affiché dans la notification."
+        },
+        "buttons": {
+          "name": "Boutons",
+          "description": "Boutons supplémentaires; toucher l'un d'eux déclenche l'événement headsup_action avec son id."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "Une nouvelle notification avec le même tag remplace la précédente (et annule son report). Également utilisé par Effacer un Heads-up."
+        },
+        "ttl": {
+          "name": "Valable pendant",
+          "description": "Ne pas afficher la notification si elle arrive après ce délai."
+        }
+      }
+    },
+    "clear": {
+      "name": "Effacer un Heads-up",
+      "description": "Retire des téléphones la notification portant ce tag, ferme son écran d'alarme et annule un report.",
+      "fields": {
+        "device_id": {
+          "name": "Téléphones",
+          "description": "Laissez vide pour effacer sur tous les téléphones associés."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "Le tag avec lequel la notification a été envoyée."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} a besoin d'un abonnement Heads-up",
+      "description": "Home Assistant a envoyé une notification que {phone} n'a pas affichée. Sans abonnement, Heads-up affiche 10 notifications gratuites, et seulement quand le téléphone est à la maison.\n\nPour recevoir toutes les notifications, à la maison comme à l'extérieur, abonnez-vous dans l'application Heads-up sur {phone}, pour ce compte Google ou en tant que foyer pour 6 téléphones maximum. Les deux commencent par un essai gratuit.\n\nCe message disparaît dès que l'abonnement est actif."
+    },
+    "household_full": {
+      "title": "{phone} ne fait pas partie du foyer",
+      "description": "L'abonnement Foyer de {owner} couvre jusqu'à 6 téléphones sur ce Home Assistant, et il est complet. {phone} a besoin de son propre abonnement, ou vous pouvez choisir les téléphones du foyer dans Heads-up, Configurer, Abonnement Foyer."
+    }
+  }
+}

@@ -1,0 +1,51 @@
+send:
+  fields:
+    device_id:
+      selector:
+        device:
+          integration: headsup
+          multiple: true
+    profile:
+      example: Alarm
+      selector:
+        text:
+    title:
+      example: Smoke detected
+      selector:
+        text:
+    message:
+      required: true
+      example: The smoke detector in the hallway went off.
+      selector:
+        text:
+          multiline: true
+    entities:
+      selector:
+        entity:
+          multiple: true
+    buttons:
+      example: '[{"id": "call", "title": "Call home"}]'
+      selector:
+        object:
+    tag:
+      example: smoke
+      selector:
+        text:
+    ttl:
+      selector:
+        number:
+          min: 0
+          max: 86400
+          unit_of_measurement: s
+clear:
+  fields:
+    device_id:
+      selector:
+        device:
+          integration: headsup
+          multiple: true
+    tag:
+      required: true
+      example: smoke
+      selector:
+        text:

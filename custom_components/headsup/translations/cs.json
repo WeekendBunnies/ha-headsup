@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Nastaví Heads-up. Telefony se samy objeví mezi objevenými zařízeními, jakmile je aplikace Heads-up otevřená ve stejné síti. Profily se vytvářejí v části Nastavit."
+      },
+      "pair": {
+        "title": "Propojit {name}",
+        "description": "Zkontrolujte, zda aplikace Heads-up v telefonu **{name}** zobrazuje tento kód:\n\n## {code}\n\nPokračujte, jen pokud se kódy shodují."
+      }
+    },
+    "error": {
+      "pair_failed": "Propojení se nezdařilo. Nechte aplikaci v telefonu otevřenou a zkuste to znovu."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up je už nastaven. Telefony se přidávají, když jsou objeveny.",
+      "already_configured": "Tento telefon je už propojen. Chcete-li ho propojit znovu, nejprve zde smažte jeho zařízení (nebo v aplikaci klepněte na Odpojit tento telefon, což ho odebere i zde).",
+      "other_instance": "Tento telefon se chce propojit s jiným Home Assistant.",
+      "not_supported": "Toto zařízení není aplikace Heads-up.",
+      "cannot_connect": "Telefon se nepodařilo zastihnout. Nechte aplikaci v telefonu otevřenou a zkuste to znovu.",
+      "phone_added": "Telefon {name} je propojen."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Profily Heads-up",
+        "menu_options": {
+          "add_profile": "Přidat profil",
+          "edit_profile": "Změnit profil",
+          "delete_profile": "Odebrat profil",
+          "default_profile": "Výchozí profil",
+          "household": "Předplatné pro domácnost",
+          "add_alarm": "Přidat naplánovaný alarm",
+          "edit_alarm": "Změnit naplánovaný alarm",
+          "delete_alarm": "Odebrat naplánovaný alarm"
+        }
+      },
+      "add_profile": {
+        "title": "Nový profil",
+        "description": "Jak telefony zpracují oznámení odeslané s tímto profilem.",
+        "data": {
+          "name": "Název",
+          "sound": "Zvuk",
+          "vibration": "Vibrace",
+          "importance": "Důležitost",
+          "alarm_stream": "Zvonit i v tichém režimu telefonu",
+          "bypass_dnd": "Prolomit režim Nerušit",
+          "full_screen": "Alarm přes celou obrazovku (vypnout a odložit)",
+          "repeat": "Opakovat zvuk až do odpovědi",
+          "buttons": "Tlačítka",
+          "snooze_minutes": "Odložit na",
+          "ring_minutes": "Zvonit nejvýše",
+          "auto_snoozes": "Automaticky odložit nejvýše (krát)"
+        },
+        "data_description": {
+          "alarm_stream": "Hraje přes hlasitost budíku, jako budík, takže je slyšet, i když je telefon v tichém režimu.",
+          "ring_minutes": "Pro opakující se alarmy a alarmy přes celou obrazovku. Když nikdo včas neodpoví, alarm se sám odloží. 0 zvoní, dokud někdo neodpoví.",
+          "auto_snoozes": "Po tolika automatických odloženích zůstane alarm jako tiché oznámení „Bez odpovědi“ a Home Assistant dostane událost headsup_action s akcí unanswered.",
+          "repeat": "Zvuk hraje, dokud oznámení někdo neotevře, neodpoví na ně nebo ho neodsune (nebo dokud neuplyne čas „Zvonit nejvýše“). Vypnuto: zahraje jednou."
+        }
+      },
+      "edit_profile": {
+        "title": "Změnit profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Změna profilu",
+        "description": "Telefony dostanou změnu hned.",
+        "data": {
+          "name": "Název",
+          "sound": "Zvuk",
+          "vibration": "Vibrace",
+          "importance": "Důležitost",
+          "alarm_stream": "Zvonit i v tichém režimu telefonu",
+          "bypass_dnd": "Prolomit režim Nerušit",
+          "full_screen": "Alarm přes celou obrazovku (vypnout a odložit)",
+          "repeat": "Opakovat zvuk až do odpovědi",
+          "buttons": "Tlačítka",
+          "snooze_minutes": "Odložit na",
+          "ring_minutes": "Zvonit nejvýše",
+          "auto_snoozes": "Automaticky odložit nejvýše (krát)"
+        },
+        "data_description": {
+          "alarm_stream": "Hraje přes hlasitost budíku, jako budík, takže je slyšet, i když je telefon v tichém režimu.",
+          "ring_minutes": "Pro opakující se alarmy a alarmy přes celou obrazovku. Když nikdo včas neodpoví, alarm se sám odloží. 0 zvoní, dokud někdo neodpoví.",
+          "auto_snoozes": "Po tolika automatických odloženích zůstane alarm jako tiché oznámení „Bez odpovědi“ a Home Assistant dostane událost headsup_action s akcí unanswered.",
+          "repeat": "Zvuk hraje, dokud oznámení někdo neotevře, neodpoví na ně nebo ho neodsune (nebo dokud neuplyne čas „Zvonit nejvýše“). Vypnuto: zahraje jednou."
+        }
+      },
+      "delete_profile": {
+        "title": "Odebrat profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Výchozí profil",
+        "description": "Použije se, když automatizace neuvádí profil, například s akcí notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Nový naplánovaný alarm",
+        "menu_options": {
+          "weekly": "Ve vybrané dny v pevný čas",
+          "calendar": "Pro schůzky z kalendáře"
+        }
+      },
+      "weekly": {
+        "title": "Alarm ve vybrané dny",
+        "description": "Zazvoní ve vybrané dny ve vybraný čas. Pokud tento čas spadá do schůzky ve vybraných kalendářích, alarm se posune na chvíli po schůzce, a také za další, dokud nebude volný čas. Telefony si časy pamatují, takže alarm zazvoní i bez připojení.",
+        "data": {
+          "name": "Název",
+          "message": "Zpráva",
+          "profile": "Profil",
+          "phones": "Telefony",
+          "days": "Dny",
+          "time": "Čas",
+          "calendars": "Posunout při schůzkách v těchto kalendářích",
+          "after": "Po schůzce zazvonit za",
+          "needed": "Potřebný volný čas",
+          "latest": "Nejpozději v",
+          "all_day": "Počítají se i celodenní schůzky"
+        },
+        "data_description": {
+          "name": "Zároveň název oznámení.",
+          "phones": "Ponechte prázdné pro všechny propojené telefony.",
+          "calendars": "Ponechte prázdné, aby alarm vždy zazvonil v nastavený čas.",
+          "needed": "Alarm zazvoní jen tehdy, když během této doby nezačíná žádná schůzka.",
+          "latest": "Když do té doby není volný čas, zazvoní v tento čas i tak."
+        }
+      },
+      "calendar": {
+        "title": "Alarm pro schůzky",
+        "description": "Zazvoní pro každou schůzku ve vybraných kalendářích, jejíž název obsahuje text nebo je přesně tímto textem (na velikosti písmen nezáleží). Oznámení ukáže název schůzky. Telefony si časy pamatují, takže alarm zazvoní i bez připojení.",
+        "data": {
+          "name": "Název",
+          "message": "Zpráva",
+          "profile": "Profil",
+          "phones": "Telefony",
+          "calendars": "Kalendáře",
+          "match": "Název",
+          "text": "Text",
+          "offset": "Minut předem",
+          "anchor": "Počítáno od"
+        },
+        "data_description": {
+          "name": "Jen abyste alarm našli zde; oznámení ukáže název schůzky.",
+          "message": "Ponechte prázdné, aby se ukázal čas a místo schůzky.",
+          "phones": "Ponechte prázdné pro všechny propojené telefony.",
+          "offset": "Se záporným číslem zazvoní až po ní."
+        }
+      },
+      "conditions": {
+        "title": "Podmínky",
+        "description": "Alarm zazvoní jen tehdy, když platí všechno toto:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Přidat podmínku",
+          "remove_condition": "Odebrat podmínku",
+          "save_alarm": "Uložit alarm"
+        }
+      },
+      "add_condition": {
+        "title": "Nová podmínka",
+        "menu_options": {
+          "cond_start": "Schůzka začíná mezi dvěma časy",
+          "cond_weekdays": "Schůzka je v určité dny",
+          "cond_title": "Název obsahuje text, nebo ne",
+          "cond_day": "V ten den je jiná schůzka, nebo ne",
+          "cond_state": "Entita má stav, nebo ne"
+        }
+      },
+      "cond_start": {
+        "title": "Začíná mezi",
+        "data": {
+          "from": "Od",
+          "to": "Do"
+        }
+      },
+      "cond_weekdays": {
+        "title": "V určité dny",
+        "data": {
+          "days": "Dny"
+        }
+      },
+      "cond_title": {
+        "title": "Název",
+        "data": {
+          "mode": "Název",
+          "text": "Text"
+        }
+      },
+      "cond_day": {
+        "title": "Jiná schůzka v ten den",
+        "description": "Například žádný budík v den s „Dovolená“ v rodinném kalendáři.",
+        "data": {
+          "calendars": "Kalendáře",
+          "mode": "V ten den",
+          "text": "Jejíž název obsahuje"
+        }
+      },
+      "cond_state": {
+        "title": "Stav entity",
+        "description": "Kontroluje se pokaždé, když Home Assistant počítá alarmy (každých 15 minut). Telefon bez připojení si ponechá svůj poslední seznam.",
+        "data": {
+          "entity": "Entita",
+          "mode": "Zazvoní, když stav"
+        }
+      },
+      "cond_state_value": {
+        "title": "Stav: {entity}",
+        "data": {
+          "state": "Stav"
+        }
+      },
+      "remove_condition": {
+        "title": "Odebrat podmínku",
+        "data": {
+          "condition": "Podmínka"
+        }
+      },
+      "edit_alarm": {
+        "title": "Změnit naplánovaný alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Odebrat naplánovaný alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "household": {
+        "title": "Předplatné pro domácnost",
+        "description": "Když má jeden telefon předplatné pro domácnost, dostává neomezená oznámení až {max} telefonů v tomto Home Assistant, včetně tohoto telefonu. Ponechte prázdné, chcete-li zahrnout telefony propojené jako první, nebo zde telefony vyberte. Telefon s předplatným je zahrnut vždy.",
+        "data": {
+          "phones": "Telefony v domácnosti"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Zadejte název profilu.",
+      "name_taken": "Profil s tímto názvem už existuje.",
+      "household_too_many": "Vyberte nejvýše 6 telefonů.",
+      "alarm_name_required": "Zadejte název alarmu.",
+      "alarm_name_taken": "Alarm s tímto názvem už existuje.",
+      "days_required": "Vyberte alespoň jeden den.",
+      "calendars_required": "Vyberte alespoň jeden kalendář.",
+      "text_required": "Vyplňte hledaný text."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Výchozí v telefonu",
+        "chime": "Zvonkohra",
+        "bell": "Zvonek",
+        "beep": "Pípnutí",
+        "soft": "Jemný",
+        "siren": "Siréna",
+        "alarm": "Budík",
+        "none": "Bez zvuku"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Výchozí v telefonu",
+        "short": "Krátká",
+        "long": "Dlouhá",
+        "pulse": "Pulzující",
+        "sos": "SOS",
+        "none": "Bez vibrací"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Nízká (bez vyskočení)",
+        "default": "Normální",
+        "high": "Vysoká (vyskočí)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Potvrdit",
+        "snooze": "Odložit"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Pondělí",
+        "tue": "Úterý",
+        "wed": "Středa",
+        "thu": "Čtvrtek",
+        "fri": "Pátek",
+        "sat": "Sobota",
+        "sun": "Neděle"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Obsahuje text",
+        "exact": "Je přesně tento text"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Začátku schůzky",
+        "end": "Konce schůzky"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Obsahuje",
+        "not": "Neobsahuje"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Je taková schůzka",
+        "not": "Není taková schůzka"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Je",
+        "not": "Není"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Začíná mezi {from} a {to}",
+        "weekdays": "Ve dny: {days}",
+        "title_has": "Název obsahuje „{text}“",
+        "title_not": "Název neobsahuje „{text}“",
+        "day_has": "V ten den je schůzka s „{text}“",
+        "day_not": "V ten den není schůzka s „{text}“",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: ne {state}",
+        "none": "Zatím žádné."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Domácí připojení"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Naposledy doma"
+      },
+      "subscription": {
+        "name": "Předplatné",
+        "state": {
+          "subscribed": "Předplaceno",
+          "household": "Domácnost",
+          "free": "Zdarma (jen doma)",
+          "used_up": "Oznámení zdarma vyčerpána"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Tarif"
+          },
+          "free_left": {
+            "name": "Zbývající oznámení zdarma"
+          },
+          "paid_until": {
+            "name": "Zaplaceno do"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Další alarm",
+        "state_attributes": {
+          "title": {
+            "name": "Název"
+          },
+          "alarm": {
+            "name": "Alarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Odeslat oznámení Heads-up",
+      "clear": "Smazat oznámení Heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Nadpis",
+      "message": "Zpráva",
+      "entities": "Zobrazit tyto entity",
+      "tag": "Štítek"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Odeslat oznámení Heads-up",
+      "description": "Odešle oznámení do telefonů s Heads-up, zpracované podle profilu.",
+      "fields": {
+        "device_id": {
+          "name": "Telefony",
+          "description": "Ponechte prázdné, chcete-li odeslat do všech propojených telefonů."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Název profilu. Prázdné: výchozí profil."
+        },
+        "title": {
+          "name": "Nadpis",
+          "description": "Nadpis oznámení."
+        },
+        "message": {
+          "name": "Zpráva",
+          "description": "Text oznámení."
+        },
+        "entities": {
+          "name": "Entity",
+          "description": "Jejich aktuální stav se zobrazí v oznámení."
+        },
+        "buttons": {
+          "name": "Tlačítka",
+          "description": "Další tlačítka; klepnutí na některé z nich vyvolá událost headsup_action s jeho id."
+        },
+        "tag": {
+          "name": "Štítek",
+          "description": "Nové oznámení se stejným štítkem nahradí předchozí (a zruší jeho odložení). Používá ho také Smazat oznámení Heads-up."
+        },
+        "ttl": {
+          "name": "Platnost",
+          "description": "Nezobrazovat oznámení, pokud dorazí později než za tuto dobu."
+        }
+      }
+    },
+    "clear": {
+      "name": "Smazat oznámení Heads-up",
+      "description": "Odebere z telefonů oznámení s tímto štítkem, zavře jeho obrazovku alarmu a zruší odložení.",
+      "fields": {
+        "device_id": {
+          "name": "Telefony",
+          "description": "Ponechte prázdné, chcete-li smazat ve všech propojených telefonech."
+        },
+        "tag": {
+          "name": "Štítek",
+          "description": "Štítek, se kterým bylo oznámení odesláno."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "Telefon {phone} potřebuje předplatné Heads-up",
+      "description": "Home Assistant odeslal oznámení, které telefon {phone} nezobrazil. Bez předplatného Heads-up zobrazí 10 oznámení zdarma, a to jen tehdy, když je telefon doma.\n\nChcete-li dostávat všechna oznámení, doma i mimo domov, sjednejte si předplatné v aplikaci Heads-up v telefonu {phone}, pro tento účet Google nebo pro domácnost až pro 6 telefonů. Obě začínají zkušebním obdobím zdarma.\n\nTato zpráva zmizí, jakmile bude předplatné aktivní."
+    },
+    "household_full": {
+      "title": "Telefon {phone} není v domácnosti",
+      "description": "Předplatné pro domácnost v telefonu {owner} pokrývá až 6 telefonů v tomto Home Assistant a je plně obsazené. Telefon {phone} potřebuje vlastní předplatné, nebo můžete v Heads-up, Nastavit, Předplatné pro domácnost vybrat, které telefony do domácnosti patří."
+    }
+  }
+}

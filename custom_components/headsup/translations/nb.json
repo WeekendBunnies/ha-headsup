@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Setter opp Heads-up. Telefoner dukker opp av seg selv blant oppdagede enheter når Heads-up-appen er åpen på samme nettverk. Profiler lages under Konfigurer."
+      },
+      "pair": {
+        "title": "Koble til {name}",
+        "description": "Sjekk at Heads-up-appen på **{name}** viser denne koden:\n\n## {code}\n\nFortsett bare hvis kodene er like."
+      }
+    },
+    "error": {
+      "pair_failed": "Tilkoblingen mislyktes. Hold appen åpen på telefonen og prøv igjen."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up er allerede satt opp. Telefoner legges til når de blir oppdaget.",
+      "already_configured": "Denne telefonen er allerede koblet til. For å koble den til igjen må du først slette enheten her (eller trykke på Koble fra denne telefonen i appen, som også fjerner den her).",
+      "other_instance": "Denne telefonen vil koble seg til en annen Home Assistant.",
+      "not_supported": "Denne enheten er ikke en Heads-up-app.",
+      "cannot_connect": "Telefonen kunne ikke nås. Hold appen åpen på telefonen og prøv igjen.",
+      "phone_added": "{name} er koblet til."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-up-profiler",
+        "menu_options": {
+          "add_profile": "Legg til en profil",
+          "edit_profile": "Endre en profil",
+          "delete_profile": "Fjern en profil",
+          "default_profile": "Standardprofil",
+          "household": "Husstandsabonnement",
+          "add_alarm": "Legg til en planlagt alarm",
+          "edit_alarm": "Endre en planlagt alarm",
+          "delete_alarm": "Fjern en planlagt alarm"
+        }
+      },
+      "add_profile": {
+        "title": "Ny profil",
+        "description": "Hvordan telefonene håndterer et varsel som sendes med denne profilen.",
+        "data": {
+          "name": "Navn",
+          "sound": "Lyd",
+          "vibration": "Vibrering",
+          "importance": "Viktighet",
+          "alarm_stream": "Lyd selv når telefonen er på lydløs",
+          "bypass_dnd": "Bryt gjennom Ikke forstyrr",
+          "full_screen": "Alarm i fullskjerm (avvis og slumre)",
+          "repeat": "Gjenta lyden til noen svarer",
+          "buttons": "Knapper",
+          "snooze_minutes": "Slumre i",
+          "ring_minutes": "Ring i maks",
+          "auto_snoozes": "Slumre automatisk maks (ganger)"
+        },
+        "data_description": {
+          "alarm_stream": "Spilles av med alarmvolumet, som en vekkerklokke, slik at den høres selv når telefonen er satt på lydløs.",
+          "ring_minutes": "For gjentatte alarmer og alarmer i fullskjerm. Hvis ingen svarer i tide, slumrer alarmen av seg selv. 0 ringer til noen svarer.",
+          "auto_snoozes": "Etter så mange automatiske slumringer blir alarmen liggende som et lydløst varsel «Ubesvart», og Home Assistant får hendelsen headsup_action med action unanswered.",
+          "repeat": "Lyden fortsetter å spille til varselet åpnes, besvares eller sveipes bort (eller til «Ring i maks» har gått). Av: den spilles én gang."
+        }
+      },
+      "edit_profile": {
+        "title": "Endre en profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "profile": {
+        "title": "Endre profil",
+        "description": "Telefonene får endringen med en gang.",
+        "data": {
+          "name": "Navn",
+          "sound": "Lyd",
+          "vibration": "Vibrering",
+          "importance": "Viktighet",
+          "alarm_stream": "Lyd selv når telefonen er på lydløs",
+          "bypass_dnd": "Bryt gjennom Ikke forstyrr",
+          "full_screen": "Alarm i fullskjerm (avvis og slumre)",
+          "repeat": "Gjenta lyden til noen svarer",
+          "buttons": "Knapper",
+          "snooze_minutes": "Slumre i",
+          "ring_minutes": "Ring i maks",
+          "auto_snoozes": "Slumre automatisk maks (ganger)"
+        },
+        "data_description": {
+          "alarm_stream": "Spilles av med alarmvolumet, som en vekkerklokke, slik at den høres selv når telefonen er satt på lydløs.",
+          "ring_minutes": "For gjentatte alarmer og alarmer i fullskjerm. Hvis ingen svarer i tide, slumrer alarmen av seg selv. 0 ringer til noen svarer.",
+          "auto_snoozes": "Etter så mange automatiske slumringer blir alarmen liggende som et lydløst varsel «Ubesvart», og Home Assistant får hendelsen headsup_action med action unanswered.",
+          "repeat": "Lyden fortsetter å spille til varselet åpnes, besvares eller sveipes bort (eller til «Ring i maks» har gått). Av: den spilles én gang."
+        }
+      },
+      "delete_profile": {
+        "title": "Fjern en profil",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "default_profile": {
+        "title": "Standardprofil",
+        "description": "Brukes når en automasjon ikke oppgir en profil, for eksempel med handlingen notify.",
+        "data": {
+          "profile": "Profil"
+        }
+      },
+      "add_alarm": {
+        "title": "Ny planlagt alarm",
+        "menu_options": {
+          "weekly": "På bestemte dager til et bestemt tidspunkt",
+          "calendar": "For avtaler i en kalender"
+        }
+      },
+      "weekly": {
+        "title": "Alarm på bestemte dager",
+        "description": "Ringer på de valgte dagene til valgt tidspunkt. Faller tidspunktet i en avtale i de valgte kalenderne, flyttes alarmen til en stund etter avtalen, og forbi den neste også, til det er ledig tid. Telefonene husker tidspunktene, så alarmen ringer også uten tilkobling.",
+        "data": {
+          "name": "Navn",
+          "message": "Melding",
+          "profile": "Profil",
+          "phones": "Telefoner",
+          "days": "Dager",
+          "time": "Tidspunkt",
+          "calendars": "Flytt ved avtaler i disse kalenderne",
+          "after": "Etter en avtale ring om",
+          "needed": "Nødvendig ledig tid",
+          "latest": "Senest kl.",
+          "all_day": "Heldagsavtaler teller også"
+        },
+        "data_description": {
+          "name": "Også tittelen på varselet.",
+          "phones": "La stå tomt for alle tilkoblede telefoner.",
+          "calendars": "La stå tomt for alltid å ringe på det faste tidspunktet.",
+          "needed": "Alarmen ringer bare når ingen avtale begynner innen denne tiden.",
+          "latest": "Er det ingen ledig tid før da, ringer den likevel på dette tidspunktet."
+        }
+      },
+      "calendar": {
+        "title": "Alarm for avtaler",
+        "description": "Ringer for hver avtale i de valgte kalenderne der tittelen inneholder teksten eller er nøyaktig den teksten (store bokstaver spiller ingen rolle). Varselet viser avtalens tittel. Telefonene husker tidspunktene, så alarmen ringer også uten tilkobling.",
+        "data": {
+          "name": "Navn",
+          "message": "Melding",
+          "profile": "Profil",
+          "phones": "Telefoner",
+          "calendars": "Kalendere",
+          "match": "Tittel",
+          "text": "Tekst",
+          "offset": "Minutter før",
+          "anchor": "Regnet fra"
+        },
+        "data_description": {
+          "name": "Bare for å finne alarmen her; varselet viser avtalens tittel.",
+          "message": "La stå tomt for å vise avtalens tidspunkt og sted.",
+          "phones": "La stå tomt for alle tilkoblede telefoner.",
+          "offset": "Med et negativt tall ringer den etterpå."
+        }
+      },
+      "conditions": {
+        "title": "Betingelser",
+        "description": "Alarmen ringer bare når alt dette stemmer:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Legg til en betingelse",
+          "remove_condition": "Fjern en betingelse",
+          "save_alarm": "Lagre alarmen"
+        }
+      },
+      "add_condition": {
+        "title": "Ny betingelse",
+        "menu_options": {
+          "cond_start": "Avtalen begynner mellom to tidspunkter",
+          "cond_weekdays": "Avtalen er på bestemte dager",
+          "cond_title": "Tittelen inneholder en tekst, eller ikke",
+          "cond_day": "Den dagen finnes det en annen avtale, eller ikke",
+          "cond_state": "En enhet har en tilstand, eller ikke"
+        }
+      },
+      "cond_start": {
+        "title": "Begynner mellom",
+        "data": {
+          "from": "Fra",
+          "to": "Til"
+        }
+      },
+      "cond_weekdays": {
+        "title": "På bestemte dager",
+        "data": {
+          "days": "Dager"
+        }
+      },
+      "cond_title": {
+        "title": "Tittel",
+        "data": {
+          "mode": "Tittelen",
+          "text": "Tekst"
+        }
+      },
+      "cond_day": {
+        "title": "Annen avtale den dagen",
+        "description": "For eksempel ingen vekking på en dag med «Fri» i familiekalenderen.",
+        "data": {
+          "calendars": "Kalendere",
+          "mode": "Den dagen",
+          "text": "Der tittelen inneholder"
+        }
+      },
+      "cond_state": {
+        "title": "Tilstanden til en enhet",
+        "description": "Sjekkes hver gang Home Assistant regner ut alarmene (hvert 15. minutt). En telefon uten tilkobling beholder sin siste liste.",
+        "data": {
+          "entity": "Enhet",
+          "mode": "Ringer når tilstanden"
+        }
+      },
+      "cond_state_value": {
+        "title": "Tilstanden til {entity}",
+        "data": {
+          "state": "Tilstand"
+        }
+      },
+      "remove_condition": {
+        "title": "Fjern en betingelse",
+        "data": {
+          "condition": "Betingelse"
+        }
+      },
+      "edit_alarm": {
+        "title": "Endre en planlagt alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "delete_alarm": {
+        "title": "Fjern en planlagt alarm",
+        "data": {
+          "alarm": "Alarm"
+        }
+      },
+      "household": {
+        "title": "Husstandsabonnement",
+        "description": "Når én telefon har husstandsabonnementet, får opptil {max} telefoner på denne Home Assistant ubegrenset med varsler, den telefonen medregnet. La stå tomt for å ta med telefonene som ble koblet til først, eller velg telefonene her. Telefonen med abonnementet er alltid med.",
+        "data": {
+          "phones": "Telefoner i husstanden"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Gi profilen et navn.",
+      "name_taken": "Det finnes allerede en profil med dette navnet.",
+      "household_too_many": "Velg høyst 6 telefoner.",
+      "alarm_name_required": "Gi alarmen et navn.",
+      "alarm_name_taken": "Det finnes allerede en alarm med dette navnet.",
+      "days_required": "Velg minst én dag.",
+      "calendars_required": "Velg minst én kalender.",
+      "text_required": "Skriv inn teksten det skal søkes etter."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Telefonens standard",
+        "chime": "Klokkespill",
+        "bell": "Bjelle",
+        "beep": "Pip",
+        "soft": "Myk",
+        "siren": "Sirene",
+        "alarm": "Vekkerklokke",
+        "none": "Ingen lyd"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Telefonens standard",
+        "short": "Kort",
+        "long": "Lang",
+        "pulse": "Puls",
+        "sos": "SOS",
+        "none": "Ingen vibrering"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Lav (ingen popup)",
+        "default": "Normal",
+        "high": "Høy (vises som popup)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Kvitter",
+        "snooze": "Slumre"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Mandag",
+        "tue": "Tirsdag",
+        "wed": "Onsdag",
+        "thu": "Torsdag",
+        "fri": "Fredag",
+        "sat": "Lørdag",
+        "sun": "Søndag"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Inneholder teksten",
+        "exact": "Er nøyaktig teksten"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Avtalens start",
+        "end": "Avtalens slutt"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Inneholder",
+        "not": "Inneholder ikke"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "Har en slik avtale",
+        "not": "Har ingen slik avtale"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "Er",
+        "not": "Er ikke"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Begynner mellom {from} og {to}",
+        "weekdays": "På {days}",
+        "title_has": "Tittelen inneholder «{text}»",
+        "title_not": "Tittelen inneholder ikke «{text}»",
+        "day_has": "Den dagen finnes en avtale med «{text}»",
+        "day_not": "Den dagen finnes ingen avtale med «{text}»",
+        "state_is": "{entity} er {state}",
+        "state_not": "{entity} er ikke {state}",
+        "none": "Ingen ennå."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Hjemmetilkobling"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Sist sett hjemme"
+      },
+      "subscription": {
+        "name": "Abonnement",
+        "state": {
+          "subscribed": "Abonnerer",
+          "household": "Husstand",
+          "free": "Gratis (bare hjemme)",
+          "used_up": "Gratis varsler brukt opp"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Abonnementstype"
+          },
+          "free_left": {
+            "name": "Gratis varsler igjen"
+          },
+          "paid_until": {
+            "name": "Betalt til"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Neste alarm",
+        "state_attributes": {
+          "title": {
+            "name": "Tittel"
+          },
+          "alarm": {
+            "name": "Alarm"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Send heads-up",
+      "clear": "Fjern heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profil",
+      "title": "Tittel",
+      "message": "Melding",
+      "entities": "Vis disse entitetene",
+      "tag": "Tagg"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Send heads-up",
+      "description": "Sender et varsel til Heads-up-telefoner, som håndteres slik profilen sier.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoner",
+          "description": "La stå tomt for å sende til alle tilkoblede telefoner."
+        },
+        "profile": {
+          "name": "Profil",
+          "description": "Navnet på profilen. Tomt: standardprofilen."
+        },
+        "title": {
+          "name": "Tittel",
+          "description": "Tittelen på varselet."
+        },
+        "message": {
+          "name": "Melding",
+          "description": "Teksten i varselet."
+        },
+        "entities": {
+          "name": "Entiteter",
+          "description": "Den nåværende tilstanden deres vises i varselet."
+        },
+        "buttons": {
+          "name": "Knapper",
+          "description": "Ekstra knapper; et trykk på en av dem utløser hendelsen headsup_action med knappens id."
+        },
+        "tag": {
+          "name": "Tagg",
+          "description": "Et nytt varsel med samme tagg erstatter det forrige (og avbryter slumringen). Brukes også av Fjern heads-up."
+        },
+        "ttl": {
+          "name": "Gyldig i",
+          "description": "Ikke vis varselet hvis det kommer senere enn dette."
+        }
+      }
+    },
+    "clear": {
+      "name": "Fjern heads-up",
+      "description": "Fjerner varselet med denne taggen fra telefonene, lukker alarmskjermen og avbryter en slumring.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoner",
+          "description": "La stå tomt for å fjerne på alle tilkoblede telefoner."
+        },
+        "tag": {
+          "name": "Tagg",
+          "description": "Taggen varselet ble sendt med."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} trenger et Heads-up-abonnement",
+      "description": "Home Assistant sendte et varsel som {phone} ikke viste. Uten abonnement viser Heads-up 10 gratis varsler, og bare mens telefonen er hjemme.\n\nFor å motta alle varsler, hjemme og borte, abonnerer du i Heads-up-appen på {phone}, for den Google-kontoen eller som husstand for opptil 6 telefoner. Begge starter med en gratis prøveperiode.\n\nDenne meldingen forsvinner når abonnementet er aktivt."
+    },
+    "household_full": {
+      "title": "{phone} er ikke med i husstanden",
+      "description": "Husstandsabonnementet på {owner} dekker opptil 6 telefoner på denne Home Assistant, og det er fullt. {phone} trenger sitt eget abonnement, eller du kan velge hvilke telefoner som er med i husstanden under Heads-up, Konfigurer, Husstandsabonnement."
+    }
+  }
+}

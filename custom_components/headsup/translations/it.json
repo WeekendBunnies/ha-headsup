@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Configura Heads-up. I telefoni compaiono da soli tra i dispositivi rilevati non appena l'app Heads-up è aperta sulla stessa rete. I profili si creano in Configura."
+      },
+      "pair": {
+        "title": "Collega {name}",
+        "description": "Controlla che l'app Heads-up su **{name}** mostri questo codice:\n\n## {code}\n\nContinua solo se i codici coincidono."
+      }
+    },
+    "error": {
+      "pair_failed": "Collegamento non riuscito. Tieni aperta l'app sul telefono e riprova."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up è già configurato. I telefoni vengono aggiunti quando vengono rilevati.",
+      "already_configured": "Questo telefono è già collegato. Per collegarlo di nuovo, elimina prima qui il suo dispositivo (oppure tocca Scollega nell'app, che lo rimuove anche da qui).",
+      "other_instance": "Questo telefono vuole collegarsi a un altro Home Assistant.",
+      "not_supported": "Questo dispositivo non è un'app Heads-up.",
+      "cannot_connect": "Il telefono non è raggiungibile. Tieni aperta l'app sul telefono e riprova.",
+      "phone_added": "{name} è collegato."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Profili di Heads-up",
+        "menu_options": {
+          "add_profile": "Aggiungi un profilo",
+          "edit_profile": "Modifica un profilo",
+          "delete_profile": "Rimuovi un profilo",
+          "default_profile": "Profilo predefinito",
+          "household": "Abbonamento Casa",
+          "add_alarm": "Aggiungi un allarme programmato",
+          "edit_alarm": "Modifica un allarme programmato",
+          "delete_alarm": "Rimuovi un allarme programmato"
+        }
+      },
+      "add_profile": {
+        "title": "Nuovo profilo",
+        "description": "Come i telefoni gestiscono una notifica inviata con questo profilo.",
+        "data": {
+          "name": "Nome",
+          "sound": "Suono",
+          "vibration": "Vibrazione",
+          "importance": "Importanza",
+          "alarm_stream": "Suona anche con il telefono in modalità silenziosa",
+          "bypass_dnd": "Ignora Non disturbare",
+          "full_screen": "Allarme a schermo intero (interrompi e posticipa)",
+          "repeat": "Ripeti il suono finché qualcuno non risponde",
+          "buttons": "Pulsanti",
+          "snooze_minutes": "Posticipa di",
+          "ring_minutes": "Suona al massimo per",
+          "auto_snoozes": "Posticipi automatici al massimo (volte)"
+        },
+        "data_description": {
+          "alarm_stream": "Usa il volume della sveglia, come una sveglia, così suona anche quando il telefono è in modalità silenziosa.",
+          "ring_minutes": "Per gli allarmi ripetuti e a schermo intero. Se nessuno risponde in tempo, l'allarme si posticipa da solo. 0 suona finché qualcuno non risponde.",
+          "auto_snoozes": "Dopo questo numero di posticipi automatici l'allarme resta come notifica silenziosa \"Perso\" e Home Assistant riceve l'evento headsup_action con action unanswered.",
+          "repeat": "Il suono continua finché la notifica non viene aperta, gestita o scartata con uno scorrimento (o finché non è trascorso \"Suona al massimo per\"). Disattivato: suona una volta."
+        }
+      },
+      "edit_profile": {
+        "title": "Modifica un profilo",
+        "data": {
+          "profile": "Profilo"
+        }
+      },
+      "profile": {
+        "title": "Modifica profilo",
+        "description": "I telefoni ricevono la modifica subito.",
+        "data": {
+          "name": "Nome",
+          "sound": "Suono",
+          "vibration": "Vibrazione",
+          "importance": "Importanza",
+          "alarm_stream": "Suona anche con il telefono in modalità silenziosa",
+          "bypass_dnd": "Ignora Non disturbare",
+          "full_screen": "Allarme a schermo intero (interrompi e posticipa)",
+          "repeat": "Ripeti il suono finché qualcuno non risponde",
+          "buttons": "Pulsanti",
+          "snooze_minutes": "Posticipa di",
+          "ring_minutes": "Suona al massimo per",
+          "auto_snoozes": "Posticipi automatici al massimo (volte)"
+        },
+        "data_description": {
+          "alarm_stream": "Usa il volume della sveglia, come una sveglia, così suona anche quando il telefono è in modalità silenziosa.",
+          "ring_minutes": "Per gli allarmi ripetuti e a schermo intero. Se nessuno risponde in tempo, l'allarme si posticipa da solo. 0 suona finché qualcuno non risponde.",
+          "auto_snoozes": "Dopo questo numero di posticipi automatici l'allarme resta come notifica silenziosa \"Perso\" e Home Assistant riceve l'evento headsup_action con action unanswered.",
+          "repeat": "Il suono continua finché la notifica non viene aperta, gestita o scartata con uno scorrimento (o finché non è trascorso \"Suona al massimo per\"). Disattivato: suona una volta."
+        }
+      },
+      "delete_profile": {
+        "title": "Rimuovi un profilo",
+        "data": {
+          "profile": "Profilo"
+        }
+      },
+      "default_profile": {
+        "title": "Profilo predefinito",
+        "description": "Usato quando un'automazione non indica un profilo, per esempio con l'azione notify.",
+        "data": {
+          "profile": "Profilo"
+        }
+      },
+      "add_alarm": {
+        "title": "Nuovo allarme programmato",
+        "menu_options": {
+          "weekly": "In giorni fissi a un'ora fissa",
+          "calendar": "Per gli appuntamenti di un calendario"
+        }
+      },
+      "weekly": {
+        "title": "Allarme in giorni fissi",
+        "description": "Suona nei giorni scelti all'ora scelta. Se quell'ora cade durante un appuntamento dei calendari scelti, l'allarme si sposta a un po' dopo l'appuntamento, e anche dopo il successivo, finché non c'è tempo libero. I telefoni conservano gli orari, quindi l'allarme suona anche senza connessione.",
+        "data": {
+          "name": "Nome",
+          "message": "Messaggio",
+          "profile": "Profilo",
+          "phones": "Telefoni",
+          "days": "Giorni",
+          "time": "Ora",
+          "calendars": "Sposta se ci sono appuntamenti in questi calendari",
+          "after": "Dopo un appuntamento, suona dopo",
+          "needed": "Tempo libero necessario",
+          "latest": "Non più tardi delle",
+          "all_day": "Contano anche gli appuntamenti di tutto il giorno"
+        },
+        "data_description": {
+          "name": "È anche il titolo della notifica.",
+          "phones": "Lascia vuoto per tutti i telefoni collegati.",
+          "calendars": "Lascia vuoto per suonare sempre all'ora fissata.",
+          "needed": "L'allarme suona solo se nessun appuntamento inizia entro questo tempo.",
+          "latest": "Se prima non c'è tempo libero, suona comunque a quest'ora."
+        }
+      },
+      "calendar": {
+        "title": "Allarme per appuntamenti",
+        "description": "Suona per ogni appuntamento dei calendari scelti il cui titolo contiene il testo, o è esattamente quel testo (maiuscole e minuscole non contano). La notifica mostra il titolo dell'appuntamento. I telefoni conservano gli orari, quindi l'allarme suona anche senza connessione.",
+        "data": {
+          "name": "Nome",
+          "message": "Messaggio",
+          "profile": "Profilo",
+          "phones": "Telefoni",
+          "calendars": "Calendari",
+          "match": "Titolo",
+          "text": "Testo",
+          "offset": "Minuti prima",
+          "anchor": "Contati da"
+        },
+        "data_description": {
+          "name": "Solo per ritrovare l'allarme qui; la notifica mostra il titolo dell'appuntamento.",
+          "message": "Lascia vuoto per mostrare l'ora e il luogo dell'appuntamento.",
+          "phones": "Lascia vuoto per tutti i telefoni collegati.",
+          "offset": "Con un numero negativo suona dopo."
+        }
+      },
+      "conditions": {
+        "title": "Condizioni",
+        "description": "L'allarme suona solo se tutto questo è vero:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Aggiungi una condizione",
+          "remove_condition": "Rimuovi una condizione",
+          "save_alarm": "Salva l'allarme"
+        }
+      },
+      "add_condition": {
+        "title": "Nuova condizione",
+        "menu_options": {
+          "cond_start": "L'appuntamento inizia tra due orari",
+          "cond_weekdays": "L'appuntamento cade in certi giorni",
+          "cond_title": "Il titolo contiene un testo, o no",
+          "cond_day": "Quel giorno c'è un altro appuntamento, o no",
+          "cond_state": "Un'entità ha uno stato, o no"
+        }
+      },
+      "cond_start": {
+        "title": "Inizia tra",
+        "data": {
+          "from": "Dalle",
+          "to": "Alle"
+        }
+      },
+      "cond_weekdays": {
+        "title": "In certi giorni",
+        "data": {
+          "days": "Giorni"
+        }
+      },
+      "cond_title": {
+        "title": "Titolo",
+        "data": {
+          "mode": "Il titolo",
+          "text": "Testo"
+        }
+      },
+      "cond_day": {
+        "title": "Altro appuntamento quel giorno",
+        "description": "Per esempio, nessuna sveglia in un giorno con «Ferie» nel calendario di famiglia.",
+        "data": {
+          "calendars": "Calendari",
+          "mode": "Quel giorno",
+          "text": "Il cui titolo contiene"
+        }
+      },
+      "cond_state": {
+        "title": "Stato di un'entità",
+        "description": "Controllato ogni volta che Home Assistant calcola gli allarmi (ogni 15 minuti). Un telefono senza connessione tiene la sua ultima lista.",
+        "data": {
+          "entity": "Entità",
+          "mode": "Suona quando lo stato"
+        }
+      },
+      "cond_state_value": {
+        "title": "Stato di {entity}",
+        "data": {
+          "state": "Stato"
+        }
+      },
+      "remove_condition": {
+        "title": "Rimuovi una condizione",
+        "data": {
+          "condition": "Condizione"
+        }
+      },
+      "edit_alarm": {
+        "title": "Modifica un allarme programmato",
+        "data": {
+          "alarm": "Allarme"
+        }
+      },
+      "delete_alarm": {
+        "title": "Rimuovi un allarme programmato",
+        "data": {
+          "alarm": "Allarme"
+        }
+      },
+      "household": {
+        "title": "Abbonamento Casa",
+        "description": "Quando un telefono ha l'abbonamento Casa, fino a {max} telefoni su questo Home Assistant ricevono notifiche illimitate, quel telefono compreso. Lascia vuoto per includere i telefoni collegati per primi, oppure scegli qui i telefoni. Il telefono con l'abbonamento è sempre incluso.",
+        "data": {
+          "phones": "Telefoni della casa"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Dai un nome al profilo.",
+      "name_taken": "Esiste già un profilo con questo nome.",
+      "household_too_many": "Scegli al massimo 6 telefoni.",
+      "alarm_name_required": "Dai un nome all'allarme.",
+      "alarm_name_taken": "Esiste già un allarme con questo nome.",
+      "days_required": "Scegli almeno un giorno.",
+      "calendars_required": "Scegli almeno un calendario.",
+      "text_required": "Inserisci il testo da cercare."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Predefinito del telefono",
+        "chime": "Carillon",
+        "bell": "Campanello",
+        "beep": "Bip",
+        "soft": "Delicato",
+        "siren": "Sirena",
+        "alarm": "Sveglia",
+        "none": "Nessun suono"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Predefinita del telefono",
+        "short": "Breve",
+        "long": "Lunga",
+        "pulse": "Pulsata",
+        "sos": "SOS",
+        "none": "Nessuna vibrazione"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Bassa (nessun pop-up)",
+        "default": "Normale",
+        "high": "Alta (appare in pop-up)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Ricevuto",
+        "snooze": "Posticipa"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Lunedì",
+        "tue": "Martedì",
+        "wed": "Mercoledì",
+        "thu": "Giovedì",
+        "fri": "Venerdì",
+        "sat": "Sabato",
+        "sun": "Domenica"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Contiene il testo",
+        "exact": "È esattamente il testo"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "L'inizio dell'appuntamento",
+        "end": "La fine dell'appuntamento"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Contiene",
+        "not": "Non contiene"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "C'è un appuntamento così",
+        "not": "Non c'è nessun appuntamento così"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "È",
+        "not": "Non è"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Inizia tra le {from} e le {to}",
+        "weekdays": "Di {days}",
+        "title_has": "Il titolo contiene «{text}»",
+        "title_not": "Il titolo non contiene «{text}»",
+        "day_has": "Quel giorno c'è un appuntamento con «{text}»",
+        "day_not": "Quel giorno non c'è un appuntamento con «{text}»",
+        "state_is": "{entity} è {state}",
+        "state_not": "{entity} non è {state}",
+        "none": "Nessuna per ora."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Connessione di casa"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Visto l'ultima volta a casa"
+      },
+      "subscription": {
+        "name": "Abbonamento",
+        "state": {
+          "subscribed": "Abbonato",
+          "household": "Casa",
+          "free": "Gratuito (solo a casa)",
+          "used_up": "Notifiche gratuite esaurite"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Piano"
+          },
+          "free_left": {
+            "name": "Notifiche gratuite rimaste"
+          },
+          "paid_until": {
+            "name": "Pagato fino al"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Prossimo allarme",
+        "state_attributes": {
+          "title": {
+            "name": "Titolo"
+          },
+          "alarm": {
+            "name": "Allarme"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Invia Heads-up",
+      "clear": "Cancella Heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profilo",
+      "title": "Titolo",
+      "message": "Messaggio",
+      "entities": "Mostra queste entità",
+      "tag": "Tag"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Invia Heads-up",
+      "description": "Invia una notifica ai telefoni con Heads-up, che la gestiscono come indica il profilo.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoni",
+          "description": "Lascia vuoto per inviare a tutti i telefoni collegati."
+        },
+        "profile": {
+          "name": "Profilo",
+          "description": "Nome del profilo. Vuoto: il profilo predefinito."
+        },
+        "title": {
+          "name": "Titolo",
+          "description": "Titolo della notifica."
+        },
+        "message": {
+          "name": "Messaggio",
+          "description": "Testo della notifica."
+        },
+        "entities": {
+          "name": "Entità",
+          "description": "Il loro stato attuale viene mostrato nella notifica."
+        },
+        "buttons": {
+          "name": "Pulsanti",
+          "description": "Pulsanti aggiuntivi; toccandone uno si attiva l'evento headsup_action con il suo id."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "Una nuova notifica con lo stesso tag sostituisce la precedente (e ne annulla il posticipo). Usato anche da Cancella Heads-up."
+        },
+        "ttl": {
+          "name": "Valida per",
+          "description": "Non mostrare la notifica se arriva più tardi di così."
+        }
+      }
+    },
+    "clear": {
+      "name": "Cancella Heads-up",
+      "description": "Rimuove dai telefoni la notifica con questo tag, chiude la sua schermata di allarme e annulla un posticipo.",
+      "fields": {
+        "device_id": {
+          "name": "Telefoni",
+          "description": "Lascia vuoto per cancellare su tutti i telefoni collegati."
+        },
+        "tag": {
+          "name": "Tag",
+          "description": "Il tag con cui è stata inviata la notifica."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} ha bisogno di un abbonamento Heads-up",
+      "description": "Home Assistant ha inviato una notifica che {phone} non ha mostrato. Senza abbonamento, Heads-up mostra 10 notifiche gratuite, e solo quando il telefono è a casa.\n\nPer ricevere tutte le notifiche, a casa e fuori, abbonati nell'app Heads-up su {phone}, per quell'account Google o con l'abbonamento Casa per un massimo di 6 telefoni. Entrambi iniziano con una prova gratuita.\n\nQuesto messaggio scompare non appena l'abbonamento è attivo."
+    },
+    "household_full": {
+      "title": "{phone} non fa parte della casa",
+      "description": "L'abbonamento Casa di {owner} copre fino a 6 telefoni su questo Home Assistant ed è al completo. {phone} ha bisogno di un proprio abbonamento, oppure puoi scegliere quali telefoni fanno parte della casa in Heads-up, Configura, Abbonamento Casa."
+    }
+  }
+}

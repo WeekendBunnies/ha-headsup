@@ -1,0 +1,470 @@
+{
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "user": {
+        "title": "Heads-up",
+        "description": "Seadistab Heads-upi. Telefonid ilmuvad leitud seadmete alla iseenesest, kui Heads-upi rakendus on samas võrgus avatud. Profiilid luuakse jaotises Seadista."
+      },
+      "pair": {
+        "title": "Seo {name}",
+        "description": "Kontrollige, et Heads-upi rakendus seadmes **{name}** kuvab seda koodi:\n\n## {code}\n\nJätkake ainult siis, kui koodid ühtivad."
+      }
+    },
+    "error": {
+      "pair_failed": "Sidumine ebaõnnestus. Hoidke rakendus telefonis avatuna ja proovige uuesti."
+    },
+    "abort": {
+      "single_instance_allowed": "Heads-up on juba seadistatud. Telefonid lisatakse, kui need leitakse.",
+      "already_configured": "See telefon on juba seotud. Uuesti sidumiseks kustutage esmalt siin selle seade (või puudutage rakenduses nuppu Tühista sidumine, mis eemaldab selle ka siit).",
+      "other_instance": "See telefon soovib siduda end teise Home Assistantiga.",
+      "not_supported": "See seade ei ole Heads-upi rakendus.",
+      "cannot_connect": "Telefoniga ei saadud ühendust. Hoidke rakendus telefonis avatuna ja proovige uuesti.",
+      "phone_added": "{name} on seotud."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Heads-upi profiilid",
+        "menu_options": {
+          "add_profile": "Lisa profiil",
+          "edit_profile": "Muuda profiili",
+          "delete_profile": "Eemalda profiil",
+          "default_profile": "Vaikeprofiil",
+          "household": "Leibkonna tellimus",
+          "add_alarm": "Lisa ajastatud häire",
+          "edit_alarm": "Muuda ajastatud häiret",
+          "delete_alarm": "Eemalda ajastatud häire"
+        }
+      },
+      "add_profile": {
+        "title": "Uus profiil",
+        "description": "Kuidas telefonid selle profiiliga saadetud teavitust käsitlevad.",
+        "data": {
+          "name": "Nimi",
+          "sound": "Heli",
+          "vibration": "Värin",
+          "importance": "Tähtsus",
+          "alarm_stream": "Heli ka siis, kui telefon on hääletu",
+          "bypass_dnd": "Eira režiimi Mitte segada",
+          "full_screen": "Täisekraanil häire (lõpeta ja uinuta)",
+          "repeat": "Korda heli, kuni vastatakse",
+          "buttons": "Nupud",
+          "snooze_minutes": "Uinutamise kestus",
+          "ring_minutes": "Helise kõige rohkem",
+          "auto_snoozes": "Uinuta automaatselt kõige rohkem (korda)"
+        },
+        "data_description": {
+          "alarm_stream": "Mängib äratuse helitugevusega nagu äratuskell, nii et kõlab ka siis, kui telefon on hääletu.",
+          "ring_minutes": "Korduvate ja täisekraanil häirete jaoks. Kui keegi õigel ajal ei vasta, uinutab häire end ise. 0 tähendab, et heliseb, kuni keegi vastab.",
+          "auto_snoozes": "Pärast nii mitut automaatset uinutamist jääb häire vaikseks teavituseks „Vastamata“ ja Home Assistant saab sündmuse headsup_action toiminguga unanswered.",
+          "repeat": "Heli mängib, kuni teavitus avatakse, sellele vastatakse või see eemaldatakse pühkides (või kuni „Helise kõige rohkem“ on möödas). Väljas: mängib üks kord."
+        }
+      },
+      "edit_profile": {
+        "title": "Muuda profiili",
+        "data": {
+          "profile": "Profiil"
+        }
+      },
+      "profile": {
+        "title": "Muuda profiili",
+        "description": "Telefonid saavad muudatuse kohe.",
+        "data": {
+          "name": "Nimi",
+          "sound": "Heli",
+          "vibration": "Värin",
+          "importance": "Tähtsus",
+          "alarm_stream": "Heli ka siis, kui telefon on hääletu",
+          "bypass_dnd": "Eira režiimi Mitte segada",
+          "full_screen": "Täisekraanil häire (lõpeta ja uinuta)",
+          "repeat": "Korda heli, kuni vastatakse",
+          "buttons": "Nupud",
+          "snooze_minutes": "Uinutamise kestus",
+          "ring_minutes": "Helise kõige rohkem",
+          "auto_snoozes": "Uinuta automaatselt kõige rohkem (korda)"
+        },
+        "data_description": {
+          "alarm_stream": "Mängib äratuse helitugevusega nagu äratuskell, nii et kõlab ka siis, kui telefon on hääletu.",
+          "ring_minutes": "Korduvate ja täisekraanil häirete jaoks. Kui keegi õigel ajal ei vasta, uinutab häire end ise. 0 tähendab, et heliseb, kuni keegi vastab.",
+          "auto_snoozes": "Pärast nii mitut automaatset uinutamist jääb häire vaikseks teavituseks „Vastamata“ ja Home Assistant saab sündmuse headsup_action toiminguga unanswered.",
+          "repeat": "Heli mängib, kuni teavitus avatakse, sellele vastatakse või see eemaldatakse pühkides (või kuni „Helise kõige rohkem“ on möödas). Väljas: mängib üks kord."
+        }
+      },
+      "delete_profile": {
+        "title": "Eemalda profiil",
+        "data": {
+          "profile": "Profiil"
+        }
+      },
+      "default_profile": {
+        "title": "Vaikeprofiil",
+        "description": "Kasutatakse, kui automatiseering profiili ei nimeta, näiteks toiminguga notify.",
+        "data": {
+          "profile": "Profiil"
+        }
+      },
+      "add_alarm": {
+        "title": "Uus ajastatud häire",
+        "menu_options": {
+          "weekly": "Valitud päevadel kindlal kellaajal",
+          "calendar": "Kalendri kohtumiste jaoks"
+        }
+      },
+      "weekly": {
+        "title": "Häire valitud päevadel",
+        "description": "Heliseb valitud päevadel valitud kellaajal. Kui see aeg langeb valitud kalendrite kohtumise ajale, nihkub häire veidi pärast kohtumist, ja ka järgmisest mööda, kuni on vaba aega. Telefonid jätavad ajad meelde, seega heliseb häire ka ühenduseta.",
+        "data": {
+          "name": "Nimi",
+          "message": "Sõnum",
+          "profile": "Profiil",
+          "phones": "Telefonid",
+          "days": "Päevad",
+          "time": "Kellaaeg",
+          "calendars": "Nihuta nende kalendrite kohtumiste korral",
+          "after": "Pärast kohtumist helise",
+          "needed": "Vajalik vaba aeg",
+          "latest": "Mitte hiljem kui",
+          "all_day": "Arvesse lähevad ka terve päeva kohtumised"
+        },
+        "data_description": {
+          "name": "Ühtlasi teavituse pealkiri.",
+          "phones": "Jätke tühjaks kõigi seotud telefonide jaoks.",
+          "calendars": "Jätke tühjaks, et alati määratud ajal heliseda.",
+          "needed": "Häire heliseb ainult siis, kui selle aja jooksul ei alga ühtegi kohtumist.",
+          "latest": "Kui selleks ajaks pole vaba aega, heliseb see ikkagi sel ajal."
+        }
+      },
+      "calendar": {
+        "title": "Häire kohtumiste jaoks",
+        "description": "Heliseb iga valitud kalendrite kohtumise puhul, mille pealkiri sisaldab teksti või on täpselt see tekst (suurtähed pole olulised). Teavitus näitab kohtumise pealkirja. Telefonid jätavad ajad meelde, seega heliseb häire ka ühenduseta.",
+        "data": {
+          "name": "Nimi",
+          "message": "Sõnum",
+          "profile": "Profiil",
+          "phones": "Telefonid",
+          "calendars": "Kalendrid",
+          "match": "Pealkiri",
+          "text": "Tekst",
+          "offset": "Minutit enne",
+          "anchor": "Arvestatakse alates"
+        },
+        "data_description": {
+          "name": "Ainult selleks, et häire siit üles leida; teavitus näitab kohtumise pealkirja.",
+          "message": "Jätke tühjaks, et näidata kohtumise aega ja kohta.",
+          "phones": "Jätke tühjaks kõigi seotud telefonide jaoks.",
+          "offset": "Negatiivse arvuga heliseb pärast seda."
+        }
+      },
+      "conditions": {
+        "title": "Tingimused",
+        "description": "Häire heliseb ainult siis, kui kõik see kehtib:\n\n{conditions}",
+        "menu_options": {
+          "add_condition": "Lisa tingimus",
+          "remove_condition": "Eemalda tingimus",
+          "save_alarm": "Salvesta häire"
+        }
+      },
+      "add_condition": {
+        "title": "Uus tingimus",
+        "menu_options": {
+          "cond_start": "Kohtumine algab kahe kellaaja vahel",
+          "cond_weekdays": "Kohtumine on teatud päevadel",
+          "cond_title": "Pealkiri sisaldab teksti või mitte",
+          "cond_day": "Sel päeval on teine kohtumine või mitte",
+          "cond_state": "Olemil on olek või mitte"
+        }
+      },
+      "cond_start": {
+        "title": "Algab vahemikus",
+        "data": {
+          "from": "Alates",
+          "to": "Kuni"
+        }
+      },
+      "cond_weekdays": {
+        "title": "Teatud päevadel",
+        "data": {
+          "days": "Päevad"
+        }
+      },
+      "cond_title": {
+        "title": "Pealkiri",
+        "data": {
+          "mode": "Pealkiri",
+          "text": "Tekst"
+        }
+      },
+      "cond_day": {
+        "title": "Teine kohtumine sel päeval",
+        "description": "Näiteks ei mingit äratust päeval, kui pere kalendris on „Puhkus“.",
+        "data": {
+          "calendars": "Kalendrid",
+          "mode": "Sel päeval",
+          "text": "Mille pealkiri sisaldab"
+        }
+      },
+      "cond_state": {
+        "title": "Olemi olek",
+        "description": "Kontrollitakse iga kord, kui Home Assistant häired välja arvutab (iga 15 minuti järel). Ühenduseta telefon jätab alles oma viimase loendi.",
+        "data": {
+          "entity": "Olem",
+          "mode": "Heliseb, kui olek"
+        }
+      },
+      "cond_state_value": {
+        "title": "Olemi {entity} olek",
+        "data": {
+          "state": "Olek"
+        }
+      },
+      "remove_condition": {
+        "title": "Eemalda tingimus",
+        "data": {
+          "condition": "Tingimus"
+        }
+      },
+      "edit_alarm": {
+        "title": "Muuda ajastatud häiret",
+        "data": {
+          "alarm": "Häire"
+        }
+      },
+      "delete_alarm": {
+        "title": "Eemalda ajastatud häire",
+        "data": {
+          "alarm": "Häire"
+        }
+      },
+      "household": {
+        "title": "Leibkonna tellimus",
+        "description": "Kui ühel telefonil on leibkonna tellimus, saavad kuni {max} selle Home Assistanti telefoni piiramatult teavitusi, see telefon kaasa arvatud. Jätke tühjaks, et kaasata esimesena seotud telefonid, või valige telefonid siin. Tellimusega telefon on alati kaasatud.",
+        "data": {
+          "phones": "Leibkonna telefonid"
+        }
+      }
+    },
+    "error": {
+      "name_required": "Andke profiilile nimi.",
+      "name_taken": "Selle nimega profiil on juba olemas.",
+      "household_too_many": "Valige kuni 6 telefoni.",
+      "alarm_name_required": "Andke häirele nimi.",
+      "alarm_name_taken": "Selle nimega häire on juba olemas.",
+      "days_required": "Valige vähemalt üks päev.",
+      "calendars_required": "Valige vähemalt üks kalender.",
+      "text_required": "Sisestage otsitav tekst."
+    }
+  },
+  "selector": {
+    "sound": {
+      "options": {
+        "default": "Telefoni vaikeheli",
+        "chime": "Kõlin",
+        "bell": "Kell",
+        "beep": "Piiks",
+        "soft": "Pehme",
+        "siren": "Sireen",
+        "alarm": "Äratuskell",
+        "none": "Heli puudub"
+      }
+    },
+    "vibration": {
+      "options": {
+        "default": "Telefoni vaikevärin",
+        "short": "Lühike",
+        "long": "Pikk",
+        "pulse": "Pulss",
+        "sos": "SOS",
+        "none": "Värin puudub"
+      }
+    },
+    "importance": {
+      "options": {
+        "low": "Madal (ei hüppa ette)",
+        "default": "Tavaline",
+        "high": "Kõrge (hüppab ette)"
+      }
+    },
+    "buttons": {
+      "options": {
+        "acknowledge": "Kinnita",
+        "snooze": "Uinuta"
+      }
+    },
+    "weekday": {
+      "options": {
+        "mon": "Esmaspäev",
+        "tue": "Teisipäev",
+        "wed": "Kolmapäev",
+        "thu": "Neljapäev",
+        "fri": "Reede",
+        "sat": "Laupäev",
+        "sun": "Pühapäev"
+      }
+    },
+    "match": {
+      "options": {
+        "contains": "Sisaldab teksti",
+        "exact": "On täpselt see tekst"
+      }
+    },
+    "anchor": {
+      "options": {
+        "start": "Kohtumise algusest",
+        "end": "Kohtumise lõpust"
+      }
+    },
+    "title_mode": {
+      "options": {
+        "has": "Sisaldab",
+        "not": "Ei sisalda"
+      }
+    },
+    "day_mode": {
+      "options": {
+        "has": "On selline kohtumine",
+        "not": "Pole sellist kohtumist"
+      }
+    },
+    "state_mode": {
+      "options": {
+        "is": "On",
+        "not": "Ei ole"
+      }
+    },
+    "condition_text": {
+      "options": {
+        "start": "Algab vahemikus {from} kuni {to}",
+        "weekdays": "Päevad: {days}",
+        "title_has": "Pealkiri sisaldab „{text}“",
+        "title_not": "Pealkiri ei sisalda „{text}“",
+        "day_has": "Sel päeval on kohtumine „{text}“",
+        "day_not": "Sel päeval pole kohtumist „{text}“",
+        "state_is": "{entity}: {state}",
+        "state_not": "{entity}: mitte {state}",
+        "none": "Veel pole."
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "home_connection": {
+        "name": "Koduühendus"
+      }
+    },
+    "sensor": {
+      "last_seen": {
+        "name": "Viimati kodus nähtud"
+      },
+      "subscription": {
+        "name": "Tellimus",
+        "state": {
+          "subscribed": "Tellitud",
+          "household": "Leibkond",
+          "free": "Tasuta (ainult kodus)",
+          "used_up": "Tasuta teavitused on ära kasutatud"
+        },
+        "state_attributes": {
+          "plan": {
+            "name": "Pakett"
+          },
+          "free_left": {
+            "name": "Tasuta teavitusi alles"
+          },
+          "paid_until": {
+            "name": "Makstud kuni"
+          }
+        }
+      },
+      "next_alarm": {
+        "name": "Järgmine häire",
+        "state_attributes": {
+          "title": {
+            "name": "Pealkiri"
+          },
+          "alarm": {
+            "name": "Häire"
+          }
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "send": "Saada heads-up",
+      "clear": "Kustuta heads-up"
+    },
+    "extra_fields": {
+      "profile": "Profiil",
+      "title": "Pealkiri",
+      "message": "Sõnum",
+      "entities": "Näita neid olemeid",
+      "tag": "Silt"
+    }
+  },
+  "services": {
+    "send": {
+      "name": "Saada heads-up",
+      "description": "Saadab Heads-upi telefonidele teavituse, mida käsitletakse profiili järgi.",
+      "fields": {
+        "device_id": {
+          "name": "Telefonid",
+          "description": "Jätke tühjaks, et saata kõigile seotud telefonidele."
+        },
+        "profile": {
+          "name": "Profiil",
+          "description": "Profiili nimi. Tühi: vaikeprofiil."
+        },
+        "title": {
+          "name": "Pealkiri",
+          "description": "Teavituse pealkiri."
+        },
+        "message": {
+          "name": "Sõnum",
+          "description": "Teavituse tekst."
+        },
+        "entities": {
+          "name": "Olemid",
+          "description": "Nende praegust olekut näidatakse teavituses."
+        },
+        "buttons": {
+          "name": "Nupud",
+          "description": "Lisanupud; nupu puudutamine käivitab sündmuse headsup_action selle ID-ga."
+        },
+        "tag": {
+          "name": "Silt",
+          "description": "Sama sildiga uus teavitus asendab varasema (ja tühistab selle uinutamise). Seda kasutab ka Kustuta heads-up."
+        },
+        "ttl": {
+          "name": "Kehtib",
+          "description": "Ära näita teavitust, kui see saabub hiljem kui see aeg."
+        }
+      }
+    },
+    "clear": {
+      "name": "Kustuta heads-up",
+      "description": "Eemaldab selle sildiga teavituse telefonidest, sulgeb selle häirekuva ja tühistab uinutamise.",
+      "fields": {
+        "device_id": {
+          "name": "Telefonid",
+          "description": "Jätke tühjaks, et kustutada kõigist seotud telefonidest."
+        },
+        "tag": {
+          "name": "Silt",
+          "description": "Silt, millega teavitus saadeti."
+        }
+      }
+    }
+  },
+  "issues": {
+    "subscription_required": {
+      "title": "{phone} vajab Heads-upi tellimust",
+      "description": "Home Assistant saatis teavituse, mida {phone} ei näidanud. Ilma tellimuseta näitab Heads-up 10 tasuta teavitust ja ainult siis, kui telefon on kodus.\n\nKõigi teavituste saamiseks nii kodus kui ka kodust eemal tellige Heads-upi rakenduses seadmes {phone}, selle Google'i konto jaoks või leibkonnana kuni 6 telefonile. Mõlemad algavad tasuta prooviperioodiga.\n\nSee teade kaob, kui tellimus on aktiivne."
+    },
+    "household_full": {
+      "title": "{phone} ei kuulu leibkonda",
+      "description": "Seadme {owner} leibkonna tellimus hõlmab kuni 6 telefoni selles Home Assistantis ja on täis. {phone} vajab oma tellimust, või saate valida, millised telefonid leibkonda kuuluvad, jaotises Heads-up, Seadista, Leibkonna tellimus."
+    }
+  }
+}
